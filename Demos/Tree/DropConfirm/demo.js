@@ -55,12 +55,12 @@ window.addEvent('domready',function(){
 
 	//tree.initSortable();
 	tree.load({
-		url: '../assets/files/forest.json'
+		url: 'Tree/files/forest.json'
 	});
 	
 	tree.loadOptions=function(node){
 		return {
-			url: '../assets/files/mediumTree.json'
+			url: 'Tree/files/mediumTree.json'
 		};
 	}
 	

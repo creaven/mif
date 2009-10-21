@@ -241,22 +241,36 @@ background-color:#99c8fb;
 /*@checkbox*/
 .mif-tree-checkbox{
 padding-left:18px;
+background-image:url('checkboxes.gif');
+background-repeat: no-repeat;
 }
 
-.mif-tree-node-checked, .mif-tree-node-checked .mif-tree-checkbox{
-background:url('checked.gif') center 2px no-repeat;
+.mif-tree-node-checked{
+background-position:0px center;
 }
 
-.mif-tree-node-unchecked, .mif-tree-node-unchecked .mif-tree-checkbox{
-background:url('unchecked.gif') center 2px no-repeat;
+.mif-tree-node-unchecked{
+background-position:-18px center;
 }
 
-.mif-tree-node-checked-selected{
-background:url('checked_selected.gif') center 2px no-repeat;
+.mif-tree-node-nochecked{
+background-position:-108px center;
 }
 
-.mif-tree-node-unchecked-selected{
-background:url('unchecked_selected.gif') center 2px no-repeat;
+.mif-tree-hover-checkbox .mif-tree-node-checked{
+background-position:-36px center;
+}
+
+.mif-tree-hover-checkbox .mif-tree-node-unchecked{
+background-position:-54px center;
+}
+
+.mif-tree-node-partially{
+background-position:-72px center;
+}
+
+.mif-tree-hover-checkbox .mif-tree-node-partially{
+background-position:-90px center;
 }
 
 /*rename*/

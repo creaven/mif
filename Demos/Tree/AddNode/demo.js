@@ -14,7 +14,7 @@ window.addEvent('domready',function(){
 		height:20
 	})
 	.load({
-		url: '../assets/files/simpleTree.json'
+		url: 'Tree/files/simpleTree.json'
 	})
 	.addEvent('load', function(){
 		this.root.toggle();

@@ -36,18 +36,18 @@ window.addEvent('domready',function(){
 
 	//tree.initSortable();
 	tree.load({
-		url: '../assets/files/forest.json'
+		url: 'Tree/files/forest.json'
 	});
 
 	tree.loadOptions=function(node){
 		// if node name 'empty' load from url 'empty.json'
 		if(node.name=='empty'){
 			return {
-				url: '../assets/files/empty.json'
+				url: 'Tree/files/empty.json'
 			}
 		}
 		return {
-			url: '../assets/files/mediumTree.json'
+			url: 'Tree/files/mediumTree.json'
 		};
 	}
 	
