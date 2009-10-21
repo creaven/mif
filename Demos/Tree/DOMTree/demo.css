@@ -48,3 +48,7 @@ padding-right:0;
 color:blue;
 text-decoration:underline;
 }
+
+.mif-tree-node-selected .mif-tree-name{
+color:#fff;
+}
