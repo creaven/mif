@@ -11,7 +11,7 @@ window.addEvent('domready',function(){
 		height: 18
 	})
 	.load({
-		url: '../assets/files/simpleTree.json'
+		url: 'Tree/files/simpleTree.json'
 	})
 	.addEvent('toggle',function(node, state){
 		$('log').adopt(new Element('li').set('html', node.name+' '+(state ? 'expanded' : 'collapsed')));

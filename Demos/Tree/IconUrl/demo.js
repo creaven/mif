@@ -16,6 +16,9 @@ window.addEvent('domready',function(){
 			"property": {
 				"name": "root"
 			},
+			"state": {
+				"open": true
+			},
 			"children": [
 				{
 					"property": {
@@ -25,8 +28,8 @@ window.addEvent('domready',function(){
 				{
 					"property": {
 						"name": "node2",
-						"openIconUrl": "IconUrl/folder-open.gif",
-						"closeIconUrl": "IconUrl/folder-close.gif"
+						"openIconUrl": "Tree/IconUrl/folder-open.gif",
+						"closeIconUrl": "Tree/IconUrl/folder-close.gif"
 					},
 					"state": {
 						"open": true
@@ -57,10 +60,10 @@ window.addEvent('domready',function(){
 			]
 		}
 	];
-	
 	// load tree from json.
 	tree.load({
 		json: json
 	});
+	
 	
 });
