@@ -1,0 +1,9 @@
+@import "../../../Source/assets/Tree/Mif.Tree.css";
+
+#tree_container{
+height:200px;
+width:200px;
+position:relative;
+border:solid 1px #b7b7b7;
+}
+

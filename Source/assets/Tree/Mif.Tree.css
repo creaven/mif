@@ -1,7 +1,4 @@
-/*...................................................................................
-===============GLOBAL=================
-......................................................................................*/
-
+/*@global*/
 .mif-tree-wrapper{
 position: relative;
 width: 100%;
@@ -55,11 +52,11 @@ width:18px;
 .mif-tree-node{
 width:18px;
 position:relative;
-background:url('images/line.gif') repeat-y 8px 0px;
+background:url('line.gif') repeat-y 8px 0px;
 }
 
 .mif-tree-node-last{
-background:url('images/line.gif') no-repeat 8px 0px;
+background:url('line.gif') no-repeat 8px 0px;
 }
 
 .mif-tree-name{
@@ -77,16 +74,13 @@ color:blue;
 }
 
 
-.mit-tree-wrapper .mif-tree-node-wrapper{
-background:url('images/horizontal-line.gif') no-repeat 9px center;
+.mif-tree-wrapper .mif-tree-node-wrapper{
+background:url('hline.gif') no-repeat 9px center;
 }
 
-/*...................................................................................
-================GADJETS=================
-......................................................................................*/
-
+/*@gadjets*/
 .mif-tree-gadjet{
-background-image:url('images/gadjets.gif');
+background-image:url('gadjets.gif');
 padding-right: 16px;
 z-index:1;
 overflow:hidden;
@@ -124,7 +118,7 @@ background-position: -90px 50%;
 
 
 /*.mif-tree-gadjet-hover{
-background-image:url('images/gadjets-hover.gif');
+background-image:url('gadjets-hover.gif');
 }*/
 
 
@@ -141,35 +135,35 @@ cursor:inherit;
 }
 
 .mif-tree-open-icon{
-background-image:url('images/openicon.gif')
+background-image:url('openicon.gif')
 }
 
 .mif-tree-close-icon{
-background-image:url('images/closeicon.gif')
+background-image:url('closeicon.gif')
 }
 
 .mif-tree-middle-icon{
-background-image:url('images/middleicon.gif');
+background-image:url('middleicon.gif');
 }
 
 .mif-tree-loader-open-icon,.mif-tree-loader-close-icon{
-background-image:url('images/mootree_loader.gif');
+background-image:url('mootree_loader.gif');
 }
 
 .mif-tree-book-icon{
-background-image:url('images/book_icon.gif');
+background-image:url('book_icon.gif');
 }
 
 .mif-tree-bin-open-icon{
-background-image:url('images/bin_open_icon.gif');
+background-image:url('bin_open_icon.gif');
 }
 
 .mif-tree-bin-close-icon{
-background-image:url('images/bin_close_icon.gif');
+background-image:url('bin_close_icon.gif');
 }
 
 .mif-tree-bin-middle-icon{
-background-image:url('images/bin_middle_icon.gif');
+background-image:url('bin_middle_icon.gif');
 }
 
 
@@ -210,7 +204,7 @@ position:absolute;
 height:1px;
 overflow: hidden;
 position: absolute;
-background-image:url('images/1.gif');
+background-image:url('1.gif');
 background-repeat:repeat-x;
 background-color:#292fef;
 }
@@ -236,7 +230,7 @@ padding-bottom:1px;
 padding-left:16px;
 background-color:#fff;
 background-repeat:no-repeat;
-background-image:url('images/dropzone.gif');
+background-image:url('dropzone.gif');
 }
 
 .mif-tree-ghost-after{
@@ -279,19 +273,19 @@ padding-left:18px;
 }
 
 .mif-tree-node-checked, .mif-tree-node-checked .mif-tree-checkbox{
-background:url('images/checked.gif') center 2px no-repeat;
+background:url('checked.gif') center 2px no-repeat;
 }
 
 .mif-tree-node-unchecked, .mif-tree-node-unchecked .mif-tree-checkbox{
-background:url('images/unchecked.gif') center 2px no-repeat;
+background:url('unchecked.gif') center 2px no-repeat;
 }
 
 .mif-tree-node-checked-selected{
-background:url('images/checked_selected.gif') center 2px no-repeat;
+background:url('checked_selected.gif') center 2px no-repeat;
 }
 
 .mif-tree-node-unchecked-selected{
-background:url('images/unchecked_selected.gif') center 2px no-repeat;
+background:url('unchecked_selected.gif') center 2px no-repeat;
 }
 
 

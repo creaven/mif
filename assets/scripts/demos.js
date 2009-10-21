@@ -29,7 +29,7 @@ var Demos = {
 					'events': {
 						'click': function(e) { 
 							e.stop();
-							Demos.load(key);
+							Demos.load(group+'/'+key);
 						}
 					}
 				}))).inject(ul);

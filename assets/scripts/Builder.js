@@ -25,13 +25,47 @@ var Builder = {
 
 	scripts: {
 		source: {
-			'Core'      : ['Mif.Tree.mootools-patch', 'Mif.Tree', 'Mif.Tree.Node', 'Mif.Tree.Hover', 'Mif.Tree.Selection', 'Mif.Tree.Load', 'Mif.Tree.Draw'],
-			'More'   : ['Mif.Tree.KeyNav', 'Mif.Tree.Sort', 'Mif.Tree.Transform', 'Mif.Tree.Drag', 'Mif.Tree.Drag.Element', 'Mif.Tree.Checkbox', 'Mif.Tree.Rename', 'Mif.Tree.CookieStorage']
+			'Core' : [
+				'Mif'
+			],
+			'Tree' : [
+				'Mif.Tree.mootools-patch', 
+				'Mif.Tree', 
+				'Mif.Tree.Node', 
+				'Mif.Tree.Hover', 
+				'Mif.Tree.Selection', 
+				'Mif.Tree.Load', 
+				'Mif.Tree.Draw',
+				'Mif.Tree.KeyNav', 
+				'Mif.Tree.Sort', 
+				'Mif.Tree.Transform', 
+				'Mif.Tree.Drag', 
+				'Mif.Tree.Drag.Element', 
+				'Mif.Tree.Checkbox', 
+				'Mif.Tree.Rename', 
+				'Mif.Tree.CookieStorage'
+			]
 		},
 
 		docs: {
-			'Core'      : ['Mif.Tree', 'Mif.Tree.Node', 'Mif.Tree.Hover', 'Mif.Tree.Selection', 'Mif.Tree.Load', 'Mif.Tree.Draw'],
-			'More'   : ['Mif.Tree.KeyNav', 'Mif.Tree.Sort', 'Mif.Tree.Transform', 'Mif.Tree.Drag', 'Mif.Tree.Checkbox', 'Mif.Tree.Rename',  'Mif.Tree.CookieStorage']
+			'Core' : [
+				'Mif'
+			],
+			'Tree' : [
+				'Mif.Tree', 
+				'Mif.Tree.Node', 
+				'Mif.Tree.Hover', 
+				'Mif.Tree.Selection', 
+				'Mif.Tree.Load', 
+				'Mif.Tree.Draw',
+				'Mif.Tree.KeyNav', 
+				'Mif.Tree.Sort', 
+				'Mif.Tree.Transform', 
+				'Mif.Tree.Drag', 
+				'Mif.Tree.Checkbox', 
+				'Mif.Tree.Rename',  
+				'Mif.Tree.CookieStorage'
+			]
 		}
 	},
 

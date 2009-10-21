@@ -32,9 +32,7 @@
 		},
 		"Hide":{
 			"title": "Hidden property"
-		}
-	},
-	"More":{
+		},
 		"KeyNav":{
 			"title": "Key navigation implementation demo"
 		},
@@ -73,6 +71,6 @@
 		},
 		"ProtectedNode":{
 			"title": "protected from change node"
-		}		
+		}
 	}
 }
