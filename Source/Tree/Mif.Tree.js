@@ -1,11 +1,7 @@
 /*
 Mif.Tree
 */
-if(!Mif) var Mif={};
-if(!Mif.ids) Mif.ids={};
-if(!Mif.id) Mif.id=function(id){
-	return Mif.ids[id];
-}
+
 
 Mif.Tree = new Class({
 

@@ -1,4 +1,10 @@
 Mif={
-	version: '0.1',
+	version: 'dev',
 	build: '%build%'
+}
+
+Mif.ids={};
+
+Mif.id=function(id){
+	return Mif.ids[id];
 }
