@@ -24,7 +24,7 @@ cursor:default;
 }
 
 .mif-menu-default .mif-menu-separator{
-background:url('../images/menu-separator.gif');
+background:url('menu-separator.gif');
 margin:3px auto 3px auto;
 cursor:default;
 font-size:0;
@@ -86,7 +86,7 @@ background:#3976ac;
 }
 
 .mif-menu-default .mif-menu-checked{
-background:url('../images/checked.gif') 0 0 no-repeat;
+background:url('checked.gif') 0 0 no-repeat;
 }
 
 .mif-menu-default .mif-menu-unchecked{
@@ -94,7 +94,7 @@ background:none;
 }
 
 .mif-menu-default .mif-menu-radio-checked{
-background:url('../images/radio-checked.gif') 3px 3px no-repeat;
+background:url('radio-checked.gif') 3px 3px no-repeat;
 }
 
 .mif-menu-default .mif-menu-radio-unchecked{
@@ -102,7 +102,7 @@ background:none;
 }
 
 .mif-menu-default .mif-childList .mif-menu-item-wrapper{
-background:url('../images/submenu-arrow.gif') no-repeat right center;
+background:url('submenu-arrow.gif') no-repeat right center;
 }
 
 
@@ -118,7 +118,7 @@ background:#777;
 }
 
 .mif-shadow-tl{
-background:url('../images/shadow6.png') 0 0;
+background:url('shadow6.png') 0 0;
 width:6px;
 height:6px;
 position:absolute;
@@ -127,7 +127,7 @@ left:0;
 }
 
 .mif-shadow-tr{
-background:url('../images/shadow6.png') -6px 0;
+background:url('shadow6.png') -6px 0;
 width:6px;
 height:6px;
 position:absolute;
@@ -136,7 +136,7 @@ right:0;
 }
 
 .mif-shadow-br{
-background:url('../images/shadow6.png') -12px 0;
+background:url('shadow6.png') -12px 0;
 width:6px;
 height:6px;
 position:absolute;
@@ -145,7 +145,7 @@ right:0;
 }
 
 .mif-shadow-bl{
-background:url('../images/shadow6.png') -18px 0;
+background:url('shadow6.png') -18px 0;
 width:6px;
 height:6px;
 position:absolute;
@@ -154,7 +154,7 @@ left:0;
 }
 
 .mif-shadow-l{
-background:url('../images/shadow6.png') -24px 0 repeat-y;
+background:url('shadow6.png') -24px 0 repeat-y;
 width:6px;
 position:absolute;
 left:0;
@@ -162,7 +162,7 @@ top:6px;
 }
 
 .mif-shadow-r{
-background:url('../images/shadow6.png') -30px 0 repeat-y;
+background:url('shadow6.png') -30px 0 repeat-y;
 width:6px;
 height:6px;
 position:absolute;
@@ -171,7 +171,7 @@ top:6px;
 }
 
 .mif-shadow-t{
-background:url('../images/shadow2.png') 0 0 repeat-x;
+background:url('shadow2.png') 0 0 repeat-x;
 height:6px;
 position:absolute;
 left:6px;
@@ -179,7 +179,7 @@ top:0;
 }
 
 .mif-shadow-b{
-background:url('../images/shadow2.png') 0 -6px repeat-x;
+background:url('shadow2.png') 0 -6px repeat-x;
 height:6px;
 position:absolute;
 left:6px;
@@ -187,7 +187,7 @@ bottom:0;
 }
 
 .mif-shadow-c{
-background:url('../images/shadow-c.png');
+background:url('shadow-c.png');
 position:absolute;
 left:6px;
 top:6px;
