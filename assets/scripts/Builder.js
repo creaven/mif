@@ -46,6 +46,15 @@ var Builder = {
 				'Mif.Tree.Checkbox', 
 				'Mif.Tree.Rename', 
 				'Mif.Tree.CookieStorage'
+			],
+			'Menu' : [
+				'Mif.Menu.Utils', 
+				'Mif.Menu', 
+				'Mif.Menu.List', 
+				'Mif.Menu.Item', 
+				'Mif.Menu.Container', 
+				'Mif.Menu.CanvasContainer',
+				'Mif.Menu.KeyNav'
 			]
 		},
 
