@@ -1,0 +1,6 @@
+
+Mif.Menu.implement({
+
+	
+
+});

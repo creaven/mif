@@ -1,16 +1,13 @@
-/*
-Mif.Menu
-*/
-
-if(!window.Mif) var Mif={};
 
 Mif.Menu=new Class({
 
 	Implements: [Events, Options],
 	
 	options: {
-		skin: 'default'
+		
 	},
+	
+	List: Mif.Menu.List
 
 	initialize: function(options, skin){
 		this.setOptions(options);
@@ -18,37 +15,6 @@ Mif.Menu=new Class({
 		this.showed=[];
 		this.visible=[];
 		this.hidden=true;
-		if(!skin){
-			switch(this.options.skin){
-				case 'ART':
-				case 'art': skin={
-					container: ART.Container, 
-					options: {
-						className: 'mif-menu-art', 
-						offsets:{x:-2, y:-3},
-						theme: new ART.Theme({
-							normal: {
-								
-								radius: 4,
-								reflection: 0,
-
-								overlayColor: '#fff',
-								overlayOpacity: 0.9,
-								borderOpacity: 0.2,
-								shadow:8
-								
-							}
-						})
-					}
-				}; break;
-				case 'default': 
-				default: skin={container: Mif.Menu.Container, options: {className: 'mif-menu-default', offsets:{x:-2, y:0}}};
-			};
-		};
-		if(window.ART && Browser.Engine.trident && skin.container==ART.Container){
-			skin.options.morph={duration:0};//because vml opacity with filter opacity=bug
-		};
-		this.List=Mif.Menu.List(skin);
 		
 		if(this.options.offsets){
 			$extend(this.options.list, this.options.offsets);
@@ -135,5 +101,3 @@ Mif.Menu=new Class({
 	}
 	
 });
-
-Mif.Menu.version='1.0';

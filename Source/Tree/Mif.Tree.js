@@ -278,9 +278,8 @@ Mif.Tree = new Class({
 	}
 	
 });
-Mif.Tree.UID=0;
 
-Mif.Tree.version='1.2dev';
+Mif.Tree.UID=0;
 
 Array.implement({
 	
