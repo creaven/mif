@@ -8,7 +8,7 @@ window.addEvent('domready',function(){
 				droppables: [
 					new Mif.Tree.Drag.Element('drop_container',{
 						onDrop: function(node){
-							$('drop').adopt(new Element('li',{html: node.name}));
+							$('drop').adopt(new Element('li',{html: node.get('name')}));
 						}
 					})
 				],
@@ -48,9 +48,7 @@ window.addEvent('domready',function(){
 		onCopy: function(from, to, where, copy){
 			if(from.getParent()==copy.getParent()){
 				copy.set({
-					property: {
-						name: 'copy '+from.name
-					}
+						name: 'copy '+from.get('name')
 				});
 			}
 		}
@@ -63,14 +61,7 @@ window.addEvent('domready',function(){
 
 	tree.loadOptions=function(node){
 		// if node name 'empty' load from url 'empty.json'
-		if(node.name=='empty'){
-			return {
-				url: 'Tree/files/empty.json'
-			}
-		}
-		return {
-			url: 'Tree/files/mediumTree.json'
-		};
+		return node.get('name')=='empty' ? 'Tree/files/empty.json' : 'Tree/files/mediumTree.json';
 	}
 	
 	tree2 = new Mif.Tree({
@@ -81,7 +72,7 @@ window.addEvent('domready',function(){
 			new Mif.Tree.Drag(this);
 		},
 		types: {
-			folder:{
+			dflt:{
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon'
 			},
@@ -106,7 +97,6 @@ window.addEvent('domready',function(){
 				closeIcon: 'mif-tree-bin-close-icon'
 			}
 		},
-		dfltType:'folder',
 		height: 18,
 		onCopy: function(from, to, where, copy){
 			if(from.getParent()==copy.getParent()){
@@ -119,47 +109,31 @@ window.addEvent('domready',function(){
 
 	var json=[	
 		{
-			"property": {
-				"name": "root"
-			},
+			"name": "root",
 			"children": [
 				{
-					"property": {
-						"name": "node1"
-					}
+					"name": "node1"
 				},
 				{
-					"property": {
-						"name": "node2"
-					},
+					"name": "node2",
 					"children":[
 						{
-							"property": {
-								"name": "node2.1"
-							}
+							"name": "node2.1"
 						},
 						{
-							"property": {
-								"name": "node2.2"
-							}
+							"name": "node2.2"
 						}
 					]
 				},
 				{
-					"property": {
-						"name": "node4"
-					}
+					"name": "node4"
 				},
 				{
-					"property": {
-						"name": "node3"
-					}
+					"name": "node3"
 				}
 			]
 		}
 	];
-	tree2.load({
-		json: json
-	});
+	tree2.load(json);
 	
 });

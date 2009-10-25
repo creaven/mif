@@ -60,21 +60,11 @@ window.addEvent('domready',function(){
 		}
 	});
 
-	//tree.initSortable();
-	tree.load({
-		url: 'Tree/files/forest.json'
-	});
+
+	tree.load('Tree/files/forest.json');
 
 	tree.loadOptions=function(node){
-		// if node name 'empty' load from url 'empty.json'
-		if(node.name=='empty'){
-			return {
-				url: 'Tree/files/empty.json'
-			}
-		}
-		return {
-			url: 'Tree/files/mediumTree.json'
-		};
+		return node.get('name')=='empty' ? 'Tree/files/empty.json' : 'Tree/files/mediumTree.json';
 	}
 	
 	tree2 = new Mif.Tree({
@@ -83,11 +73,11 @@ window.addEvent('domready',function(){
 			new Mif.Tree.KeyNav(this);
 			new Mif.Tree.Drag(this, {
 				onDrag: function(){
-					$('destination').innerHTML=this.target ? this.target.name : '';
+					$('destination').innerHTML=this.target ? this.target.get('name') : '';
 					$('where').innerHTML=this.where;
 				},
 				onStart: function(){
-					$('source').innerHTML=this.current.name;
+					$('source').innerHTML=this.current.get('name');
 				},
 				onComplete: function(){
 					$('destination').innerHTML='';
@@ -137,45 +127,32 @@ window.addEvent('domready',function(){
 
 	var json=[	
 		{
-			"property": {
-				"name": "root"
-			},
+			"name": "root",
 			"children": [
 				{
-					"property": {
-						"name": "node1"
-					}
+					"name": "node1"
 				},
 				{
-					"property": {
-						"name": "node2"
-					},
+					"name": "node2",
 					"children":[
 						{
-							"property": {
-								"name": "node2.1"
-							}
+							"name": "node2.1"
 						},
 						{
-							"property": {
-								"name": "node2.2"
-							}
+							"name": "node2.2"
 						}
 					]
 				},
 				{
-					"property": {
-						"name": "node4"
-					}
+					"name": "node4"
 				},
 				{
-					"property": {
-						"name": "node3"
-					}
+					"name": "node3"
 				}
 			]
 		}
 	];
+	
 	tree2.load({
 		json: json
 	});

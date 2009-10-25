@@ -40,7 +40,7 @@ Mif.Tree.Drag = new Class({
 			dragDisabled: false
 		});
 		tree.addEvent('drawRoot',function(){
-			tree.root.dropDenied.combine(['before', 'after']);
+			tree.root.property.dropDenied.combine(['before', 'after']);
 		});
 		
 		this.pointer=new Element('div').addClass('mif-tree-pointer').injectInside(tree.wrapper);

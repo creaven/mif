@@ -48,18 +48,16 @@ window.addEvent('domready',function(){
 					name: 'copy '+from.name
 				});
 			}
-		}
+		},
+		loadOptions: 'Tree/files/mediumTree.json'
 	});
 
-	//tree.initSortable();
+
 	tree.load({
 		url: 'Tree/files/forest.json'
 	});
 	
-	tree.loadOptions=function(node){
-		return {
-			url: 'Tree/files/mediumTree.json'
-		};
-	}
+	
+
 	
 });
