@@ -4,21 +4,21 @@ Mif.Tree.Draw
 Mif.Tree.Draw={
 
 	getHTML: function(node,html){
-		var prefix=node.tree.DOMidPrefix;
-		if($defined(node.state.checked)){
-			if(!node.hasCheckbox) node.state.checked='nochecked';
-			var checkbox='<span class="mif-tree-checkbox mif-tree-node-'+node.state.checked+'" uid="'+node.UID+'">'+Mif.Tree.Draw.zeroSpace+'</span>';
+		var prefix='mif-tree-node-';
+		if($defined(node.property.checked)){
+			if(!node.hasCheckbox) node.property.checked='nochecked';
+			var checkbox='<span class="mif-tree-checkbox mif-tree-node-'+node.property.checked+'" uid="'+node.UID+'">'+Mif.Tree.Draw.zeroSpace+'</span>';
 		}else{
 			var checkbox='';
 		}
 		html=html||[];
 		html.push(
 		'<div class="mif-tree-node ',(node.isLast() ? 'mif-tree-node-last' : ''),'"'+(node.hidden ? ' style="display:none"' : '')+' id="',prefix,node.UID,'">',
-			'<span class="mif-tree-node-wrapper ',node.cls,(node.state.selected ? ' mif-tree-node-selected' : ''),'" uid="',node.UID,'">',
+			'<span class="mif-tree-node-wrapper ',node.property.cls,(node.property.selected ? ' mif-tree-node-selected' : ''),'" uid="',node.UID,'">',
 				'<span class="mif-tree-gadjet mif-tree-gadjet-',node.getGadjetType(),'" uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</span>',
 				checkbox,
-				'<span class="mif-tree-icon ',(node.closeIconUrl?'" style="background-image: url('+node.closeIconUrl+')" ': node.closeIcon+'"'),' uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</span>',
-				'<span class="mif-tree-name" uid="',node.UID,'">',node.name,'</span>',
+				'<span class="mif-tree-icon ',(node.property.closeIconUrl?'" style="background-image: url('+node.property.closeIconUrl+')" ': node.property.closeIcon+'"'),' uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</span>',
+				'<span class="mif-tree-name" uid="',node.UID,'">',node.property.name,'</span>',
 			'</span>',
 			'<div class="mif-tree-children" style="display:none"></div>',
 		'</div>'
@@ -66,12 +66,12 @@ Mif.Tree.Draw={
 	
 	update: function(node){
 		if(!this.isUpdatable(node)) return;
-		if(!node.hasChildren()) node.state.open=false;
+		if(!node.hasChildren()) node.property.open=false;
 		node.getDOM('gadjet').className='mif-tree-gadjet mif-tree-gadjet-'+node.getGadjetType();
-		if (node.closeIconUrl) {
-			node.getDOM('icon').setStyle('background-image', 'url('+(node.isOpen() ? node.openIconUrl : node.closeIconUrl)+')');
+		if (node.property.closeIconUrl) {
+			node.getDOM('icon').setStyle('background-image', 'url('+(node.isOpen() ? node.property.openIconUrl : node.property.closeIconUrl)+')');
 		} else {
-			node.getDOM('icon').className='mif-tree-icon '+node[node.isOpen() ? 'openIcon' : 'closeIcon'];
+			node.getDOM('icon').className='mif-tree-icon '+node.property[node.isOpen() ? 'openIcon' : 'closeIcon'];
 		}
 		node.getDOM('node')[(node.isLastVisible() ?'add' : 'remove')+'Class']('mif-tree-node-last');
 		if(node.$loading) return;

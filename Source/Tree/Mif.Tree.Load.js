@@ -20,7 +20,7 @@ Mif.Tree.Load={
 				arguments.callee(subChildren, node, tree);
 			}
 		}
-		if(parent) parent.state.loaded=true;
+		if(parent) parent.property.loaded=true;
 		tree.fireEvent('loadChildren', parent);
 	}
 	
@@ -30,6 +30,16 @@ Mif.Tree.implement({
 
 	load: function(options){
 		var tree=this;
+		if($type(options)=='array'){
+			options={
+				json: options
+			}
+		}
+		if($type(options)=='string'){
+			options={
+				url: options
+			}
+		}
 		this.loadOptions=this.loadOptions||$lambda({});
 		function success(json){
 			if(tree.forest){
@@ -64,14 +74,25 @@ Mif.Tree.Node.implement({
 	
 	load: function(options){
 		this.$loading=true;
+		if($type(options)=='array'){
+			options={
+				json: options
+			}
+		}
+		if($type(options)=='string'){
+			options={
+				url: options
+			}
+		}
 		options=options||{};
-		this.addType('loader');
+		var type=this.get('type');
+		this.set('type', 'loader');
 		var self=this;
 		function success(json){
 			Mif.Tree.Load.children(json, self, self.tree);
 			delete self.$loading;
-			self.state.loaded=true;
-			self.removeType('loader');
+			self.property.loaded=true;
+			self.set('type', type);
 			Mif.Tree.Draw.update(self);
 			self.fireEvent('load');
 			self.tree.fireEvent('loadNode', self);

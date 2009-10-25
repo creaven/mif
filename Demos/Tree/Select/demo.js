@@ -1,17 +1,8 @@
 window.addEvent('domready',function(){
 	SimpleTree = new Mif.Tree({
 		container: $('tree_container'),
-		types: {
-			folder:{
-				openIcon: 'mif-tree-open-icon',
-				closeIcon: 'mif-tree-close-icon'
-			}
-		},
-		dfltType:'folder',
+		data: 'Tree/files/simpleTree.json',
 		height: 18
-	})
-	.load({
-		url: 'Tree/files/simpleTree.json'
 	})
 	.addEvent('load', function(){
 		this.root.recursive(function(){
@@ -19,9 +10,9 @@ window.addEvent('domready',function(){
 		});
 	})
 	.addEvent('select',function(node){
-		$('log').adopt(new Element('li').set('html', node.name+' selected'));
+		$('log').adopt(new Element('li').set('html', node.get('name')+' selected'));
 	})
 	.addEvent('unSelect', function(node){
-		$('log').adopt(new Element('li').set('html', node.name+' unselected'));
+		$('log').adopt(new Element('li').set('html', node.get('name')+' unselected'));
 	});
 });

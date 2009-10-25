@@ -6,8 +6,6 @@ Mif.Menu=new Class({
 	options: {
 		
 	},
-	
-	List: Mif.Menu.List
 
 	initialize: function(options, skin){
 		this.setOptions(options);

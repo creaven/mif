@@ -19,10 +19,11 @@ Mif.Tree = new Class({
 	initialize: function(options) {
 		this.setOptions(options);
 		$extend(this, {
-			types: this.options.types,
+			types: $extend({
+				dflt: {}
+			}, this.options.types),
 			forest: this.options.forest,
 			animateScroll: this.options.animateScroll,
-			dfltType: this.options.dfltType,
 			height: this.options.height,
 			container: $(options.container),
 			UID: 0,
@@ -32,19 +33,17 @@ Mif.Tree = new Class({
 		this.defaults={
 			name: '',
 			cls: '',
-			openIcon: 'mif-tree-empty-icon',
-			closeIcon: 'mif-tree-empty-icon',
+			openIcon: 'mif-tree-open-icon',
+			closeIcon: 'mif-tree-close-icon',
 			loadable: false,
-			hidden: false
-		};
-		this.dfltState={
-			open: false
+			hidden: false,
+			open: false,
+			type: 'dflt'
 		};
 		this.$index=[];
 		this.updateOpenState();
 		if(this.options.expandTo) this.initExpandTo();
 		Mif.Tree.UID++;
-		this.DOMidPrefix='mif-tree-';
 		this.wrapper=new Element('div').addClass('mif-tree-wrapper').injectInside(this.container);
 		this.initEvents();
 		this.initScroll();
@@ -59,6 +58,9 @@ Mif.Tree = new Class({
 		});
 		if (this.options.initialize && MooTools.version>='1.2.2') {
 			this.options.initialize.call(this);
+		}
+		if(this.options.data){
+			this.load(this.options.data)
 		}
 	},
 	

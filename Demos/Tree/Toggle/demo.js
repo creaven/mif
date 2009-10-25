@@ -1,19 +1,10 @@
 window.addEvent('domready',function(){
 	SimpleTree = new Mif.Tree({
 		container: $('tree_container'),
-		types: {
-			folder:{
-				openIcon: 'mif-tree-open-icon',
-				closeIcon: 'mif-tree-close-icon'
-			}
-		},
-		dfltType:'folder',
+		data: 'Tree/files/simpleTree.json',
 		height: 18
 	})
-	.load({
-		url: 'Tree/files/simpleTree.json'
-	})
 	.addEvent('toggle',function(node, state){
-		$('log').adopt(new Element('li').set('html', node.name+' '+(state ? 'expanded' : 'collapsed')));
+		$('log').adopt(new Element('li').set('html', node.get('name')+' '+(state ? 'expanded' : 'collapsed')));
 	});
 });

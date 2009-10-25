@@ -51,14 +51,14 @@ Mif.Tree.implement({
 Mif.Tree.Node.implement({
 		
 	select: function(state) {
-		this.state.selected = state;
+		this.property.selected = state;
 		if(!Mif.Tree.Draw.isUpdatable(this)) return;
 		var wrapper=this.getDOM('wrapper');
-		wrapper[(state ? 'add' : 'remove')+'Class'](this.selectClass||'mif-tree-node-selected');
+		wrapper[(state ? 'add' : 'remove')+'Class'](this.property.selectClass||'mif-tree-node-selected');
 	},
 	
 	isSelected: function(){
-		return this.state.selected;
+		return this.property.selected;
 	}
 	
 });

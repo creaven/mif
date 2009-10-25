@@ -48,13 +48,13 @@ Mif.Tree.Hover={
 	
 	over: function(node, target){
 		var wrapper=node.getDOM('wrapper');
-		wrapper.addClass((node.hoverClass||'mif-tree-hover')+'-'+target);
-		if(node.state.selected) wrapper.addClass((node.hoverClass||'mif-tree-hover')+'-selected-'+target);
+		wrapper.addClass((node.property.hoverClass||'mif-tree-hover')+'-'+target);
+		if(node.property.selected) wrapper.addClass((node.property.hoverClass||'mif-tree-hover')+'-selected-'+target);
 	},
 	
 	out: function(node, target){
 		var wrapper=node.getDOM('wrapper');
-		wrapper.removeClass((node.hoverClass||'mif-tree-hover')+'-'+target).removeClass((node.hoverClass||'mif-tree-hover')+'-selected-'+target);
+		wrapper.removeClass((node.property.hoverClass||'mif-tree-hover')+'-'+target).removeClass((node.property.hoverClass||'mif-tree-hover')+'-selected-'+target);
 	}
 	
 };

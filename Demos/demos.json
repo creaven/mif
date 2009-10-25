@@ -13,7 +13,7 @@
 			"title": "Tree other style"
 		},
 		"changeType":{
-			"title": "Add/remove node type demo"
+			"title": "change node type demo"
 		},
 		"IconUrl":{
 			"title": "set icon using url instead class"

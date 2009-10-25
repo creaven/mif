@@ -6,9 +6,9 @@ Mif.Tree.implement({
 	initSortable: function(sortFunction){
 		this.sortable=true;
 		this.sortFunction=sortFunction||function(node1, node2){
-			if(node1.name>node2.name){
+			if(node1.property.name>node2.property.name){
 				return 1;
-			}else if(node1.name<node2.name){
+			}else if(node1.property.name<node2.property.name){
 				return -1;
 			}else{
 				return 0;
