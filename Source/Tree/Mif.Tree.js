@@ -44,7 +44,7 @@ Mif.Tree = new Class({
 		this.updateOpenState();
 		if(this.options.expandTo) this.initExpandTo();
 		Mif.Tree.UID++;
-		this.wrapper=new Element('div').addClass('mif-tree-wrapper').injectInside(this.container);
+		this.wrapper=new Element('tree').addClass('mif-tree-wrapper').injectInside(this.container);
 		this.initEvents();
 		this.initScroll();
 		this.initSelection();

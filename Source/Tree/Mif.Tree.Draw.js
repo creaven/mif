@@ -7,21 +7,21 @@ Mif.Tree.Draw={
 		var prefix='mif-tree-node-';
 		if($defined(node.property.checked)){
 			if(!node.property.hasCheckbox) node.property.checked='nochecked';
-			var checkbox='<span class="mif-tree-checkbox mif-tree-node-'+node.property.checked+'" uid="'+node.UID+'">'+Mif.Tree.Draw.zeroSpace+'</span>';
+			var checkbox='<checkbox class="mif-tree-checkbox mif-tree-node-'+node.property.checked+'" uid="'+node.UID+'">'+Mif.Tree.Draw.zeroSpace+'</checkbox>';
 		}else{
 			var checkbox='';
 		}
 		html=html||[];
 		html.push(
-		'<div class="mif-tree-node ',(node.isLast() ? 'mif-tree-node-last' : ''),'"'+(node.hidden ? ' style="display:none"' : '')+' id="',prefix,node.UID,'">',
-			'<span class="mif-tree-node-wrapper ',node.property.cls,(node.property.selected ? ' mif-tree-node-selected' : ''),'" uid="',node.UID,'">',
-				'<span class="mif-tree-gadjet mif-tree-gadjet-',node.getGadjetType(),'" uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</span>',
+		'<row class="mif-tree-node ',(node.isLast() ? 'mif-tree-node-last' : ''),'"'+(node.hidden ? ' style="display:none"' : '')+' id="',prefix,node.UID,'">',
+			'<node class="mif-tree-node-wrapper ',node.property.cls,(node.property.selected ? ' mif-tree-node-selected' : ''),'" uid="',node.UID,'">',
+				'<gadget class="mif-tree-gadjet mif-tree-gadjet-',node.getGadjetType(),'" uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</gadget>',
 				checkbox,
-				'<span class="mif-tree-icon ',(node.property.closeIconUrl?'" style="background-image: url('+node.property.closeIconUrl+')" ': node.property.closeIcon+'"'),' uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</span>',
-				'<span class="mif-tree-name" uid="',node.UID,'">',node.property.name,'</span>',
-			'</span>',
-			'<div class="mif-tree-children" style="display:none"></div>',
-		'</div>'
+				'<icon class="mif-tree-icon ',(node.property.closeIconUrl?'" style="background-image: url('+node.property.closeIconUrl+')" ': node.property.closeIcon+'"'),' uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</icon>',
+				'<name class="mif-tree-name" uid="',node.UID,'">',node.property.name,'</name>',
+			'</node>',
+			'<children class="mif-tree-children" style="display:none"></children>',
+		'</row>'
 		);
 		return html;
 	},
@@ -47,7 +47,7 @@ Mif.Tree.Draw={
 	},
 	
 	forestRoot: function(tree){
-		var container=new Element('div').addClass('mif-tree-children-root').injectInside(tree.wrapper);
+		var container=new Element('children').addClass('mif-tree-children-root').injectInside(tree.wrapper);
 		Mif.Tree.Draw.children(tree.root, container);
 	},
 	
