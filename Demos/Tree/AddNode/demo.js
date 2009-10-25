@@ -13,13 +13,13 @@ window.addEvent('domready',function(){
 		dfltType:'folder',
 		height:20
 	})
-	.load({
-		url: 'Tree/files/simpleTree.json'
-	})
 	.addEvent('load', function(){
 		this.root.toggle();
 		this.select(this.root);
 		Mif.id('node2.1').inject(Mif.id('node4'));
+	})
+	.load({
+		url: 'Tree/files/simpleTree.json'
 	});
 	
 	
@@ -27,9 +27,7 @@ window.addEvent('domready',function(){
 		var current=SimpleTree.getSelected();
 		if(!current) return;
 		SimpleTree.add({
-			property: {
-				name: $('node_name').value
-			}
+			name: $('node_name').value
 		}, current, $('where').getElement(':selected').innerHTML);
 		return false;
 	});

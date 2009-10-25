@@ -58,9 +58,7 @@ window.addEvent('domready',function(){
 			parent.$name=parent.name;
 		}
 		parent.set({
-			property:{
-				name: parent.$name+' ('+parent.children.length+')'
-			}
+			name: parent.$name+' ('+parent.children.length+')'
 		});
 	});
 

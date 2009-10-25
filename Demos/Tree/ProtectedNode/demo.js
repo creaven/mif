@@ -39,11 +39,9 @@ window.addEvent('domready',function(){
 		var node=tree.getSelected();
 	    if(!node) return;
 	    node.set({
-			property:{
-				renameDenied: node.property.renameDenied ? false : true, 
-				removeDenied: node.property.removeDenied ? false : true,
-				name: node.property.renameDenied ? node.property.name.replace(/ protected/, '') : node.property.name+' protected'
-			}
+			renameDenied: node.property.renameDenied ? false : true, 
+			removeDenied: node.property.removeDenied ? false : true,
+			name: node.property.renameDenied ? node.property.name.replace(/ protected/, '') : node.property.name+' protected'
 		});
 	});	
 		

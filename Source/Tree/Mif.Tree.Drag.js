@@ -15,7 +15,7 @@ Mif.Tree.Drag = new Class({
 		open: 600,//time to open node
 		scrollDelay: 100,
 		scrollSpeed: 100,
-		modifier: 'control',//copy
+		modifier: Browser.Platform.mac ? 'shift' : 'control',//copy
 		startPlace: ['icon', 'name'],
 		allowContainerDrop: true
 	},
