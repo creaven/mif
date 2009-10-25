@@ -5,127 +5,82 @@ window.addEvent('domready',function(){
 		},
 		container: $('tree_container'),// tree container
 		forest: true,
-		types: {// node types
-			folder:{
-				openIcon: 'mif-tree-open-icon',//css class open icon
-				closeIcon: 'mif-tree-close-icon'// css class close icon
-			}
-		},
-		dfltType:'folder',//default node type
 		height: 18//node height
 	});
 	
 	var jsonChildren=[
 		{
-			"property":{
-				"name": "nodeA"
-			}
+			"name": "nodeA"
 		},
 		{
-			"property":{
-				"name": "nodeB"
-			},
+			"name": "nodeB",
 			"children": [
 				{
-					"property":{
-						"name": "nodeB.1"
-					}
+					"name": "nodeB.1"
 				},
 				{
-					"property":{
-						"name": "nodeB.2",
-						"expandTo": true //expandTo
-					},
+					"name": "nodeB.2",
+					"expandTo": true,//expandTo - ugly, should be refactored
 					"children":[
 						{
-							"property":{
-								"name": "nodeB.2.1"
-							}
+							"name": "nodeB.2.1"
 						}
 					]
 				},
 				{
-					"property":{
-						"name": "nodeB.3"
-					}
+					"name": "nodeB.3"
 				}
 			]
 		},
 		{
-			"property":{
-				"name": "nodeC"
-			}
+			"name": "nodeC"
 		}
 	];
 
 	var json=[
 		{
-			"property": {
-				"name": "root"
-			},
+			"name": "root",
 			"children": [
 				{
-					"property": {
-						"name": "node1"
-					}
+					"name": "node1"
 				},
 				{
-					"property": {
-						"name": "node2"
-					},
-					"state": {
-						"open": true
-					},
+					"name": "node2",
+					"open": true,
 					"children":[
 						{
-							"property": {
-								"name": "node2.1"
-							}
+							"name": "node2.1"
 						},
 						{
-							"property": {
-								"name": "node2.2",
-								"expandTo": true//expandTo
-							},
+							"name": "node2.2",
+							"expandTo": true,
 							"children": [
 								{
-									"property":{
-										"name": "node2.2.1"
-									}
+									"name": "node2.2.1"
 								},
 								{
-									"property":{
-										"name": "node2.2.2"
-									}
+									"name": "node2.2.2"
 								},
 								{
-									"property":{
-										"name": "node2.2.3",
-										"loadOptions": {"json": jsonChildren},
-										"loadable": true
-									}
+									"name": "node2.2.3",
+									"loadOptions": {"json": jsonChildren},
+									"loadable": true
 								}
 							]
 						}
 					]
 				},
 				{
-					"property": {
-						"name": "node4"
-					}
+					"name": "node4"
 				},
 				{
-					"property": {
-						"name": "node3"
-					}
+					"name": "node3"
 				}
 			]
 		}
 	];
 	
 	// load tree from json.
-	tree.load({
-		json: json
-	});
+	tree.load(json);
 	
 });

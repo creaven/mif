@@ -266,7 +266,7 @@ Mif.Tree = new Class({
 			var children=parent.children;
 			for( var i=children.length; i--; ){
 				var child=children[i];
-				if(child.expandTo) this.expanded.push(child);
+				if(child.property.expandTo) this.expanded.push(child);
 			}
 		});
 		function expand(){

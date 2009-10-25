@@ -103,7 +103,7 @@ Mif.Tree.Node.implement({
 			secure: true,
 			onSuccess: success,
 			method: 'get'
-		}, this.tree.loadOptions(this)), this.loadOptions), options);
+		}, this.tree.loadOptions(this)), this.property.loadOptions), options);
 		if(options.json) return success(options.json);
 		new Request.JSON(options).send();
 		return this;
