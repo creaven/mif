@@ -7,7 +7,7 @@ window.addEvent('domready',function(){
 			new Mif.Tree.KeyNav(this);
 		},
 		types: {
-			folder:{
+			dflt:{
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon'
 			},
@@ -30,31 +30,21 @@ window.addEvent('domready',function(){
 				openIcon: 'mif-tree-bin-open-icon',
 				closeIcon: 'mif-tree-bin-close-icon'
 			}
-		},
-		dfltType:'folder'
+		}
 	});
 
 	//tree.initSortable();
-	tree.load({
-		url: 'Tree/files/forest.json'
-	});
+	tree.load('Tree/files/forest.json');
 
 	tree.loadOptions=function(node){
 		// if node name 'empty' load from url 'empty.json'
-		if(node.name=='empty'){
-			return {
-				url: 'Tree/files/empty.json'
-			}
-		}
-		return {
-			url: 'Tree/files/mediumTree.json'
-		};
+		return node.get('name')=='empty' ? 'Tree/files/empty.json' : 'Tree/files/mediumTree.json';
 	}
 	
 	$('getChecked').addEvent('click', function(){
 		var checked='';
 		tree.getChecked().each(function(node){
-			checked+='<p>'+node.name+'</p>';
+			checked+='<p>'+node.get('name')+'</p>';
 		});
 		$('checked').innerHTML=checked;
 	});

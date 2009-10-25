@@ -12,6 +12,11 @@ var Demos = {
 	start: function() {
 		if (location.protocol == 'file:') Demos.local();
 		Demos.getList();
+		var hash=document.location.hash;
+		if(hash){
+			var demo=hash.replace('#','');
+			Demos.load(demo)
+		}
 	},
 	
 	categories: function(json) {
@@ -24,11 +29,12 @@ var Demos = {
 			
 			demos.each(function(value, key) {
 				new Element('li').adopt(new Element('h3').adopt(new Element('a', {
-					'href': '#', 
+					'href': '#'+group+'/'+key, 
 					'text': value.title,
 					'events': {
 						'click': function(e) { 
 							e.stop();
+							document.location.hash=group+'/'+key;
 							Demos.load(group+'/'+key);
 						}
 					}

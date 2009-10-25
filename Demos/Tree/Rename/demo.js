@@ -1,13 +1,6 @@
 window.addEvent('domready',function(){
 	tree = new Mif.Tree({
 		container: $('tree_container'),// tree container
-		types: {// node types
-			folder:{
-				openIcon: 'mif-tree-open-icon',//css class open icon
-				closeIcon: 'mif-tree-close-icon'// css class close icon
-			}
-		},
-		dfltType:'folder',//default node type
 		height: 18,//node height
 		onRename: function(node, newName, oldName){
 			alert(oldName+' renamed to '+newName);
@@ -16,53 +9,37 @@ window.addEvent('domready',function(){
 
 	var json=[	
 		{
-			"property": {
-				"name": "root"
-			},
+			"name": "root",
 			"children": [
 				{
-					"property": {
-						"name": "node1"
-					}
+					"name": "node1"
 				},
 				{
-					"property": {
-						"name": "node2"
-					},
+					"name": "node2",
 					"children":[
 						{
-							"property": {
-								"name": "node2.1"
-							}
+							"name": "node2.1"
 						},
 						{
-							"property": {
-								"name": "node2.2"
-							}
+							"name": "node2.2"
 						}
 					]
 				},
 				{
-					"property": {
-						"name": "node3"
-					}
+					"name": "node3"
 				},
 				{
-					"property": {
-						"name": "node4"
-					}
+					"name": "node4"
 				}
 			]
 		}
 	];
 	
 	// load tree from json.
-	tree.load({
-		json: json
-	});
+	tree.load(json);
 	
 	$('rename').addEvent('click', function(){
-		var node=tree.selected;
+		var node=tree.getSelected();
 	    if(!node) return;
 	    node.rename();
 	});

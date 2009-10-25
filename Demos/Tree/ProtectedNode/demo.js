@@ -1,13 +1,6 @@
 window.addEvent('domready',function(){
 	tree = new Mif.Tree({
 		container: $('tree_container'),
-		types: {
-			folder:{
-				openIcon: 'mif-tree-open-icon',
-				closeIcon: 'mif-tree-close-icon'
-			}
-		},
-		dfltType:'folder',
 		height:20
 	})
 	.load({

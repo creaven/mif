@@ -37,135 +37,97 @@ window.addEvent('domready',function(){
 	
 	var children=[
 		{
-			"property": {
-				"name": "cnode1",
-				"id": "cnode1"
-			}
+			"name": "cnode1",
+			"id": "cnode1"
 		},
 		{
-			"property": {
-				"name": "cnode2",
-				"id": "cnode2"
-			},
+			"name": "cnode2",
+			"id": "cnode2",
 			"children":	[
 				{
-					"property":{
-						"name": "cnodeX",
-						"id": "cnodeXXXX"
-					}
+					"name": "cnodeX",
+					"id": "cnodeXXXX"
 				},
 				{
-					"property":{
-						"name": "cnodeY",
-						"id": "cnodeY"
-					},
+					"name": "cnodeY",
+					"id": "cnodeY",
 					"children":[
 						{
-							"property":{
-								"name": "cnodeZ",
-								"id": "cnodeZ"
-							}
+							"name": "cnodeZ",
+							"id": "cnodeZ"
 						},
 						{
-							"property":{
-								"name": "cnodeL",
-								"id": "cnodeL"
-							}
+							"name": "cnodeL",
+							"id": "cnodeL"
 						}
 					]
 				}
 			]
 		},
 		{
-			"property":{
-				"name": "cnode3",
-				"id": "cnode3"
-			}
+			"name": "cnode3",
+			"id": "cnode3"
 		}
 	];
 
 	var json=[
 		{
-			"property": {
-				"name": "root",
-				"id": "root"
-			},
+			"name": "root",
+			"id": "root",
 			"children": [
 				{
-					"property": {
-						"name": "node1",
-						"id": "node1"
-					}
+					"name": "node1",
+					"id": "node1"
 				},
 				{
-					"property": {
-						"name": "node2",
-						"id": "node2"
-					},
+					"name": "node2",
+					"id": "node2",
 					"children":[
 						{
-							"property": {
-								"name": "node2.1",
-								"id": "node2.1"
-							}
+							"name": "node2.1",
+							"id": "node2.1"
 						},
 						{
-							"property": {
-								"name": "node2.2",
-								"id": "node2.2"
-							},
+							"name": "node2.2",
+							"id": "node2.2",
 							"children":[
 								{
-									"property": {
-										"name": "node2.2.1",
-										"id": "node2.2.1"
-									}
+									"name": "node2.2.1",
+									"id": "node2.2.1"
 								},
 								{
-									"property": {
-										"name": "node2.2.2",
-										"id": "node2.2.2"
-									}
+									"name": "node2.2.2",
+									"id": "node2.2.2"
 								}
 							]
 						}
 					]
 				},
 				{
-					"property": {
-						"name": "node4",
-						"id": "node4"
-					},
+					"name": "node4",
+					"id": "node4",
 					"children":	[
 						{
-							"property":{
-								"name": "nodeX",
-								"id": "nodeXXXX"
-							}
+							"name": "nodeX",
+							"id": "nodeXXXX"
 						},
 						{
-							"property":{
-								"name": "nodeY",
-								"id": "nodeY"
-							}
+							"name": "nodeY",
+							"id": "nodeY"
 						}
 					]
 				},
 				{
-					"property": {
-						"name": "node3 loadable",
-						"id": "node3",
-						"loadable": true,
-						"loadOptions": {json: children}
-					}
+					"name": "node3 loadable",
+					"id": "node3",
+					"loadable": true,
+					"loadOptions": children
 				}
 			]
 		}
 	];
 	
 	// load tree from json.
-	tree.load({
-		json: json
-	});
+	tree.load(json);
 	
 });

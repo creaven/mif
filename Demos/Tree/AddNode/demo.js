@@ -2,7 +2,7 @@ window.addEvent('domready',function(){
 	SimpleTree = new Mif.Tree({
 		container: $('tree_container'),
 		onNodeCreate: function(node){
-			node.set({id: node.name});
+			node.set({id: node.property.name});
 		},
 		types: {
 			folder:{

@@ -27,9 +27,9 @@ Mif.Tree.Load={
 };
 
 Mif.Tree.implement({
-
-	load: function(options){
-		var tree=this;
+	
+	loadOptionsToObject: function(options){
+		if(!options) return {};
 		if($type(options)=='array'){
 			options={
 				json: options
@@ -40,6 +40,12 @@ Mif.Tree.implement({
 				url: options
 			}
 		}
+		return options;
+	},
+
+	load: function(options){
+		var options=this.loadOptionsToObject(options);
+		var tree=this;
 		this.loadOptions=this.loadOptions||$lambda({});
 		function success(json){
 			if(tree.forest){
@@ -62,7 +68,7 @@ Mif.Tree.implement({
 			secure: true,
 			onSuccess: success,
 			method: 'get'
-		}, this.loadOptions()), options);
+		}, this.loadOptionsToObject(this.loadOptions())), options);
 		if(options.json) return success(options.json);
 		new Request.JSON(options).send();
 		return this;
@@ -73,18 +79,7 @@ Mif.Tree.implement({
 Mif.Tree.Node.implement({
 	
 	load: function(options){
-		this.$loading=true;
-		if($type(options)=='array'){
-			options={
-				json: options
-			}
-		}
-		if($type(options)=='string'){
-			options={
-				url: options
-			}
-		}
-		options=options||{};
+		var options=this.tree.loadOptionsToObject(options);
 		var type=this.get('type');
 		this.set('type', 'loader');
 		var self=this;
@@ -103,7 +98,7 @@ Mif.Tree.Node.implement({
 			secure: true,
 			onSuccess: success,
 			method: 'get'
-		}, this.tree.loadOptions(this)), this.property.loadOptions), options);
+		}, this.tree.loadOptionsToObject(this.tree.loadOptions(this))), this.tree.loadOptionsToObject(this.property.loadOptions)), options);
 		if(options.json) return success(options.json);
 		new Request.JSON(options).send();
 		return this;

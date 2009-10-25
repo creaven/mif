@@ -7,7 +7,7 @@ window.addEvent('domready',function(){
 			new Mif.Tree.KeyNav(this);
 		},
 		types: {
-			folder:{
+			dflt:{
 				openIcon: 'mif-tree-open-icon',
 				closeIcon: 'mif-tree-close-icon'
 			},
@@ -32,63 +32,45 @@ window.addEvent('domready',function(){
 				closeIcon: 'mif-tree-bin-close-icon'
 			}
 		},
-		dfltType:'folder',
 		height: 18,
 		onCheck: function(node){
-			$('log').adopt(new Element('li').set('html', node.name+' checked'));
+			$('log').adopt(new Element('li').set('html', node.get('name')+' checked'));
 		},
 		onUnCheck: function(node){
-			$('log').adopt(new Element('li').set('html', node.name+' unchecked'));
+			$('log').adopt(new Element('li').set('html', node.get('name')+' unchecked'));
 		}
 	});
 
-	//tree.initSortable();
 	var json=[	
 		{
-			"property": {
-				"name": "root"
-			},
+			"name": "root",
 			"children": [
 				{
-					"property": {
-						"name": "node1"
-					}
+					"name": "node1"
 				},
 				{
-					"property": {
-						"name": "node2",
-						"hasCheckbox": false
-					},
+					"name": "node2",
+					"hasCheckbox": false,
 					"children":[
 						{
-							"property": {
-								"name": "node2.1"
-							}
+							"name": "node2.1"
 						},
 						{
-							"property": {
-								"name": "node2.2"
-							}
+							"name": "node2.2"
 						}
 					]
 				},
 				{
-					"property": {
-						"name": "node4"
-					}
+					"name": "node4"
 				},
 				{
-					"property": {
-						"name": "node3",
-						hasCheckbox: false
-					}
+					"name": "node3",
+					hasCheckbox: false
 				}
 			]
 		}
 	];
 	
 	// load tree from json.
-	tree.load({
-		json: json
-	});
+	tree.load(json);
 });

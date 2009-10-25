@@ -34,7 +34,7 @@ Mif.Tree.Node.implement({
 				if(node.tree){
 					if(!node.hasChildren()){
 						node.$draw=true;
-						node.state.open=true;
+						node.property.open=true;
 					}
 					node.children.push(this);
 					this.parentNode=node;
@@ -102,7 +102,7 @@ Mif.Tree.Node.implement({
 	},
 	
 	remove: function(){
-		if (this.removeDenied) return;
+		if (this.property.removeDenied) return;
 		this.tree.fireEvent('remove', [this]);
 		var parent=this.parentNode, previousVisible=this.getPreviousVisible();
 		if(parent) {	

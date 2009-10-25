@@ -46,7 +46,7 @@ Mif.Tree.implement({
 		this.disableEvents();
 		this.attachRenameEvents();
 		var input=this.getInput();
-		input.value=node.name;
+		input.value=node.property.name;
 		this.renameName=node.getDOM('name');
 		this.renameNode=node;
 		input.setStyle('width', this.renameName.offsetWidth+15);
@@ -62,7 +62,7 @@ Mif.Tree.implement({
 		if(this.options.beforeRename){
 			var newName=this.getInput().value;
 			var node=this.renameNode;
-			this.options.beforeRename.apply(this, [node, node.name, newName]);
+			this.options.beforeRename.apply(this, [node, node.property.name, newName]);
 		}else{
 			this.renameComplete();
 		}
@@ -72,13 +72,11 @@ Mif.Tree.implement({
 		this.enableEvents();
 		this.finishRename();
 		var node=this.renameNode;
-		var oldName=node.name;
+		var oldName=node.property.name;
 		node.set({
-			property:{
-				name: this.getInput().value
-			}
+			name: this.getInput().value
 		});
-		this.fireEvent('rename', [node, node.name, oldName]);
+		this.fireEvent('rename', [node, node.property.name, oldName]);
 		this.select(node);
 	},
 	
