@@ -10,21 +10,26 @@ Load children from json object. JSON object structure:
 
 	[	
 		{
-			"property": (property object),
-			"type": (type),
-			"data": (user data object),
+			"name": "node1",
+			"prop": value,
+			...
 			"children": [
-				(nodes)
+				{
+					"name": "node2",
+					"prop": value2,
+					...
+					"children": [
+
+					]
+				}
+				...
 			]
 		},
 		...
 		{
-			"property": (property object),
-			"type": (type),
-			"data": (user data object),
-			"children": [
-				(nodes)
-			]
+			"prop1": value1,
+			"prop2": value2,
+			...
 		}
 	]
 	
