@@ -24,7 +24,7 @@ Mif.Tree Method: constructor {#Mif.Tree:constructor}
 * animateScroll - (*boolean*: defaults to true) animate scrollTo function.
 * height        - tree node height.
 * expandTo      - (*boolean*: defaults to true) if true loaded nodes with expandTo property set to true will be shown using expandTo function.
-* data          - (*object*: defaults null) if data defined tree will be loaded using load function - tree.load(data)
+* data          - (*object*) tree will be loaded using load function - tree.load(data)
 
 ### Events:
 
