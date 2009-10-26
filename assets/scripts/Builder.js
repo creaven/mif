@@ -52,8 +52,6 @@ var Builder = {
 				'Mif.Menu', 
 				'Mif.Menu.List', 
 				'Mif.Menu.Item', 
-				'Mif.Menu.Container', 
-				'Mif.Menu.CanvasContainer',
 				'Mif.Menu.KeyNav'
 			]
 		},
