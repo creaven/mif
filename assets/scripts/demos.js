@@ -130,8 +130,9 @@ var Demos = {
 				informer.js.innerHTML=text.replace(/</g,'&lt;').replace(/>/g,'&gt;');
 			}
 		}).get();
-		['html', 'js', 'css'].each( function(type){
-			new Element('a', {href: '#'+type, text: type}).addEvent('click', function(){
+		['js', 'html', 'css'].each( function(type){
+			new Element('a', {href: '#'+type, text: type}).addEvent('click', function(e){
+				e.stop();
 				for(var item in informer){
 					if(item!=type){
 						informer[item].style.display='none';
