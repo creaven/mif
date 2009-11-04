@@ -1,6 +1,10 @@
 /*
 Mif.Tree.Draw
 */
+['tree', 'checkbox', 'row', 'node', 'gadget', 'icon', 'name', 'children'].each(function(tag){
+	document.createElement(tag);
+})
+
 Mif.Tree.Draw={
 
 	getHTML: function(node,html){
@@ -52,7 +56,7 @@ Mif.Tree.Draw={
 	},
 	
 	node: function(node){
-		return new Element('div').set('html', this.getHTML(node).join('')).getFirst();
+		return new Element('div').inject(document.body).set('html', this.getHTML(node).join('')).dispose().getFirst();
 	},
 	
 	isUpdatable: function(node){

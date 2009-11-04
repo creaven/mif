@@ -3,6 +3,7 @@ window.addEvent('domready',function(){
 		container: $('tree_container'),// tree container
 		height: 18//node height TODO it's ugly, should be removed
 	});
+
 	var json=[
 		{
 			"name": "root",

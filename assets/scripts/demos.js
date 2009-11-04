@@ -132,6 +132,7 @@ var Demos = {
 		}).get();
 		['html', 'js', 'css'].each( function(type){
 			new Element('a', {href: '#'+type, text: type}).addEvent('click', function(){
+				return false;
 				for(var item in informer){
 					if(item!=type){
 						informer[item].style.display='none';
