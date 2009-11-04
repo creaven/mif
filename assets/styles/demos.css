@@ -284,16 +284,20 @@ div#footer p {
 }
 
 .info{
-border:solid 1px #aeaeae;
+border-bottom:solid 1px #d8d8d8;
 padding:5px;
 text-align: left;
-background:#f5f5bc;
+background:#fbfbe6;
 }
 
 .info a{
-padding-right:20px;
+padding-right:0px;
+width:25px;
+display:inline-block;
 margin-right:5px;
-text-decoration:underline;
+text-decoration:none;
+background:#dfdfdf;
+text-align:center;
 }
 
 .informer{
@@ -302,6 +306,7 @@ border-top:none;
 max-height:300px;
 overflow:auto;
 padding-left:1em;
+color:#000;
 }
 
 
