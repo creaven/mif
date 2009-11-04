@@ -1,9 +1,6 @@
 /*
 Mif.Tree.Draw
 */
-['tree', 'checkbox', 'row', 'node', 'gadget', 'icon', 'name', 'children'].each(function(tag){
-	document.createElement(tag);
-})
 
 Mif.Tree.Draw={
 

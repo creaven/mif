@@ -2,6 +2,135 @@
 Mif.Tree
 */
 
+Mif.sheet.addRules({
+	'row, children, tree, node': {
+		'display': 'block'
+	},
+
+	'name': {
+		'display': 'inline'
+	},
+
+	'tree': {
+		'position': 'relative',
+		'width': '100%',
+		'height':'100%',
+		'margin': '0',
+		'padding': '0',
+		'overflow': 'auto',
+		'font-family': 'sans-serif',
+		'font-size': '11px',
+		'line-height': '18px',
+		'white-space': 'nowrap',
+		'cursor': 'default'
+	},
+
+	'tree:focus': {
+		'outline': '0'
+	},
+
+	'tree icon, tree gadget, tree checkbox, tree name': {
+		'padding-bottom': '2px',
+		'padding-top': '2px',
+		'cursor': 'inherit'
+	},
+
+	'tree children': {
+		'width': '100%'
+	},
+
+	'tree children node': {
+		'padding-left': '18px'
+	},
+
+	'tree children children node': {
+		'padding-left': '36px'
+	},
+
+	'tree row': {
+		'width': '100%',
+		'position': 'relative'
+	/*background:url('line.gif') repeat-y 8px 0px;*/
+	},
+
+	/*.mif-tree-node-last{
+	background:url('line.gif') no-repeat 8px 0px;
+	}*/
+
+	'tree name': {
+		'cursor': 'default',
+		'overflow': 'hidden',
+		'margin-left': '4px'
+	},
+
+	'tree node': {
+	/*background:url('hline.gif') no-repeat 9px center;*/
+	},
+
+	/*@gadjets*/
+	'tree gadget': {
+		'background-image': 'gadgets.gif'.toMifImg(),
+		'padding-right': '16px',
+		'z-index': '1',
+		'overflow': 'hidden',
+		'background-repeat': 'no-repeat',
+		'cursor': 'default'
+	},
+
+	'.mif-tree-gadjet-none': {
+		'background': 'none'
+	},
+
+	'.mif-tree-gadjet-minus': {
+		'background-position': '0px 50%'
+	},
+
+	'.mif-tree-gadjet-plus': {
+		'background-position': '-18px 50%'
+	},
+
+	'.mif-tree-gadjet-middle': {
+		'background-position': '-36px 50%'
+	},
+
+	'.mif-tree-gadjet-hover .mif-tree-gadjet-minus': {
+		'background-position': '-54px 50%'
+	},
+
+	'.mif-tree-gadjet-hover .mif-tree-gadjet-plus': {
+		'background-position': '-72px 50%'
+	},
+
+	'.mif-tree-gadjet-hover .mif-tree-gadjet-middle': {
+		'background-position': '-90px 50%'
+	},
+
+	/*.mif-tree-gadjet-hover{
+	background-image:url('gadjets-hover.gif');
+	}*/
+
+	/*@icons*/
+	'tree icon': {
+		'padding-right': '18px',
+		'background-position': '0 50%',
+		'background-repeat': 'no-repeat',
+		'cursor': 'inherit'
+	},
+	
+	'.mif-tree-open-icon': {
+		'background-image': 'openicon.gif'.toMifImg()
+	},
+
+	'.mif-tree-close-icon': {
+		'background-image': 'closeicon.gif'.toMifImg()
+	},
+
+	'.mif-tree-loader-open-icon, .mif-tree-loader-close-icon': {
+		'background-image': 'mootree_loader.gif'.toMifImg()
+	}
+	
+});
+
 
 Mif.Tree = new Class({
 

@@ -15,3 +15,16 @@ height:400px;
 overflow:auto;
 margin-left:5px;
 }
+
+.mif-tree-book-icon{
+background-image:url('../images/book_icon.gif');
+}
+
+.mif-tree-bin-open-icon{
+background-image:url('../images/bin_open_icon.gif');
+}
+
+.mif-tree-bin-close-icon{
+background-image:url('../images/bin_close_icon.gif');
+}
+

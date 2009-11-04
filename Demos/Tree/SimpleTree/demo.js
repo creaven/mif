@@ -34,6 +34,5 @@ window.addEvent('domready',function(){
 	];
 	
 	// load tree from json.
-	tree.load(json);
-	
+	tree.load(json);	
 });

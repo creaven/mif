@@ -1,0 +1,141 @@
+/*@global*/
+
+
+
+.mif-tree-open-icon{
+background-image:url('openicon.gif')
+}
+
+.mif-tree-close-icon{
+background-image:url('closeicon.gif')
+}
+
+.mif-tree-loader-open-icon,.mif-tree-loader-close-icon{
+background-image:url('mootree_loader.gif');
+}
+
+/*@selection*/
+
+.mif-tree-node-selected .mif-tree-name{
+background-color: #010161;
+color:#fff;
+text-transform:italic;
+}
+
+.mif-tree-highlighter{
+height:18px;
+overflow:hidden;
+width:100%;
+background:#b64553;
+position:absolute;
+}
+
+/*@dnd*/
+.mif-tree-pointer{
+height:1px;
+overflow: hidden;
+position: absolute;
+background-image:url('1.gif');
+background-repeat:repeat-x;
+background-color:#292fef;
+}
+
+
+.mif-tree-ghost{
+background-color:#fff;
+border:solid 2px #e8e8f7;
+padding-left:2px;
+position:absolute;
+}
+
+.mif-tree-ghost .mif-tree-node-wrapper{
+background:none;
+}
+
+.mif-tree-ghost span.mif-tree-text{
+padding-top:1px;
+padding-bottom:1px;
+}
+
+.mif-tree-ghost-icon{
+padding-left:16px;
+background-color:#fff;
+background-repeat:no-repeat;
+background-image:url('dropzone.gif');
+}
+
+.mif-tree-ghost-after{
+background-position:-64px 2px;
+}
+
+.mif-tree-ghost-before{
+background-position:-48px 2px;
+}
+
+.mif-tree-ghost-between{
+background-position:-16px 2px;
+}
+
+.mif-tree-ghost-inside{
+background-position:-0px 2px;
+}
+
+.mif-tree-ghost-notAllowed{
+background-position:-32px 2px;
+}
+
+.mif-tree-drag-current{
+background-color:#cfcfd8;
+}
+
+.mif-tree-replace{
+background-color:#99c8fb;
+}
+
+/*@checkbox*/
+.mif-tree-checkbox{
+padding-left:18px;
+background-image:url('checkboxes.gif');
+background-repeat: no-repeat;
+}
+
+.mif-tree-node-checked{
+background-position:0px center;
+}
+
+.mif-tree-node-unchecked{
+background-position:-18px center;
+}
+
+.mif-tree-node-nochecked{
+background-position:-108px center;
+}
+
+.mif-tree-hover-checkbox .mif-tree-node-checked{
+background-position:-36px center;
+}
+
+.mif-tree-hover-checkbox .mif-tree-node-unchecked{
+background-position:-54px center;
+}
+
+.mif-tree-node-partially{
+background-position:-72px center;
+}
+
+.mif-tree-hover-checkbox .mif-tree-node-partially{
+background-position:-90px center;
+}
+
+/*rename*/
+.mif-tree-rename{
+display: inline;
+line-height: 14px;
+height:14px;
+cursor: default;
+overflow:hidden;
+font-family:sans-serif;
+font-size:11px;
+padding:1px 0;
+border:solid 1px black;
+}

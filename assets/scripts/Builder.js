@@ -114,7 +114,6 @@ var Builder = {
 			if (files[i] == file) return false;
 		}
 		this.included[type][folder].push(file);
-		this.cssImport+='\t@import "' + this.root + this.paths[type] + '/assets/' + folder + '/' + file + '.css";\n';
 		return document.writeln('\t<script type="text/javascript" src="' + this.root + this.paths[type] + '/' + folder + '/' + file + '.js"></script>');
 	},
 
@@ -125,11 +124,6 @@ var Builder = {
 
 	includeType: function(type){
 		for (var folder in this.scripts[type]) this.includeFolder(type, folder);
-		this.includeCSS();
-	},
-	
-	includeCSS: function(){
-		return document.writeln('<style type="text/css" media="all">\n'+this.cssImport+'</style>');
 	},
 
 	includeRequest: function(type){
