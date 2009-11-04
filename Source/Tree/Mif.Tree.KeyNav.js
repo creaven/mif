@@ -4,6 +4,8 @@ Mif.Tree.KeyNav
 Mif.Tree.KeyNav=new Class({
 	
 	initialize: function(tree){
+		if(tree.KeyNav) return null;
+		tree.KeyNav=this;
 		this.tree=tree;
 		this.bound={
 			action: this.action.bind(this),

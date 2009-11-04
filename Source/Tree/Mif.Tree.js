@@ -62,6 +62,9 @@ Mif.Tree = new Class({
 		if(this.options.data){
 			this.load(this.options.data)
 		}
+		if(Mif.Tree.KeyNav){
+			new Mif.Tree.KeyNav(this);
+		}
 	},
 	
 	initEvents: function(){
