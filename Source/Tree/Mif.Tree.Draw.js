@@ -8,21 +8,21 @@ Mif.Tree.Draw={
 		var prefix='mif-tree-node-';
 		if($defined(node.property.checked)){
 			if(!node.property.hasCheckbox) node.property.checked='nochecked';
-			var checkbox='<checkbox class="mif-tree-checkbox mif-tree-node-'+node.property.checked+'" uid="'+node.UID+'">'+Mif.Tree.Draw.zeroSpace+'</checkbox>';
+			var checkbox='<checkbox class="mif-tree-node-'+node.property.checked+'" uid="'+node.UID+'">'+Mif.Tree.Draw.zeroSpace+'</checkbox>';
 		}else{
 			var checkbox='';
 		}
 		html=html||[];
 		html.push(
-		'<row class="mif-tree-node ',(node.isLast() ? 'mif-tree-node-last' : ''),'"'+(node.hidden ? ' style="display:none"' : '')+' id="',prefix,node.UID,'">',
-			'<node class="mif-tree-node-wrapper ',node.property.cls,(node.property.selected ? ' mif-tree-node-selected' : ''),'" uid="',node.UID,'">',
-				'<gadget class="mif-tree-gadjet mif-tree-gadjet-',node.getGadjetType(),'" uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</gadget>',
+		'<row class="',(node.isLast() ? 'mif-tree-node-last' : ''),'"'+(node.hidden ? ' style="display:none"' : '')+' id="',prefix,node.UID,'">',
+			'<node class="',node.property.cls,(node.property.selected ? ' mif-tree-node-selected' : ''),'" uid="',node.UID,'">',
+				'<gadget class="mif-tree-gadget-',node.getGadgetType(),'" uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</gadget>',
 				checkbox,
-				'<icon class="mif-tree-icon ',(node.property.closeIconUrl?'" style="background-image: url('+node.property.closeIconUrl+')" ': node.property.closeIcon+'"'),' uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</icon>',
-				'<name class="mif-tree-name" uid="',node.UID,'">',node.property.name,'</name>',
+				'<icon class="',(node.property.closeIconUrl?'" style="background-image: url('+node.property.closeIconUrl+')" ': node.property.closeIcon+'"'),' uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</icon>',
+				'<name uid="',node.UID,'">',node.property.name,'</name>',
 			'</node>',
-			'<children class="mif-tree-children" style="display:none"></children>',
-		'</row>'
+		'</row>',
+		'<children style="display:none"></children>'
 		);
 		return html;
 	},
@@ -32,7 +32,7 @@ Mif.Tree.Draw={
 		parent.$draw=true;
 		var html=[];
 		var children=parent.children;
-		for(var i=0,l=children.length;i<l;i++){
+		for(var i=0, l=children.length; i<l; i++){
 			this.getHTML(children[i],html);
 		}
 		container=container || parent.getDOM('children');
@@ -53,7 +53,7 @@ Mif.Tree.Draw={
 	},
 	
 	node: function(node){
-		return new Element('div').inject(document.body).set('html', this.getHTML(node).join('')).dispose().getFirst();
+		return new Element('div').inject(document.body).set('html', this.getHTML(node).join('')).dispose().getChildren();
 	},
 	
 	isUpdatable: function(node){
@@ -68,11 +68,11 @@ Mif.Tree.Draw={
 	update: function(node){
 		if(!this.isUpdatable(node)) return;
 		if(!node.hasChildren()) node.property.open=false;
-		node.getDOM('gadjet').className='mif-tree-gadjet mif-tree-gadjet-'+node.getGadjetType();
+		node.getDOM('gadget').className='mif-tree-gadget-'+node.getGadgetType();
 		if (node.property.closeIconUrl) {
 			node.getDOM('icon').setStyle('background-image', 'url('+(node.isOpen() ? node.property.openIconUrl : node.property.closeIconUrl)+')');
 		} else {
-			node.getDOM('icon').className='mif-tree-icon '+node.property[node.isOpen() ? 'openIcon' : 'closeIcon'];
+			node.getDOM('icon').className=node.property[node.isOpen() ? 'openIcon' : 'closeIcon'];
 		}
 		node.getDOM('node')[(node.isLastVisible() ?'add' : 'remove')+'Class']('mif-tree-node-last');
 		if(node.$loading) return;

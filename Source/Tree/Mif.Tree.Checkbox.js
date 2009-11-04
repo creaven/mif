@@ -1,6 +1,45 @@
 /*
 Mif.Tree.Checkbox
 */
+
+Mif.sheet.addRules({
+	
+	'tree checkbox': {
+		'padding-left': '18px',
+		'background-image': 'checkboxes.gif'.toMifImg(),
+		'background-repeat': 'no-repeat'
+	},
+
+	'.mif-tree-node-checked': {
+		'background-position': '0px center'
+	},
+
+	'.mif-tree-node-unchecked': {
+		'background-position': '-18px center'
+	},
+
+	'.mif-tree-node-nochecked': {
+		'background-position': '-108px center'
+	},
+
+	'.mif-tree-hover-checkbox .mif-tree-node-checked': {
+		'background-position': '-36px center'
+	},
+
+	'.mif-tree-hover-checkbox .mif-tree-node-unchecked': {
+		'background-position': '-54px center'
+	},
+
+	'.mif-tree-node-partially': {
+		'background-position': '-72px center'
+	},
+
+	'.mif-tree-hover-checkbox .mif-tree-node-partially': {
+		'background-position': '-90px center'
+	}
+	
+})
+
 Mif.Tree.implement({
 
 	initCheckbox: function(type){

@@ -1,11 +1,21 @@
 /*
 Mif.Tree.Selection
 */
+
+Mif.sheet.addRules({
+	
+	'tree node.mif-tree-node-selected': {
+		'background-color': '#3871BD',
+		'color': '#fff'
+	}
+	
+});
+
 Mif.Tree.implement({
 	
 	initSelection: function(){
 		this.defaults.selectClass='';
-		this.wrapper.addEvent('mousedown', this.attachSelect.bindWithEvent(this));
+		this.wrapper.addEvent('mousedown', this.attachSelect.bind(this));
 	},
 	
 	attachSelect: function(event){

@@ -25,11 +25,11 @@ Mif.Tree.Node = new Class({
 		if(what=='node') return node;
 		var wrapper=node.getFirst();
 		if(what=='wrapper') return wrapper;
-		if(what=='children') return wrapper.getNext();
-		return wrapper.getElement('.mif-tree-'+what);
+		if(what=='children') return node.getNext();
+		return wrapper.getElement(what);
 	},
 	
-	getGadjetType: function(){
+	getGadgetType: function(){
 		return (this.property.loadable && !this.isLoaded()) ? 'plus' : (this.hasVisibleChildren() ? (this.isOpen() ? 'minus' : 'plus') : 'none');
 	},
 	

@@ -126,6 +126,23 @@ String.implement({
 		}else{
 			return 'url(mhtml:'+MifImage+'!'+this+')';
 		}
+	},
+	
+	repeat: function(times){
+		return new Array(times + 1).join(this);
+	}
+	
+});
+
+Array.implement({
+	
+	inject: function(added, current, where){//inject added after or before current;
+		var pos=this.indexOf(current)+(where=='before' ? 0 : 1);
+		for(var i=this.length-1;i>=pos;i--){
+			this[i+1]=this[i];
+		}
+		this[pos]=added;
+		return this;
 	}
 	
 });

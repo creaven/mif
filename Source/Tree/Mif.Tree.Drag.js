@@ -1,6 +1,71 @@
 /*
 Mif.Tree.Drag
 */
+
+Mif.sheet.addRules({
+	
+	'.mif-tree-pointer': {
+		'height': '1px',
+		'overflow': 'hidden',
+		'position': 'absolute',
+		'background-image': '1.gif'.toMifImg(),
+		'background-repeat': 'repeat-x',
+		'background-color': '#292fef'
+	},
+
+	'.mif-tree-ghost': {
+		'background-color': '#fff',
+		'border': 'solid 2px #e8e8f7',
+		'padding-left': '2px',
+		'position': 'absolute'
+	},
+
+	'.mif-tree-ghost .mif-tree-node-wrapper': {
+		'background': 'none'
+	},
+
+	'.mif-tree-ghost span.mif-tree-text': {
+		'padding-top': '1px',
+		'padding-bottom': '1px'
+	},
+
+	'.mif-tree-ghost-icon': {
+		'padding-left': '16px',
+		'background-color': '#fff',
+		'background-repeat': 'no-repeat',
+		'background-image': 'dropzone.gif'.toMifImg()
+	},
+
+	'.mif-tree-ghost-after': {
+		'background-position': '-64px 2px'
+	},
+
+	'.mif-tree-ghost-before': {
+		'background-position': '-48px 2px'
+	},
+
+	'.mif-tree-ghost-between': {
+		'background-position': '-16px 2px'
+	},
+
+	'.mif-tree-ghost-inside': {
+		'background-position': '-0px 2px'
+	},
+
+	'.mif-tree-ghost-notAllowed': {
+		'background-position': '-32px 2px'
+	},
+
+	'.mif-tree-drag-current': {
+		'background-color': '#cfcfd8'
+	},
+
+	'.mif-tree-replace': {
+		'background-color': '#99c8fb'
+	}
+	
+});
+
 Mif.Tree.Drag = new Class({
 	
 	Implements: [new Events, new Options],

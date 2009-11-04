@@ -2,6 +2,22 @@
 Mif.Tree.Rename
 */
 
+Mif.sheet.addRules({
+	
+	'tree .rename': {
+		'display': 'inline',
+		'line-height': '14px',
+		'height': '14px',
+		'cursor': 'default',
+		'overflow': 'hidden',
+		'font-family': 'sans-serif',
+		'font-size': '11px',
+		'padding': '1px 0',
+		'border': 'solid 1px black'
+	}
+	
+});
+
 Mif.Tree.implement({
 	
 	attachRenameEvents: function(){
@@ -34,7 +50,7 @@ Mif.Tree.implement({
 	
 	getInput: function(){
 		if(!this.input){
-			this.input=new Element('input').addClass('mif-tree-rename');
+			this.input=new Element('input').addClass('rename');
 			this.input.addEvent('focus',function(){this.select()});
 			Mif.Tree.Rename.autoExpand(this.input);
 		}

@@ -39,10 +39,6 @@ Mif.sheet.addRules({
 		'width': '100%'
 	},
 
-	'tree children node': {
-		'padding-left': '18px'
-	},
-
 	'tree children children node': {
 		'padding-left': '36px'
 	},
@@ -50,12 +46,7 @@ Mif.sheet.addRules({
 	'tree row': {
 		'width': '100%',
 		'position': 'relative'
-	/*background:url('line.gif') repeat-y 8px 0px;*/
 	},
-
-	/*.mif-tree-node-last{
-	background:url('line.gif') no-repeat 8px 0px;
-	}*/
 
 	'tree name': {
 		'cursor': 'default',
@@ -67,49 +58,28 @@ Mif.sheet.addRules({
 	/*background:url('hline.gif') no-repeat 9px center;*/
 	},
 
-	/*@gadjets*/
+	/*@gadgets*/
 	'tree gadget': {
-		'background-image': 'gadgets.gif'.toMifImg(),
 		'padding-right': '16px',
 		'z-index': '1',
 		'overflow': 'hidden',
 		'background-repeat': 'no-repeat',
-		'cursor': 'default'
+		'cursor': 'default',
+		'background-position': 'center center'
 	},
 
-	'.mif-tree-gadjet-none': {
-		'background': 'none'
+	'.mif-tree-gadget-none': {
+		'visibility': 'hidden'
 	},
 
-	'.mif-tree-gadjet-minus': {
-		'background-position': '0px 50%'
+	'.mif-tree-gadget-minus': {
+		'background-image': 'down.png'.toMifImg()
 	},
 
-	'.mif-tree-gadjet-plus': {
-		'background-position': '-18px 50%'
+	'.mif-tree-gadget-plus': {
+		'background-image': 'right.png'.toMifImg()
 	},
 
-	'.mif-tree-gadjet-middle': {
-		'background-position': '-36px 50%'
-	},
-
-	'.mif-tree-gadjet-hover .mif-tree-gadjet-minus': {
-		'background-position': '-54px 50%'
-	},
-
-	'.mif-tree-gadjet-hover .mif-tree-gadjet-plus': {
-		'background-position': '-72px 50%'
-	},
-
-	'.mif-tree-gadjet-hover .mif-tree-gadjet-middle': {
-		'background-position': '-90px 50%'
-	},
-
-	/*.mif-tree-gadjet-hover{
-	background-image:url('gadjets-hover.gif');
-	}*/
-
-	/*@icons*/
 	'tree icon': {
 		'padding-right': '18px',
 		'background-position': '0 50%',
@@ -126,10 +96,23 @@ Mif.sheet.addRules({
 	},
 
 	'.mif-tree-loader-open-icon, .mif-tree-loader-close-icon': {
-		'background-image': 'mootree_loader.gif'.toMifImg()
-	}
+		'background-image': 'loader.gif'.toMifImg()
+	}/*,
+	
+	'tree row:hover name': {
+		'text-decoration': 'underline'
+	},
+	
+	'tree row:hover children name':{
+		'text-decoration': 'none'
+	}*/
 	
 });
+
+for(var i=1; i<30; i++){
+	var rule='tree '+'children '.repeat(i)+'node';
+	Mif.sheet.addRule(rule, 'padding-left: '+18*i+'px');
+}
 
 
 Mif.Tree = new Class({
@@ -177,7 +160,6 @@ Mif.Tree = new Class({
 		this.initEvents();
 		this.initScroll();
 		this.initSelection();
-		this.initHover();
 		this.addEvent('drawChildren', function(parent){
 			var nodes=parent._toggle||[];
 			for(var i=0, l=nodes.length; i<l; i++){
@@ -198,16 +180,16 @@ Mif.Tree = new Class({
 	
 	initEvents: function(){
 		this.wrapper.addEvents({
-			mousemove: this.mouse.bindWithEvent(this),
-			mouseover: this.mouse.bindWithEvent(this),
-			mouseout: this.mouse.bindWithEvent(this),
+			mousemove: this.mouse.bind(this),
+			mouseover: this.mouse.bind(this),
+			mouseout: this.mouse.bind(this),
 			mouseleave: this.mouseleave.bind(this),
 			mousedown: function(event){
 				this.fireEvent('mousedown');
-				return this.stopSelection(event);
+				this.stopSelection(event);
 			}.bind(this),
-			click: this.toggleClick.bindWithEvent(this),
-			dblclick: this.toggleDblclick.bindWithEvent(this)
+			click: this.toggleClick.bind(this),
+			dblclick: this.toggleDblclick.bind(this)
 		});
 		if(Browser.Engine.trident){
 			this.wrapper.addEvent('selectstart', this.stopSelection.bind(this));
@@ -215,8 +197,8 @@ Mif.Tree = new Class({
 		this.container.addEvent('click', this.focus.bind(this));
 		document.addEvent('click', this.blurOnClick.bind(this));
 		document.addEvents({
-			keydown: this.keyDown.bindWithEvent(this),
-			keyup: this.keyUp.bindWithEvent(this)
+			keydown: this.keyDown.bind(this),
+			keyup: this.keyUp.bind(this)
 		});
     },
 	
@@ -284,7 +266,7 @@ Mif.Tree = new Class({
 		while(!/mif-tree/.test(target.className)){
 			target=target.parentNode;
 		}
-		var test=target.className.match(/mif-tree-(gadjet)-[^n]|mif-tree-(icon)|mif-tree-(name)|mif-tree-(checkbox)/);
+		var test=target.tagName.toLowerCase().match(/(gadget)|(icon)|(name)|(checkbox)/);
 		if(!test){
 			var y=this.mouse.coords.y;
 			if(y==-1||!this.$index) {
@@ -339,7 +321,7 @@ Mif.Tree = new Class({
 	},
 	
 	toggleClick: function(event){
-		if(this.mouse.target!='gadjet') return;
+		if(this.mouse.target!='gadget') return;
 		this.mouse.node.toggle();
 	},
 	
@@ -416,16 +398,3 @@ Mif.Tree = new Class({
 });
 
 Mif.Tree.UID=0;
-
-Array.implement({
-	
-	inject: function(added, current, where){//inject added after or before current;
-		var pos=this.indexOf(current)+(where=='before' ? 0 : 1);
-		for(var i=this.length-1;i>=pos;i--){
-			this[i+1]=this[i];
-		}
-		this[pos]=added;
-		return this;
-	}
-	
-});
