@@ -10,8 +10,7 @@ window.addEvent('domready',function(){
 		dfltType:'folder',
 		animate: {
 			toggle: false
-		},
-		height:20
+		}
 	})
 	.load({
 		url: 'Tree/files/simpleTree.json'

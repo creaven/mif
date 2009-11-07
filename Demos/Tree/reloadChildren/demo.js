@@ -48,8 +48,7 @@ window.addEvent('domready',function(){
 				closeIcon: 'mif-tree-bin-close-icon'
 			}
 		},
-		dfltType:'folder',
-		height: 18
+		dfltType:'folder'
 	});
 	
 	tree.addEvent('loadChildren', function(parent){

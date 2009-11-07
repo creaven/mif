@@ -2,7 +2,7 @@
 height:300px;
 width:200px;
 position:relative;
-border:solid 1px #c7c7c7;
+overflow:auto;
 }
 
 .mif-tree-wrapper{
@@ -17,27 +17,22 @@ padding-left:4px;
 
 .dom-array{
 color:#6f6893;
-font-weight:bold;
 }
 
 .dom-object{
 color:#000;
-font-weight:bold;
 }
 
 .dom-string{
 color:#f35454;
-font-weight:bold;
 }
 
 .dom-number{
 color:#23268d;
-font-weight:bold;
 }
 
 .dom-function{
 color:#409d4b;
-font-weight:bold;
 }
 
 .mif-tree-empty-icon{

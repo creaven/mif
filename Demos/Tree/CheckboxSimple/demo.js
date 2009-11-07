@@ -32,7 +32,6 @@ window.addEvent('domready',function(){
 				closeIcon: 'mif-tree-bin-close-icon'
 			}
 		},
-		height: 18,
 		onCheck: function(node){
 			$('log').adopt(new Element('li').set('html', node.get('name')+' checked'));
 		},

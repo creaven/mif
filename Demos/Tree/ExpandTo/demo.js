@@ -4,8 +4,7 @@ window.addEvent('domready',function(){
 			new Mif.Tree.KeyNav(this);
 		},
 		container: $('tree_container'),// tree container
-		forest: true,
-		height: 18//node height
+		forest: true
 	});
 	
 	var jsonChildren=[

@@ -10,8 +10,7 @@ window.addEvent('domready',function(){
 				closeIcon: 'mif-tree-close-icon'
 			}
 		},
-		dfltType:'folder',
-		height:20
+		dfltType:'folder'
 	})
 	.addEvent('load', function(){
 		this.root.toggle();

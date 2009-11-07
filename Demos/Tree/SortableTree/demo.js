@@ -3,8 +3,7 @@ window.addEvent('domready',function(){
 		initialize: function(){
 			this.initSortable();
 		},
-		container: $('tree_container'),// tree container
-		height: 18//node height
+		container: $('tree_container')// tree container
 	});
 
 	var json=[	

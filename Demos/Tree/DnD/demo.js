@@ -97,7 +97,6 @@ window.addEvent('domready',function(){
 				closeIcon: 'mif-tree-bin-close-icon'
 			}
 		},
-		height: 18,
 		onCopy: function(from, to, where, copy){
 			if(from.getParent()==copy.getParent()){
 				copy.set({

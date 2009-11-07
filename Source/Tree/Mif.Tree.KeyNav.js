@@ -67,7 +67,7 @@ Mif.Tree.KeyNav=new Class({
 				return false;
 			}
 		}else{
-			if( current.hasChildren(true) && current.isOpen() ){
+			if( current.hasChildren() && current.isOpen() ){
 				current.toggle();
 			}else{
 				if(current.tree.forest && current.getParent().isRoot()) return false;
@@ -77,12 +77,12 @@ Mif.Tree.KeyNav=new Class({
 	},
 	
 	goRight: function(current){
-		if(!current.hasChildren(true)&&!current.loadable){
+		if(!current.hasChildren()&&!current.property.loadable){
 			return false;
 		}else if(!current.isOpen()){
 			return current.toggle();
 		}else{
-			return this.tree.select(current.getFirst(true));
+			return this.tree.select(current.getFirst());
 		}
 	},
 	

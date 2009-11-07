@@ -31,8 +31,7 @@ window.addEvent('domready',function(){
 				closeIcon: 'mif-tree-close-icon'// css class close icon
 			}
 		},
-		dfltType:'folder',//default node type
-		height: 18//node height
+		dfltType:'folder'//default node type
 	});
 	
 	var children=[

@@ -2,9 +2,9 @@
 
 import os, re, base64
 
-image_dir='../../Source/image'
-dst='../../Source/image/MifImage.js'
-dst_ie='../../Source/image/MifImage.mht'
+image_dir='../../Source/images'
+dst='../../Source/images/MifImage.js'
+dst_ie='../../Source/images/MifImage.mht'
 
 data={}
 

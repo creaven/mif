@@ -1,8 +1,7 @@
 window.addEvent('domready',function(){
 	SimpleTree = new Mif.Tree({
 		container: $('tree_container'),
-		data: 'Tree/files/simpleTree.json',
-		height: 18
+		data: 'Tree/files/simpleTree.json'
 	})
 	.addEvent('load', function(){
 		this.root.recursive(function(){

@@ -5,8 +5,7 @@ window.addEvent('domready',function(){
 			green: {
 				cls: 'green'
 			}
-		},
-		height: 18//node height
+		}
 	});
 
 	var json=[

@@ -1,7 +1,6 @@
 window.addEvent('domready',function(){
 	tree = new Mif.Tree({
-		container: $('tree_container'),
-		height:20
+		container: $('tree_container')
 	})
 	.load({
 		url: 'Tree/files/simpleTree.json'

@@ -1,7 +1,6 @@
 window.addEvent('domready',function(){
 	tree = new Mif.Tree({
-		container: $('tree_container'),// tree container
-		height: 18//node height
+		container: $('tree_container')// tree container
 	});
 
 	var json=[

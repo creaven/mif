@@ -3,6 +3,7 @@ height:200px;
 position:relative;
 width:200px;
 border:solid 1px #b2b2b2;
+overflow:auto;
 }
 
 #log{
@@ -51,9 +52,4 @@ width:160px;
 #submit_button input{
 float:right;
 width:100px;
-}
-
-
-.mif-tree-wrapper{
-line-height:20px;/******Tree node height******/
 }

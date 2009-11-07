@@ -142,15 +142,15 @@ Mif.Tree.Node = new Class({
 	_getNextVisible: function(){
 		var current=this;
 		if(current.isRoot()){
-			if(!current.isOpen() || !current.hasChildren(true)) return false;
-			return current.getFirst(true);
+			if(!current.isOpen() || !current.hasChildren()) return false;
+			return current.getFirst();
 		}else{
-			if(current.isOpen() && current.getFirst(true)){
-				return current.getFirst(true);
+			if(current.isOpen() && current.getFirst()){
+				return current.getFirst();
 			}else{
 				var parent=current;
 				do{
-					current=parent.getNext(true);
+					current=parent.getNext();
 					if(current) return current;
 				}while( parent=parent.parentNode );
 				return false;

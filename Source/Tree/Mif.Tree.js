@@ -14,15 +14,19 @@ Mif.sheet.addRules({
 	'tree': {
 		'position': 'relative',
 		'width': '100%',
-		'height':'100%',
+		'height': Browser.Engine.trident ? 'auto' : '100%',
+		'min-height': '100%',
 		'margin': '0',
 		'padding': '0',
-		'overflow': 'auto',
+		'overflow': 'visible',
 		'font-family': 'sans-serif',
-		'font-size': '11px',
+		'font-size': '12px',
 		'line-height': '18px',
 		'white-space': 'nowrap',
-		'cursor': 'default'
+		'cursor': 'default',
+		'display': 'table',
+		'background-image': 'zebra.png'.toMifImg(),
+		'background-attachment': 'scroll'
 	},
 
 	'tree:focus': {
@@ -88,11 +92,11 @@ Mif.sheet.addRules({
 	},
 	
 	'.mif-tree-open-icon': {
-		'background-image': 'openicon.gif'.toMifImg()
+		'background-image': 'openicon.png'.toMifImg()
 	},
 
 	'.mif-tree-close-icon': {
-		'background-image': 'closeicon.gif'.toMifImg()
+		'background-image': 'closeicon.png'.toMifImg()
 	},
 
 	'.mif-tree-loader-open-icon, .mif-tree-loader-close-icon': {
@@ -130,18 +134,6 @@ Mif.Tree = new Class({
 	
 	initialize: function(options) {
 		this.setOptions(options);
-		$extend(this, {
-			types: $extend({
-				dflt: {}
-			}, this.options.types),
-			forest: this.options.forest,
-			animateScroll: this.options.animateScroll,
-			height: this.options.height,
-			container: $(options.container),
-			UID: 0,
-			key: {},
-			expanded: []
-		});
 		this.defaults={
 			name: '',
 			cls: '',
@@ -152,6 +144,18 @@ Mif.Tree = new Class({
 			open: false,
 			type: 'dflt'
 		};
+		$extend(this, {
+			types: $extend({
+				dflt: {}
+			}, this.options.types),
+			forest: this.options.forest,
+			animateScroll: this.options.animateScroll,
+			container: $(options.container),
+			UID: 0,
+			key: {},
+			expanded: []
+		});
+		this.height=Mif.sheet.getRule('tree').style.lineHeight.toInt();
 		this.$index=[];
 		this.updateOpenState();
 		if(this.options.expandTo) this.initExpandTo();
@@ -187,6 +191,7 @@ Mif.Tree = new Class({
 			mousedown: function(event){
 				this.fireEvent('mousedown');
 				this.stopSelection(event);
+				event.preventDefault();
 			}.bind(this),
 			click: this.toggleClick.bind(this),
 			dblclick: this.toggleDblclick.bind(this)
@@ -251,7 +256,6 @@ Mif.Tree = new Class({
 		this.mouse.coords={x:null,y:null};
 		this.mouse.target=false;
 		this.mouse.node=false;
-		if(this.hover) this.hover();
 	},
 	
 	mouse: function(event){
@@ -316,7 +320,7 @@ Mif.Tree = new Class({
 	
 	toggleDblclick: function(event){
 		var target=this.mouse.target;
-		if(!(target=='name'||target=='icon')) return;
+		//if(!(target=='name'||target=='icon')) return;
 		this.mouse.node.toggle();
 	},
 	

@@ -1,6 +1,6 @@
 if(Browser.Engine.trident && Browser.Engine.version==4){
 	throw Error('ie6 not supported');
-}
+};
 
 Mif={
 	version: 'dev',

@@ -22,7 +22,6 @@ Mif.Tree Method: constructor {#Mif.Tree:constructor}
 * dfltType      - (*string*) default type.
 * forest        - (*boolean*: defaults to false) if true tree don't have root node.
 * animateScroll - (*boolean*: defaults to true) animate scrollTo function.
-* height        - tree node height.
 * expandTo      - (*boolean*: defaults to true) if true loaded nodes with expandTo property set to true will be shown using expandTo function.
 * data          - (*object*) tree will be loaded using load function - tree.load(data)
 

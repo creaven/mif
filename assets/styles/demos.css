@@ -303,6 +303,7 @@ text-align:center;
 border: solid 1px #d2d2d2;
 border-top:none;
 max-height:300px;
+height:300px;
 overflow:auto;
 padding-left:1em;
 color:#000;

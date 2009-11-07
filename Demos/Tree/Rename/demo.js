@@ -1,7 +1,6 @@
 window.addEvent('domready',function(){
 	tree = new Mif.Tree({
 		container: $('tree_container'),// tree container
-		height: 18,//node height
 		onRename: function(node, newName, oldName){
 			alert(oldName+' renamed to '+newName);
 		}

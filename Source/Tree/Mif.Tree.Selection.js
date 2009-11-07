@@ -5,7 +5,7 @@ Mif.Tree.Selection
 Mif.sheet.addRules({
 	
 	'tree node.mif-tree-node-selected': {
-		'background-color': '#3871BD',
+		'background-color': '#4891F3',
 		'color': '#fff'
 	}
 	

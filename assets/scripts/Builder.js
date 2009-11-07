@@ -33,8 +33,7 @@ var Builder = {
 			'Tree' : [
 				'Mif.Tree.mootools-patch', 
 				'Mif.Tree', 
-				'Mif.Tree.Node', 
-				'Mif.Tree.Hover', 
+				'Mif.Tree.Node',
 				'Mif.Tree.Selection', 
 				'Mif.Tree.Load', 
 				'Mif.Tree.Draw',

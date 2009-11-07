@@ -111,7 +111,6 @@ DOMTree = new Mif.Tree({
 		}
 	},
 	dfltType:'open',
-	height: 18,
 	initialize: function(){
 		new Mif.Tree.KeyNav(this);
 	},

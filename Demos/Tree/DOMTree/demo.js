@@ -23,7 +23,6 @@ DOMTree = new Mif.Tree({
 		}
 	},
 	sortable: true,
-	height: 18,
 	initialize: function(){
 		this.initSortable();
 		new Mif.Tree.KeyNav(this);
@@ -76,6 +75,5 @@ DOMTree.loadOptions=function(node){
 			}
 		}
 	});
-	console.log(json)
 	return {json: json};
 }

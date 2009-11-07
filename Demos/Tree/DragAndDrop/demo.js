@@ -50,7 +50,6 @@ window.addEvent('domready',function(){
 			}
 		},
 		dfltType:'folder',
-		height: 18,
 		onCopy: function(from, to, where, copy){
 			if(from.getParent()==copy.getParent()){
 				copy.set({
@@ -113,7 +112,6 @@ window.addEvent('domready',function(){
 			}
 		},
 		dfltType:'folder',
-		height: 18,
 		onCopy: function(from, to, where, copy){
 			if(from.getParent()==copy.getParent()){
 				copy.set({

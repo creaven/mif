@@ -1,7 +1,6 @@
 window.addEvent('domready',function(){
-	var tree = new Mif.Tree({
-		container: $('tree_container'),// tree container
-		height: 18//node height TODO it's ugly, should be removed
+	tree = new Mif.Tree({
+		container: $('tree_container')// tree container
 	});
 
 	var json=[
@@ -32,7 +31,7 @@ window.addEvent('domready',function(){
 			]
 		}
 	];
-	
 	// load tree from json.
-	tree.load(json);	
+	tree.load(json);
+	
 });
