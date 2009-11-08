@@ -119,7 +119,6 @@ Mif.Tree.Node.implement({
 			if(this.id) delete Mif.ids[this.id];
 		});
 		this.tree.mouse.node=false;
-		this.tree.updateHover();
 	}
 	
 });

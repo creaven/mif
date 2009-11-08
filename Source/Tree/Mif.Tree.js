@@ -3,7 +3,7 @@ Mif.Tree
 */
 
 Mif.sheet.addRules({
-	'row, children, tree, node': {
+	'row, children, tree, node, wrapper': {
 		'display': 'block'
 	},
 
@@ -14,19 +14,26 @@ Mif.sheet.addRules({
 	'tree': {
 		'position': 'relative',
 		'width': '100%',
-		'height': Browser.Engine.trident ? 'auto' : '100%',
+		'height': '100%',
 		'min-height': '100%',
-		'margin': '0',
-		'padding': '0',
-		'overflow': 'visible',
+		'overflow': 'auto',
 		'font-family': 'sans-serif',
 		'font-size': '12px',
 		'line-height': '18px',
 		'white-space': 'nowrap',
-		'cursor': 'default',
+		'cursor': 'default'
+	},
+	
+	'tree wrapper': {
+		'position': 'relative',
+		'width': '100%',
+		'height': Browser.Engine.trident ? 'auto' : '100%',
+		'min-height': '100%',
+		'overflow': 'visible',
+		'width': '100%',
 		'display': 'table',
-		'background-image': 'zebra.png'.toMifImg(),
-		'background-attachment': 'scroll'
+		'position': 'absolute',
+		'background-image': 'zebra.png'.toMifImg()
 	},
 
 	'tree:focus': {
@@ -98,10 +105,6 @@ Mif.sheet.addRules({
 	'.mif-tree-close-icon': {
 		'background-image': 'closeicon.png'.toMifImg()
 	},
-
-	'.mif-tree-loader-open-icon, .mif-tree-loader-close-icon': {
-		'background-image': 'loader.gif'.toMifImg()
-	}/*,
 	
 	'tree row:hover name': {
 		'text-decoration': 'underline'
@@ -109,14 +112,16 @@ Mif.sheet.addRules({
 	
 	'tree row:hover children name':{
 		'text-decoration': 'none'
-	}*/
+	}
 	
 });
 
-for(var i=1; i<30; i++){
-	var rule='tree '+'children '.repeat(i)+'node';
-	Mif.sheet.addRule(rule, 'padding-left: '+18*i+'px');
-}
+(function(){
+	for(var i=1; i<30; i++){
+		var rule='tree '+'children '.repeat(i)+'node';
+		Mif.sheet.addRule(rule, 'padding-left: '+18*i+'px');
+	}
+})();
 
 
 Mif.Tree = new Class({
@@ -153,14 +158,17 @@ Mif.Tree = new Class({
 			container: $(options.container),
 			UID: 0,
 			key: {},
-			expanded: []
+			expanded: [],
+			mouse: {}
 		});
 		this.height=Mif.sheet.getRule('tree').style.lineHeight.toInt();
 		this.$index=[];
 		this.updateOpenState();
 		if(this.options.expandTo) this.initExpandTo();
 		Mif.Tree.UID++;
-		this.wrapper=new Element('tree').addClass('mif-tree-wrapper').injectInside(this.container);
+		this.element=new Element('tree').inject(this.container);
+		this.wrapper=new Element('wrapper').inject(this.element);
+		this.bound={};
 		this.initEvents();
 		this.initScroll();
 		this.initSelection();
@@ -183,24 +191,28 @@ Mif.Tree = new Class({
 	},
 	
 	initEvents: function(){
+		$extend(this.bound, {
+			onMouseleave: this.onMouseleave.bind(this),
+			onMousedown: this.onMousedown.bind(this),
+			onMouseup: this.onMouseup.bind(this),
+			stopSelection: this.stopSelection.bind(this),
+			toggleOnClick: this.toggleOnClick.bind(this),
+			toggleOnDblclick: this.toggleOnDblclick.bind(this),
+			blurOnClick: this.blurOnClick.bind(this),
+			focus: this.focus.bind(this)
+		});
 		this.wrapper.addEvents({
-			mousemove: this.mouse.bind(this),
-			mouseover: this.mouse.bind(this),
-			mouseout: this.mouse.bind(this),
-			mouseleave: this.mouseleave.bind(this),
-			mousedown: function(event){
-				this.fireEvent('mousedown');
-				this.stopSelection(event);
-				event.preventDefault();
-			}.bind(this),
-			click: this.toggleClick.bind(this),
-			dblclick: this.toggleDblclick.bind(this)
+			mouseleave: this.bound.onMouseleave,
+			mousedown: this.bound.onMousedown,
+			mouseup: this.bound.onMouseup,
+			click: this.bound.toggleOnClick,
+			dblclick: this.bound.toggleOnDblclick
 		});
 		if(Browser.Engine.trident){
-			this.wrapper.addEvent('selectstart', this.stopSelection.bind(this));
-		}        
-		this.container.addEvent('click', this.focus.bind(this));
-		document.addEvent('click', this.blurOnClick.bind(this));
+			this.wrapper.addEvent('selectstart', this.bound.stopSelection);
+		};
+		this.addEvent('mousedown', this.bound.focus);
+		document.addEvent('click', this.bound.blurOnClick);
 		document.addEvents({
 			keydown: this.keyDown.bind(this),
 			keyup: this.keyUp.bind(this)
@@ -219,7 +231,7 @@ Mif.Tree = new Class({
 	blurOnClick: function(event){
 		var target=event.target;
 		while(target){
-			if(target==this.container) return;
+			if(target==this.element) return;
 			target=target.parentNode;
 		}
 		this.blur();
@@ -228,71 +240,49 @@ Mif.Tree = new Class({
 	focus: function(){
 		if(this.focused) return this;
 		this.focused=true;
-		this.container.addClass('mif-tree-focused');
+		this.element.addClass('mif-tree-focused');
 		return this.fireEvent('focus');
 	},
     
 	blur: function(){
 		if(!this.focused) return this;
 		this.focused=false;
-		this.container.removeClass('mif-tree-focused');
+		this.element.removeClass('mif-tree-focused');
 		return this.fireEvent('blur');
 	},
 	
-	$getIndex: function(){//return array of visible nodes.
+	$getIndex: function(){//returns array of visible nodes.
 		this.$index=[];
 		var node=this.forest ? this.root.getFirst() : this.root;
 		var previous=node;
 		while(node){
-			if(!(previous.hidden && previous.contains(node))){
-				if(!node.hidden) this.$index.push(node);
+			if(!(previous.property.hidden && previous.contains(node))){
+				if(!node.property.hidden) this.$index.push(node);
 				previous=node;
 			}
 			node=node._getNextVisible();
 		}
 	},
 	
-	mouseleave: function(){
+	onMouseleave: function(){
 		this.mouse.coords={x:null,y:null};
 		this.mouse.target=false;
 		this.mouse.node=false;
 	},
 	
-	mouse: function(event){
+	onMousedown: function(event){
 		this.mouse.coords=this.getCoords(event);
-		var target=this.getTarget(event);
-		this.mouse.target=target.target;
-		this.mouse.node	= target.node;
+		var target=document.elementFromPoint(event.page.x, event.page.y);
+		if(!target) target=this.element;
+		this.mouse.target=target.tagName.toLowerCase();
+		this.mouse.node=Mif.Tree.Nodes[target.getAttribute('uid')];
+		this.fireEvent('mousedown', [event]);
+		this.stopSelection(event);
+		event.preventDefault();
 	},
 	
-	getTarget: function(event){
-		var target=event.target, node;
-		while(!/mif-tree/.test(target.className)){
-			target=target.parentNode;
-		}
-		var test=target.tagName.toLowerCase().match(/(gadget)|(icon)|(name)|(checkbox)/);
-		if(!test){
-			var y=this.mouse.coords.y;
-			if(y==-1||!this.$index) {
-				node=false;
-			}else{
-				node=this.$index[((y)/this.height).toInt()];
-			}
-			return {
-				node: node,
-				target: 'node'
-			};
-		}
-		for(var i=5;i>0;i--){
-			if(test[i]){
-				var type=test[i];
-				break;
-			}
-		}
-		return {
-			node: Mif.Tree.Nodes[target.getAttribute('uid')],
-			target: type
-		};
+	onMouseup: function(event){
+		this.fireEvent('mouseup', [event]);
 	},
 	
 	getCoords: function(event){
@@ -318,34 +308,33 @@ Mif.Tree = new Class({
 		if(this.focused) this.fireEvent('keyup', [event]);
 	},
 	
-	toggleDblclick: function(event){
+	toggleOnDblclick: function(event){
 		var target=this.mouse.target;
-		//if(!(target=='name'||target=='icon')) return;
 		this.mouse.node.toggle();
 	},
 	
-	toggleClick: function(event){
+	toggleOnClick: function(event){
 		if(this.mouse.target!='gadget') return;
 		this.mouse.node.toggle();
 	},
 	
 	initScroll: function(){
-		this.scroll=new Fx.Scroll(this.wrapper, {link: 'cancel'});
+		this.scroll=new Fx.Scroll(this.element, {link: 'cancel'});
 	},
 	
-	scrollTo: function(node){
+	scrollTo: function(node){//TODO buggy if exists horizontal scroll line
 		var position=node.getVisiblePosition();
 		var top=position*this.height;
-		var up=top<this.wrapper.scrollTop;
-		var down=top>(this.wrapper.scrollTop+this.wrapper.clientHeight-this.height);
+		var up=top<this.element.scrollTop;
+		var down=top>(this.element.scrollTop+this.element.clientHeight-this.height);
 		if(position==-1 || ( !up && !down ) ) {
 			this.scroll.fireEvent('complete');
 			return false;
 		}
 		if(this.animateScroll){
-			this.scroll.start(this.wrapper.scrollLeft, top-(down ? this.wrapper.clientHeight-this.height : this.height));
+			this.scroll.start(this.element.scrollLeft, top-(down ? this.element.clientHeight-this.height : this.height));
 		}else{
-			this.scroll.set(this.wrapper.scrollLeft, top-(down ? this.wrapper.clientHeight-this.height : this.height));
+			this.scroll.set(this.element.scrollLeft, top-(down ? this.element.clientHeight-this.height : this.height));
 			this.scroll.fireEvent('complete');
 		}
 	},

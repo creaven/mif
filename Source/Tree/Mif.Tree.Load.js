@@ -1,6 +1,15 @@
 /*
 Mif.Tree.Load
 */
+
+Mif.sheet.addRules({
+	
+	'.mif-tree-loader-open-icon, .mif-tree-loader-close-icon': {
+		'background-image': 'loader.gif'.toMifImg()
+	}
+	
+});
+
 Mif.Tree.Load={
 		
 	children: function(children, parent, tree){
@@ -80,14 +89,11 @@ Mif.Tree.Node.implement({
 	
 	load: function(options){
 		var options=this.tree.loadOptionsToObject(options);
-		var type=this.get('type');
-		this.set('type', 'loader');
 		var self=this;
 		function success(json){
 			Mif.Tree.Load.children(json, self, self.tree);
 			delete self.$loading;
 			self.property.loaded=true;
-			self.set('type', type);
 			Mif.Tree.Draw.update(self);
 			self.fireEvent('load');
 			self.tree.fireEvent('loadNode', self);

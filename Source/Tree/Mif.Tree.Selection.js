@@ -15,10 +15,11 @@ Mif.Tree.implement({
 	
 	initSelection: function(){
 		this.defaults.selectClass='';
-		this.wrapper.addEvent('mousedown', this.attachSelect.bind(this));
+		this.bound.attachSelection=this.attachSelection.bind(this);
+		this.addEvent('mousedown', this.bound.attachSelection);
 	},
 	
-	attachSelect: function(event){
+	attachSelection: function(event){
 		if(!['icon', 'name', 'node'].contains(this.mouse.target)) return;
 		var node=this.mouse.node;
 		if(!node) return;
