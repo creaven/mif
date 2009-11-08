@@ -4,7 +4,8 @@ Mif.Tree.Drag
 
 Mif.sheet.addRules({
 	
-	'.mif-tree-pointer': {
+	'pointer': {
+		'display': 'block',
 		'height': '1px',
 		'overflow': 'hidden',
 		'position': 'absolute',
@@ -95,27 +96,24 @@ Mif.Tree.Drag = new Class({
 			droppables: [],
 			action: this.options.action
 		});
-		
 		this.addToGroups(this.options.group);
-		
 		this.setDroppables(this.options.droppables);
-		
 		$extend(tree.defaults, {
 			dropDenied: [],
 			dragDisabled: false
 		});
-		tree.addEvent('drawRoot',function(){
+		this.document = tree.wrapper.getDocument();
+		tree.addEvent('drawRoot',function(){//TODO should be rootCreate event
 			tree.root.property.dropDenied.combine(['before', 'after']);
 		});
 		
-		this.pointer=new Element('div').addClass('mif-tree-pointer').injectInside(tree.wrapper);
+		this.pointer=new Element('pointer').inject(tree.element);
 		
 		this.current=Mif.Tree.Drag.current;
 		this.target=Mif.Tree.Drag.target;
 		this.where=Mif.Tree.Drag.where;
 
 		this.element=[this.current, this.target, this.where];
-		this.document = tree.wrapper.getDocument();
 		
 		this.selection = (Browser.Engine.trident) ? 'selectstart' : 'mousedown';
 		
@@ -128,14 +126,14 @@ Mif.Tree.Drag = new Class({
 			eventStop: $lambda(false),
 			leave: this.leave.bind(this),
 			enter: this.enter.bind(this),
-			keydown: this.keydown.bind(this)
+			stopOnEscape: this.stopOnEscape.bind(this)
 		};
 		this.attach();
 		
 		this.addEvent('start', function(){
 			Mif.Tree.Drag.dropZone=this;
 			this.tree.unselect();
-			document.addEvent('keydown', this.bound.keydown);
+			document.addEvent('keydown', this.bound.stopOnEscape);
 			this.setDroppables();
 			this.droppables.each(function(item){
 				item.getElement().addEvents({mouseleave: this.bound.leave, mouseenter: this.bound.enter});
@@ -250,7 +248,7 @@ Mif.Tree.Drag = new Class({
 		return false;
 	},
 	
-	keydown: function(event){
+	stopOnEscape: function(event){
 		if(event.key=='esc') {
 			var zone=Mif.Tree.Drag.dropZone;
 			if(zone) zone.where='notAllowed';
@@ -302,15 +300,15 @@ Mif.Tree.Drag = new Class({
 		Mif.Tree.Drag.startZone=this;
 		
 		this.mouse={start:event.page};
-		this.document.addEvents({mousemove: this.bound.check, mouseup: this.bound.cancel});
-		this.document.addEvent(this.selection, this.bound.eventStop);
+		document.addEvents({mousemove: this.bound.check, mouseup: this.bound.cancel});
+		document.addEvent(this.selection, this.bound.eventStop);
 	},
 	
 	drag: function(event){
 		Mif.Tree.Drag.ghost.position({x:event.page.x+20,y:event.page.y+20});
 		var dropZone=Mif.Tree.Drag.dropZone;
 		if(!dropZone||!dropZone.ondrag) return;
-		Mif.Tree.Drag.dropZone.ondrag(event);
+		dropZone.ondrag(event);
 	},
 
 	ondrag: function(event){

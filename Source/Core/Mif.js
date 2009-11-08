@@ -22,7 +22,7 @@ function $mix(original, extended, defaults){
 	return original;
 };
 
-['tree', 'checkbox', 'row', 'node', 'gadget', 'icon', 'name', 'children', 'background', 'wrapper'].each(function(tag){
+['tree', 'checkbox', 'row', 'node', 'gadget', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer'].each(function(tag){
 	document.createElement(tag);
 });
 

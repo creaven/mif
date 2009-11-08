@@ -15,7 +15,7 @@ Mif.sheet.addRules({
 		'position': 'relative',
 		'width': '100%',
 		'height': '100%',
-		'min-height': '100%',
+		'min-height': Browser.Engine.trident5 ? '100%' : 'auto',
 		'overflow': 'auto',
 		'font-family': 'sans-serif',
 		'font-size': '12px',
@@ -25,12 +25,10 @@ Mif.sheet.addRules({
 	},
 	
 	'tree wrapper': {
-		'position': 'relative',
+		'height': Browser.Engine.trident5 ? 'auto' : '100%',
+		'min-height': Browser.Engine.trident5 ? '100%' : 'auto',
 		'width': '100%',
-		'height': Browser.Engine.trident ? 'auto' : '100%',
-		'min-height': '100%',
 		'overflow': 'visible',
-		'width': '100%',
 		'display': 'table',
 		'position': 'absolute',
 		'background-image': 'zebra.png'.toMifImg()
@@ -264,10 +262,11 @@ Mif.Tree = new Class({
 		}
 	},
 	
-	onMouseleave: function(){
+	onMouseleave: function(event){
 		this.mouse.coords={x:null,y:null};
 		this.mouse.target=false;
 		this.mouse.node=false;
+		this.fireEvent('mouseleave', [event]);
 	},
 	
 	onMousedown: function(event){
