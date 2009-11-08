@@ -15,6 +15,7 @@ Mif.sheet.addRules({
 		'overflow': 'auto',
 		'font-family': '"Lucida Grande", "Lucida Sans Unicode", Arial, Verdana, sans-serif',
 		'font-size': '12px',
+		'color': '#000',
 		'line-height': '18px',
 		'white-space': 'nowrap',
 		'cursor': 'default'
@@ -105,10 +106,6 @@ Mif.sheet.addRules({
 	
 	'tree row:hover name': {
 		'text-decoration': 'underline'
-	},
-	
-	'tree row:hover children name':{
-		'text-decoration': 'none'
 	}
 	
 });
@@ -167,13 +164,6 @@ Mif.Tree = new Class({
 		this.initEvents();
 		this.initScroll();
 		this.initSelection();
-		this.addEvent('drawChildren', function(parent){
-			var nodes=parent._toggle||[];
-			for(var i=0, l=nodes.length; i<l; i++){
-				nodes[i].drawToggle();
-			}
-			parent._toggle=[];
-		});
 		if (this.options.initialize && MooTools.version>='1.2.2') {
 			this.options.initialize.call(this);
 		}
@@ -328,11 +318,11 @@ Mif.Tree = new Class({
 			'drawChildren': function(parent){
 				var children=parent.children;
 				for(var i=0, l=children.length; i<l; i++){
-					children[i].updateOpenState();
+					children[i].drawToggle();
 				}
 			},
 			'drawRoot': function(){
-				this.root.updateOpenState();
+				this.root.drawToggle();
 			}
 		});
 	}

@@ -40,8 +40,6 @@ Mif.Tree.Node = new Class({
 			this.property.open = !this.property.open;
 			if(type=='drawed'){
 				this.drawToggle();
-			}else{
-				parent._toggle=(parent._toggle||[])[this.property.open ? 'include' : 'erase'](this)
 			}
 			this.fireEvent('toggle', [this.property.open]);
 			this.tree.fireEvent('toggle', [this, this.property.open]);
@@ -269,13 +267,6 @@ Mif.Tree.Node = new Class({
 					Mif.Tree.Draw.update(node);
 				});
 				return this;
-		}
-	},
-	
-	updateOpenState: function(){//TODO merge updateOpenState and _toggle
-		if(this.property.open){
-			this.property.open=false;
-			this.toggle();
 		}
 	}
 	
