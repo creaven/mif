@@ -2,6 +2,7 @@ window.addEvent('domready',function(){
 	tree = new Mif.Tree({
 		initialize: function(){
 			new Mif.Tree.KeyNav(this);
+			this.initExpandTo();
 		},
 		container: $('tree_container'),// tree container
 		forest: true
@@ -19,7 +20,7 @@ window.addEvent('domready',function(){
 				},
 				{
 					"name": "nodeB.2",
-					"expandTo": true,//expandTo - ugly, should be refactored
+					"expandTo": true,
 					"children":[
 						{
 							"name": "nodeB.2.1"

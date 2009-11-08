@@ -44,7 +44,8 @@ var Builder = {
 				'Mif.Tree.Drag.Element', 
 				'Mif.Tree.Checkbox', 
 				'Mif.Tree.Rename', 
-				'Mif.Tree.CookieStorage'
+				'Mif.Tree.CookieStorage',
+				'Mif.Tree.Misc'
 			],
 			'Menu' : [
 				'Mif.Menu.Utils', 
@@ -72,7 +73,8 @@ var Builder = {
 				'Mif.Tree.Drag', 
 				'Mif.Tree.Checkbox', 
 				'Mif.Tree.Rename',  
-				'Mif.Tree.CookieStorage'
+				'Mif.Tree.CookieStorage',
+				'Mif.Tree.Misc'
 			]
 		}
 	},
