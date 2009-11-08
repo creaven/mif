@@ -18,11 +18,11 @@ Mif.Tree.Draw={
 			'<node class="',node.property.cls,(node.property.selected ? ' mif-tree-node-selected' : ''),'" uid="',node.UID,'">',
 				'<gadget class="mif-tree-gadget-',node.getGadgetType(),'" uid="',node.UID,'"></gadget>',
 				checkbox,
-				'<icon class="',(node.property.closeIconUrl?'" style="background-image: url('+node.property.closeIconUrl+')" ': node.property.closeIcon+'"'),' uid="',node.UID,'"></icon>',//TODO closeIconUrl - ugly, should be replaced
+				'<icon class="',node.property.closeIcon,'" uid="',node.UID,'"></icon>',
 				'<name uid="',node.UID,'">',node.property.name,'</name>',
 			'</node>',
 		'</row>',
-		'<children style="display:none"></children>'
+		'<children></children>'
 		);
 		return html;
 	},
@@ -48,7 +48,7 @@ Mif.Tree.Draw={
 	},
 	
 	forestRoot: function(tree){
-		var container=new Element('children').addClass('mif-tree-children-root').injectInside(tree.wrapper);
+		var container=new Element('root').addClass('mif-tree-children-root').injectInside(tree.wrapper);
 		Mif.Tree.Draw.children(tree.root, container);
 	},
 	
@@ -69,11 +69,7 @@ Mif.Tree.Draw={
 		if(!this.isUpdatable(node)) return;
 		if(!node.hasChildren()) node.property.open=false;
 		node.getDOM('gadget').className='mif-tree-gadget-'+node.getGadgetType();
-		if (node.property.closeIconUrl) {
-			node.getDOM('icon').setStyle('background-image', 'url('+(node.isOpen() ? node.property.openIconUrl : node.property.closeIconUrl)+')');
-		} else {
-			node.getDOM('icon').className=node.property[node.isOpen() ? 'openIcon' : 'closeIcon'];
-		}
+		node.getDOM('icon').className=node.property[node.isOpen() ? 'openIcon' : 'closeIcon'];
 		node.getDOM('node')[(node.isLastVisible() ?'add' : 'remove')+'Class']('mif-tree-node-last');
 		if(node.$loading) return;
 		var children=node.getDOM('children');

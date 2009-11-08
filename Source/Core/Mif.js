@@ -19,9 +19,11 @@ function $mix(original, extended, defaults){
 	return original;
 };
 
-['tree', 'checkbox', 'row', 'node', 'gadget', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator'].each(function(tag){
-	document.createElement(tag);
-});
+if(Browser.Engine.trident){
+	['tree', 'checkbox', 'row', 'node', 'gadget', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root'].each(function(tag){
+		document.createElement(tag);
+	});
+};
 
 Mif.Util={};
 
@@ -121,7 +123,7 @@ Mif.sheet=new Mif.Util.StyleSheet();
 
 String.implement({
 
-	toMifImg: function(){
+	toMifImg: function(){//for normal browser MifImage - object {name: base64_encoded_image}, for ie MifImage - url to mhtml file
 		if(!Browser.Engine.trident){
 			return 'url(data:;base64,'+MifImage[this]+')';
 		}else{

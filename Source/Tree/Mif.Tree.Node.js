@@ -17,7 +17,7 @@ Mif.Tree.Node = new Class({
 		var id=this.property.id;
 		if(id!=null) Mif.ids[id]=this;
 		this.tree.fireEvent('nodeCreate', [this]);
-		this._property=['id', 'name', 'cls', 'openIcon', 'closeIcon', 'openIconUrl', 'closeIconUrl', 'hidden'];
+		this._property=['id', 'name', 'cls', 'openIcon', 'closeIcon', 'hidden'];
 	},
 	
 	getDOM: function(what){
@@ -254,13 +254,7 @@ Mif.Tree.Node = new Class({
 				return this;
 			case 'openIcon':
 			case 'closeIcon':
-				this.getDOM('icon').removeClass(cv).addClass(nv);
-				return this;
-			case 'openIconUrl':
-			case 'closeIconUrl':
-				var icon=this.getDOM('icon');
-				icon.setStyle('background-image', 'none');
-				if(nv) icon.setStyle('background-image', 'url('+nv+')');
+				this.getDOM('icon').removeClass(cv).addClass(nv);//TODO add test
 				return this;
 			case 'hidden':
 				this.getDOM('node').setStyle('display', nv ? 'none' : 'block');

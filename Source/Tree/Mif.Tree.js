@@ -46,7 +46,8 @@ Mif.sheet.addRules({
 	},
 
 	'tree children': {
-		'width': '100%'
+		'width': '100%',
+		'display': 'none'
 	},
 
 	'tree children children node': {

@@ -1,6 +1,22 @@
 window.addEvent('domready',function(){
-	tree = new Mif.Tree({
-		container: $('tree_container')// tree container
+	var icons={
+		uid: 0
+	};
+	var tree = new Mif.Tree({
+		container: $('tree_container'),
+		onNodeCreate: function(node){
+			['open', 'close'].each(function(prop){
+				var p=node.property[prop+'IconUrl']
+				if(p){
+					if(!icons[p]){
+						var cls='icon-'+(++icons.uid);
+						icons[p]=cls;
+						Mif.sheet.addRule('.'+cls, 'background-image: url('+p+')');
+					}
+					node.property[prop+'Icon']=cls;
+				}
+			});
+		}
 	});
 
 	var json=[

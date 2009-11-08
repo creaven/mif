@@ -367,17 +367,6 @@ Mif.Tree.Drag = new Class({
 		Mif.Tree.Drag.ghost=ghost;
 	},
 	
-	getCoords: function(event){
-		var position=this.wrapper.getPosition();
-		var x=event.client.x-position.x;
-		var y=event.client.y-position.y;
-		var wrapper=this.wrapper;
-		if((y-wrapper.scrollTop>wrapper.clientHeight)||(x-wrapper.scrollLeft>wrapper.clientWidth)){//scroll line
-			y=-1;
-		};
-		return {x:x, y:y};
-	},
-	
 	checkTarget: function(event){
 		var targetElement=document.elementFromPoint(event.page.x, event.page.y);
 		if(!targetElement) return;
