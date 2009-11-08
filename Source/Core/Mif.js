@@ -1,6 +1,3 @@
-if(Browser.Engine.trident && Browser.Engine.version==4){
-	throw Error('ie6 not supported');
-};
 
 Mif={
 	version: 'dev',
@@ -22,7 +19,7 @@ function $mix(original, extended, defaults){
 	return original;
 };
 
-['tree', 'checkbox', 'row', 'node', 'gadget', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer'].each(function(tag){
+['tree', 'checkbox', 'row', 'node', 'gadget', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator'].each(function(tag){
 	document.createElement(tag);
 });
 

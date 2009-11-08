@@ -17,12 +17,12 @@ Mif.Tree.Drag.Element=new Class({
 		return this.element;
 	},
 	
-	onleave: function(){
+	onLeave: function(){
 		this.where='notAllowed';
 		Mif.Tree.Drag.ghost.firstChild.className='mif-tree-ghost-icon mif-tree-ghost-'+this.where;
 	},
 	
-	onenter: function(){
+	onEnter: function(){
 		this.where='inside';
 		Mif.Tree.Drag.ghost.firstChild.className='mif-tree-ghost-icon mif-tree-ghost-'+this.where;
 	},

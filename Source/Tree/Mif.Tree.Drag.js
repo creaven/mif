@@ -4,7 +4,7 @@ Mif.Tree.Drag
 
 Mif.sheet.addRules({
 	
-	'pointer': {
+	'tree pointer': {
 		'display': 'block',
 		'height': '1px',
 		'overflow': 'hidden',
@@ -13,48 +13,54 @@ Mif.sheet.addRules({
 		'background-repeat': 'repeat-x',
 		'background-color': '#292fef'
 	},
+	
+	'ghost, ghost *': {
+		'display': 'inline'
+	},
 
-	'.mif-tree-ghost': {
+	'ghost': {
 		'background-color': '#fff',
 		'border': 'solid 2px #e8e8f7',
 		'padding-left': '2px',
-		'position': 'absolute'
+		'position': 'absolute',
+		'display': 'inline',
+		'white-space': 'nowrap'
+	},
+	
+	'ghost *': {
+		'display': 'inline-block',
+		'height': '18px',
+		'line-height': '18px',
+		'vertical-align': 'middle'
 	},
 
-	'.mif-tree-ghost .mif-tree-node-wrapper': {
-		'background': 'none'
+	'ghost icon': {
+		'width': '16px'
+	},
+	
+	'ghost indicator': {
+		'background': 'center center no-repeat',
+		'width': '16px'
 	},
 
-	'.mif-tree-ghost span.mif-tree-text': {
-		'padding-top': '1px',
-		'padding-bottom': '1px'
+	'ghost .after': {
+		'background-image': 'drop-after.png'.toMifImg()
 	},
 
-	'.mif-tree-ghost-icon': {
-		'padding-left': '16px',
-		'background-color': '#fff',
-		'background-repeat': 'no-repeat',
-		'background-image': 'dropzone.gif'.toMifImg()
+	'ghost .before': {
+		'background-image': 'drop-before.png'.toMifImg()
 	},
 
-	'.mif-tree-ghost-after': {
-		'background-position': '-64px 2px'
+	'ghost .between': {
+		'background-image': 'drop-between.png'.toMifImg()
 	},
 
-	'.mif-tree-ghost-before': {
-		'background-position': '-48px 2px'
+	'ghost .inside': {
+		'background-image': 'drop-inside.gif'.toMifImg()//TODO gif->png
 	},
 
-	'.mif-tree-ghost-between': {
-		'background-position': '-16px 2px'
-	},
-
-	'.mif-tree-ghost-inside': {
-		'background-position': '-0px 2px'
-	},
-
-	'.mif-tree-ghost-notAllowed': {
-		'background-position': '-32px 2px'
+	'ghost .notAllowed': {
+		'background-image': 'drop-notAllowed.gif'.toMifImg()
 	},
 
 	'.mif-tree-drag-current': {
@@ -91,6 +97,7 @@ Mif.Tree.Drag = new Class({
 		this.setOptions(options);
 		$extend(this,{
 			tree: tree,
+			handles: tree,
 			snap: this.options.snap,
 			groups: [],
 			droppables: [],
@@ -106,17 +113,12 @@ Mif.Tree.Drag = new Class({
 		tree.addEvent('drawRoot',function(){//TODO should be rootCreate event
 			tree.root.property.dropDenied.combine(['before', 'after']);
 		});
-		
 		this.pointer=new Element('pointer').inject(tree.element);
-		
 		this.current=Mif.Tree.Drag.current;
 		this.target=Mif.Tree.Drag.target;
 		this.where=Mif.Tree.Drag.where;
-
 		this.element=[this.current, this.target, this.where];
-		
 		this.selection = (Browser.Engine.trident) ? 'selectstart' : 'mousedown';
-		
 		this.bound = {
 			start: this.start.bind(this),
 			check: this.check.bind(this),
@@ -126,40 +128,67 @@ Mif.Tree.Drag = new Class({
 			eventStop: $lambda(false),
 			leave: this.leave.bind(this),
 			enter: this.enter.bind(this),
-			stopOnEscape: this.stopOnEscape.bind(this)
+			stopOnEscape: this.stopOnEscape.bind(this),
+			onStart: this.onStart.bind(this),
+			onComplete: this.onComplete.bind(this)
 		};
 		this.attach();
 		
-		this.addEvent('start', function(){
-			Mif.Tree.Drag.dropZone=this;
-			this.tree.unselect();
-			document.addEvent('keydown', this.bound.stopOnEscape);
-			this.setDroppables();
-			this.droppables.each(function(item){
-				item.getElement().addEvents({mouseleave: this.bound.leave, mouseenter: this.bound.enter});
-			}, this);
-			Mif.Tree.Drag.current.getDOM('name').addClass('mif-tree-drag-current');
-			this.addGhost();
-		}, true);
-		this.addEvent('complete', function(){
-			document.removeEvent('keydown', this.bound.keydown);
-			this.droppables.each(function(item){
-				item.getElement().removeEvent('mouseleave', this.bound.leave).removeEvent('mouseenter', this.bound.enter);
-			}, this);
-			Mif.Tree.Drag.current.getDOM('name').removeClass('mif-tree-drag-current');
-			var dropZone=Mif.Tree.Drag.dropZone;
-			if(!dropZone || dropZone.where=='notAllowed'){
-				Mif.Tree.Drag.startZone.onstop();
-				Mif.Tree.Drag.startZone.emptydrop();
-				return;
-			}
-			if(dropZone.onstop) dropZone.onstop();
-			dropZone.beforeDrop();
-		});
+		this.addEvent('start', this.bound.onStart);
+		this.addEvent('complete', this.bound.onComplete);
 	},
 	
 	getElement: function(){
 		return this.tree.wrapper;
+	},
+	
+	start: function(event){
+		var target=this.tree.mouse.target;
+		if(!target) return;
+		this.current=$splat(this.options.startPlace).contains(target) ? this.tree.mouse.node : false;
+		if(!this.current || this.current.property.dragDisabled) return;
+		this.fireEvent('beforeStart', this.element);
+		Mif.Tree.Drag.current=this.current;
+		Mif.Tree.Drag.startZone=this;
+		this.mouse={
+			start: event.page
+		};
+		document.addEvents({
+			mousemove: this.bound.check, 
+			mouseup: this.bound.cancel
+		});
+		document.addEvent(this.selection, this.bound.eventStop);
+	},
+	
+	onStartOrComplete: function(what){
+		document[(what == 'start' ? 'add' : 'remove') + 'Event']('keydown', this.bound.stopOnEscape);
+		this.droppables.each(function(item){
+			item.getElement()[(what == 'start' ? 'add' : 'remove') + 'Event']({
+				mouseleave: this.bound.leave, 
+				mouseenter: this.bound.enter
+			});
+		}, this);
+		Mif.Tree.Drag.current.getDOM('name')[(what == 'start' ? 'add' : 'remove') + 'Class']('mif-tree-drag-current');
+	},
+	
+	onStart: function(){
+		Mif.Tree.Drag.dropZone=this;
+		this.tree.unselect();//TODO don't change selection on drag and drop
+		this.setDroppables();
+		this.onStartOrComplete('start');
+		this.addGhost();
+	},
+	
+	onComplete: function(){
+		this.onStartOrComplete('complete');
+		var dropZone=Mif.Tree.Drag.dropZone;
+		if(!dropZone || dropZone.where=='notAllowed'){
+			Mif.Tree.Drag.startZone.onStop();
+			Mif.Tree.Drag.startZone.emptydrop();
+			return;
+		}
+		if(dropZone.onStop) dropZone.onStop();
+		dropZone.beforeDrop();
 	},
 	
 	addToGroups: function(groups){
@@ -176,16 +205,6 @@ Mif.Tree.Drag = new Class({
 			this.droppables.combine(Mif.Tree.Drag.groups[group]);
 		}, this);
 	},
-
-	attach: function(){
-		this.tree.wrapper.addEvent('mousedown', this.bound.start);
-		return this;
-	},
-
-	detach: function(){
-		this.tree.wrapper.removeEvent('mousedown', this.bound.start);
-		return this;
-	},
 	
 	dragTargetSelect: function(){
 		function addDragTarget(){
@@ -199,7 +218,6 @@ Mif.Tree.Drag = new Class({
 	},
 	
 	leave: function(event){
-	
 		var dropZone=Mif.Tree.Drag.dropZone;
 		if(dropZone){
 			dropZone.where='notAllowed';
@@ -207,12 +225,11 @@ Mif.Tree.Drag = new Class({
 			if(dropZone.onleave) dropZone.onleave();
 			Mif.Tree.Drag.dropZone=false;
 		}
-		
 		var relatedZone=this.getZone(event.relatedTarget);
 		if(relatedZone) this.enter(null, relatedZone);
 	},
 	
-	onleave: function(){
+	onLeave: function(){
 		this.tree.unselect();
 		this.clean();
 		$clear(this.scrolling);
@@ -223,14 +240,14 @@ Mif.Tree.Drag = new Class({
 	enter: function(event, zone){
 		if(event) zone=this.getZone(event.target);
 		var dropZone=Mif.Tree.Drag.dropZone;
-		if(dropZone && dropZone.onleave) dropZone.onleave();
+		if(dropZone && dropZone.onLeave) dropZone.onLeave();
 		Mif.Tree.Drag.dropZone=zone;
 		zone.current=Mif.Tree.Drag.current;
-		if(zone.onenter) zone.onenter();
+		if(zone.onEnter) zone.onEnter();
 	},
 	
-	onenter: function(){
-		this.onleave()
+	onEnter: function(){
+		this.onLeave()
 	},
 	
 	getZone: function(target){//private leave/enter
@@ -285,52 +302,36 @@ Mif.Tree.Drag = new Class({
 		}
 	},
 	
-	start: function(event){//mousedown
-		if (this.options.preventDefault) event.preventDefault();
-		this.fireEvent('beforeStart', this.element);
-		//
-		
-		var target=this.tree.mouse.target;
-		if(!target) return;
-		this.current=$splat(this.options.startPlace).contains(target) ? this.tree.mouse.node : false;
-		if(!this.current || this.current.dragDisabled) {
-			return;
-		}
-		Mif.Tree.Drag.current=this.current;
-		Mif.Tree.Drag.startZone=this;
-		
-		this.mouse={start:event.page};
-		document.addEvents({mousemove: this.bound.check, mouseup: this.bound.cancel});
-		document.addEvent(this.selection, this.bound.eventStop);
-	},
-	
 	drag: function(event){
-		Mif.Tree.Drag.ghost.position({x:event.page.x+20,y:event.page.y+20});
+		Mif.Tree.Drag.ghost.position({
+			x: event.page.x+20,
+			y: event.page.y+20
+		});
 		var dropZone=Mif.Tree.Drag.dropZone;
-		if(!dropZone||!dropZone.ondrag) return;
-		dropZone.ondrag(event);
+		if(!dropZone||!dropZone.onDrag) return;
+		dropZone.onDrag(event);
 	},
 
-	ondrag: function(event){
+	onDrag: function(event){
 		this.autoScroll();
 		
-		if(!this.checkTarget()) return;
+		if(!this.checkTarget(event)) return;
 		
 		this.clean();
 		var where=this.where;
 		var target=this.target;
 		var ghostType=where;
-		if(where=='after'&&target&&(target.getNext())||where=='before'&&(target.getPrevious())){
+		if( (where=='after' && target && (target.getNext())) || (where=='before' && (target.getPrevious())) ){
 			ghostType='between';
 		}
-		Mif.Tree.Drag.ghost.firstChild.className='mif-tree-ghost-icon mif-tree-ghost-'+ghostType;
-		if(where == 'notAllowed'){
+		Mif.Tree.Drag.ghost.firstChild.className=ghostType;
+		if(where=='notAllowed'){
 			this.tree.unselect();
 			return;
 		}
 		if(target && target.tree) this.tree.select(target);
-		if(where == 'inside'){
-			if(target.tree && !target.isOpen() && !this.openTimer && (target.loadable||target.hasChildren()) ){
+		if(where=='inside'){
+			if(target.tree && !target.isOpen() && !this.openTimer && (target.property.loadable||target.hasChildren()) ){
 				this.wrapper=target.getDOM('wrapper').setStyle('cursor', 'progress');
 				this.openTimer=function(){
 					target.toggle();
@@ -339,11 +340,9 @@ Mif.Tree.Drag = new Class({
 			}
 		}else{
 			var wrapper=this.tree.wrapper;
-			var top=this.index*this.tree.height;
-			if(where=='after') top+=this.tree.height;
 			this.pointer.setStyles({
 				left: wrapper.scrollLeft,
-				top: top,
+				top: this.pos.top-this.tree.wrapper.getPosition().y,
 				width: wrapper.clientWidth
 			});
 		}
@@ -360,18 +359,30 @@ Mif.Tree.Drag = new Class({
 	},
 	
 	addGhost: function(){
-		var wrapper=this.current.getDOM('wrapper');
-		var ghost=new Element('span').addClass('mif-tree-ghost');
-		ghost.adopt(Mif.Tree.Draw.node(this.current).getFirst())
-		.injectInside(document.body).addClass('mif-tree-ghost-notAllowed').setStyle('position', 'absolute');
-		new Element('span').set('html',Mif.Tree.Draw.zeroSpace).injectTop(ghost);
-		ghost.getLast().getFirst().className='';
+		var ghost=new Element('ghost', {
+			'class': 'notAllowed'
+		})
+		.inject(document.body)
+		.set('html', '<indicator></indicator><icon></icon><name>'+this.current.get('name')+'</name>');
 		Mif.Tree.Drag.ghost=ghost;
 	},
 	
-	checkTarget: function(){
-		this.y=this.tree.mouse.coords.y;
-		var target=this.tree.mouse.node;
+	getCoords: function(event){
+		var position=this.wrapper.getPosition();
+		var x=event.client.x-position.x;
+		var y=event.client.y-position.y;
+		var wrapper=this.wrapper;
+		if((y-wrapper.scrollTop>wrapper.clientHeight)||(x-wrapper.scrollLeft>wrapper.clientWidth)){//scroll line
+			y=-1;
+		};
+		return {x:x, y:y};
+	},
+	
+	checkTarget: function(event){
+		var targetElement=document.elementFromPoint(event.page.x, event.page.y);
+		if(!targetElement) return;
+		var uid=targetElement.getAttribute('uid');
+		var target=Mif.Tree.Nodes[uid];
 		if(!target){
 			if(this.options.allowContainerDrop && (this.tree.forest||!this.tree.root)){
 				this.target=this.tree.$index.getLast();
@@ -395,17 +406,19 @@ Mif.Tree.Drag = new Class({
 			this.fireEvent('drag');
 			return true;
 		};
-		this.index=Math.floor(this.y/this.tree.height);
-		var delta=this.y-this.index*this.tree.height;
-		var deny=target.dropDenied;
+		var row=document.id('mif-tree-node-'+uid);
+		var position=row.getCoordinates();
+		this.pos=position;
+		var delta=(event.page.y-position.top)/position.height;
+		var deny=target.get('dropDenied');
 		if(this.tree.sortable){
 			deny.include('before').include('after');
 		};
 		var where;
-		if(!deny.contains('inside') && delta>(this.tree.height/4) && delta<(3/4*this.tree.height)){
+		if(!deny.contains('inside') && delta>(position.height/4) && delta<(3/4*position.height)){
 			where='inside';
 		}else{
-			if(delta<this.tree.height/2){
+			if(delta<position.height/2){
 				if(deny.contains('before')){
 					if(deny.contains('inside')){
 						where=deny.contains('after') ? 'notAllowed' : 'after';
@@ -452,7 +465,7 @@ Mif.Tree.Drag = new Class({
 				Mif.Tree.Drag.ghost.morph({left: position.x, top: position.y});
 				return;
 			};
-			Mif.Tree.Drag.ghost.dispose();
+			//Mif.Tree.Drag.ghost.dispose();
 			this.fireEvent('emptydrop', this.element);
 			return;
 		}.bind(this);
@@ -471,7 +484,7 @@ Mif.Tree.Drag = new Class({
 	
 	drop: function(){
 		var current=this.current, target=this.target, where=this.where;
-		Mif.Tree.Drag.ghost.dispose();
+		//Mif.Tree.Drag.ghost.dispose();
 		var action=this.action || (this.tree.key[this.options.modifier] ? 'copy' : 'move');
 		if(this.where=='inside' && target.tree && !target.isOpen()){
 			if(target.tree) target.toggle();
@@ -491,7 +504,7 @@ Mif.Tree.Drag = new Class({
 		this.fireEvent('drop', [current, target, where]);
 	},
 	
-	onstop: function(){
+	onStop: function(){
 		this.clean();
 		$clear(this.scrolling);
 	}

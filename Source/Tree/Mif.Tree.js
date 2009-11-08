@@ -7,17 +7,13 @@ Mif.sheet.addRules({
 		'display': 'block'
 	},
 
-	'name': {
-		'display': 'inline'
-	},
-
 	'tree': {
 		'position': 'relative',
 		'width': '100%',
 		'height': '100%',
 		'min-height': Browser.Engine.trident5 ? '100%' : 'auto',
 		'overflow': 'auto',
-		'font-family': 'sans-serif',
+		'font-family': '"Lucida Grande", "Lucida Sans Unicode", Arial, Verdana, sans-serif',
 		'font-size': '12px',
 		'line-height': '18px',
 		'white-space': 'nowrap',
@@ -39,9 +35,14 @@ Mif.sheet.addRules({
 	},
 
 	'tree icon, tree gadget, tree checkbox, tree name': {
-		'padding-bottom': '2px',
-		'padding-top': '2px',
-		'cursor': 'inherit'
+		'cursor': 'inherit',
+		'display': Browser.Engine.trident5 ? 'inline-block' : 'table-cell',
+		'height': '18px',
+		'vertical-align': 'middle'
+	},
+	
+	'tree node': {
+		'height': '18px'
 	},
 
 	'tree children': {
@@ -54,22 +55,19 @@ Mif.sheet.addRules({
 
 	'tree row': {
 		'width': '100%',
-		'position': 'relative'
+		'position': 'relative',
+		'height': '18px'
 	},
 
 	'tree name': {
 		'cursor': 'default',
 		'overflow': 'hidden',
-		'margin-left': '4px'
-	},
-
-	'tree node': {
-	/*background:url('hline.gif') no-repeat 9px center;*/
+		'padding-left': '4px'
 	},
 
 	/*@gadgets*/
 	'tree gadget': {
-		'padding-right': '16px',
+		'padding-left': '16px',
 		'z-index': '1',
 		'overflow': 'hidden',
 		'background-repeat': 'no-repeat',
@@ -270,7 +268,6 @@ Mif.Tree = new Class({
 	},
 	
 	onMousedown: function(event){
-		this.mouse.coords=this.getCoords(event);
 		var target=document.elementFromPoint(event.page.x, event.page.y);
 		if(!target) target=this.element;
 		this.mouse.target=target.tagName.toLowerCase();
@@ -282,17 +279,6 @@ Mif.Tree = new Class({
 	
 	onMouseup: function(event){
 		this.fireEvent('mouseup', [event]);
-	},
-	
-	getCoords: function(event){
-		var position=this.wrapper.getPosition();
-		var x=event.client.x-position.x;
-		var y=event.client.y-position.y;
-		var wrapper=this.wrapper;
-		if((y-wrapper.scrollTop>wrapper.clientHeight)||(x-wrapper.scrollLeft>wrapper.clientWidth)){//scroll line
-			y=-1;
-		};
-		return {x:x, y:y};
 	},
 	
 	keyDown: function(event){

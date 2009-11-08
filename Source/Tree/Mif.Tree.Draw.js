@@ -4,11 +4,11 @@ Mif.Tree.Draw
 
 Mif.Tree.Draw={
 
-	getHTML: function(node,html){
+	getHTML: function(node, html){
 		var prefix='mif-tree-node-';
 		if($defined(node.property.checked)){
 			if(!node.property.hasCheckbox) node.property.checked='nochecked';
-			var checkbox='<checkbox class="mif-tree-node-'+node.property.checked+'" uid="'+node.UID+'">'+Mif.Tree.Draw.zeroSpace+'</checkbox>';
+			var checkbox='<checkbox class="mif-tree-node-'+node.property.checked+'" uid="'+node.UID+'"></checkbox>';
 		}else{
 			var checkbox='';
 		}
@@ -16,9 +16,9 @@ Mif.Tree.Draw={
 		html.push(
 		'<row class="',(node.isLast() ? 'mif-tree-node-last' : ''),'"'+(node.hidden ? ' style="display:none"' : '')+' id="',prefix,node.UID,'">',
 			'<node class="',node.property.cls,(node.property.selected ? ' mif-tree-node-selected' : ''),'" uid="',node.UID,'">',
-				'<gadget class="mif-tree-gadget-',node.getGadgetType(),'" uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</gadget>',
+				'<gadget class="mif-tree-gadget-',node.getGadgetType(),'" uid="',node.UID,'"></gadget>',
 				checkbox,
-				'<icon class="',(node.property.closeIconUrl?'" style="background-image: url('+node.property.closeIconUrl+')" ': node.property.closeIcon+'"'),' uid="',node.UID,'">',Mif.Tree.Draw.zeroSpace,'</icon>',
+				'<icon class="',(node.property.closeIconUrl?'" style="background-image: url('+node.property.closeIconUrl+')" ': node.property.closeIcon+'"'),' uid="',node.UID,'"></icon>',//TODO closeIconUrl - ugly, should be replaced
 				'<name uid="',node.UID,'">',node.property.name,'</name>',
 			'</node>',
 		'</row>',
@@ -107,6 +107,3 @@ Mif.Tree.Draw={
 	}
 	
 };
-
-Mif.Tree.Draw.zeroSpace=Browser.Engine.trident ? '&shy;' : (Browser.Engine.webkit ? '&#8203' : '');
-
