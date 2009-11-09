@@ -52,7 +52,6 @@ Mif.Tree.implement({
 			if(!node || node.property.checked=='unchecked') return;
 			node.recursive(function(){
 				this.property.checked='checked';
-				//console.log('onLoad', this, this.get('checked'), this.get('name'));
 			});
 		});
 	},

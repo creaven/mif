@@ -17,12 +17,28 @@ Mif.sheet.addRules({
 		'visibility': 'hidden'
 	},
 
-	'gadget.minus': {
+	'.focus gadget.minus': {
 		'background-image': 'down.png'.toMifImg()
 	},
 
-	'gadget.plus': {
+	'.focus gadget.plus': {
 		'background-image': 'right.png'.toMifImg()
+	},
+	
+	'.focus .selected gadget.plus': {
+		'background-image': 'right-selected.png'.toMifImg()
+	},
+
+	'.focus .selected gadget.minus': {
+		'background-image': 'down-selected.png'.toMifImg()
+	},
+	
+	'.selected gadget.minus, gadget.minus': {
+		'background-image': 'down-unfocused.png'.toMifImg()
+	},
+
+	'.selected gadget.plus, gadget.plus': {
+		'background-image': 'right-unfocused.png'.toMifImg()
 	}
 	
 });

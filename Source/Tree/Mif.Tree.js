@@ -201,16 +201,19 @@ Mif.Tree = new Class({
 	},
     
 	focus: function(){
-		if(this.focused) return this;
-		this.focused=true;
-		this.element.addClass('mif-tree-focused');
+		if(Mif.Focus==this) return this;
+		if(Mif.Focus){
+			Mif.Focus.blur();
+		}
+		Mif.Focus=this;
+		this.element.addClass('focus');
 		return this.fireEvent('focus');
 	},
     
 	blur: function(){
-		if(!this.focused) return this;
-		this.focused=false;
-		this.element.removeClass('mif-tree-focused');
+		if(Mif.Focus!=this) return this;
+		Mif.Focus=null;
+		this.element.removeClass('focus');
 		return this.fireEvent('blur');
 	},
 	

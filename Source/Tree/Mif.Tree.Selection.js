@@ -4,9 +4,13 @@ Mif.Tree.Selection
 
 Mif.sheet.addRules({
 	
-	'tree node.mif-tree-node-selected': {
+	'tree.focus node.selected': {
 		'background-color': '#4891F3',
 		'color': '#fff'
+	},
+	
+	'tree node.selected': {
+		'background-color': '#DEDEDE'
 	}
 	
 });
@@ -65,7 +69,7 @@ Mif.Tree.Node.implement({
 		this.property.selected = state;
 		if(!Mif.Tree.Draw.isUpdatable(this)) return;
 		var wrapper=this.getDOM('wrapper');
-		wrapper[(state ? 'add' : 'remove')+'Class'](this.property.selectClass||'mif-tree-node-selected');
+		wrapper[(state ? 'add' : 'remove')+'Class'](this.property.selectClass||'selected');
 	},
 	
 	isSelected: function(){

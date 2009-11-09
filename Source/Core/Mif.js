@@ -121,6 +121,8 @@ Mif.Util.StyleSheet.implement({
  
 Mif.sheet=new Mif.Util.StyleSheet();
 
+Mif.Focus=null;
+
 String.implement({
 
 	toMifImg: function(){//for normal browser MifImage - object {name: base64_encoded_image}, for ie MifImage - url to mhtml file

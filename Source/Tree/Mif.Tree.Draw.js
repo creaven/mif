@@ -15,7 +15,7 @@ Mif.Tree.Draw={
 		html=html||[];
 		html.push(
 		'<row class="',(node.isLast() ? 'mif-tree-node-last' : ''),'"'+(node.hidden ? ' style="display:none"' : '')+' id="',prefix,node.UID,'">',
-			'<node class="',node.property.cls,(node.property.selected ? ' mif-tree-node-selected' : ''),'" uid="',node.UID,'">',
+			'<node class="',node.property.cls,(node.property.selected ? ' selected' : ''),'" uid="',node.UID,'">',
 				'<gadget class="',node.getGadgetType(),'" uid="',node.UID,'"></gadget>',
 				checkbox,
 				'<icon class="',node.property.closeIcon,'" uid="',node.UID,'"></icon>',
@@ -78,7 +78,6 @@ Mif.Tree.Draw={
 				Mif.Tree.Draw.children(node);
 				node.tree.$getIndex();
 				node.getDOM('gadget').className=node.getGadgetType();
-				
 			}
 			children.style.display='block';
 		}else{
