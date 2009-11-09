@@ -48,10 +48,11 @@ Mif.Tree.implement({
 		this.defaults.hasCheckbox=true;
 		this.wrapper.addEvent('click',this.checkboxClick.bind(this));
 		if(this.checkboxType=='simple') return;
-		this.addEvent('loadChildren', function(node){
+		this.addEvent('load', function(node){
 			if(!node || node.property.checked=='unchecked') return;
 			node.recursive(function(){
 				this.property.checked='checked';
+				//console.log('onLoad', this, this.get('checked'), this.get('name'));
 			});
 		});
 	},

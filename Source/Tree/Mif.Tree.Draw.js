@@ -16,7 +16,7 @@ Mif.Tree.Draw={
 		html.push(
 		'<row class="',(node.isLast() ? 'mif-tree-node-last' : ''),'"'+(node.hidden ? ' style="display:none"' : '')+' id="',prefix,node.UID,'">',
 			'<node class="',node.property.cls,(node.property.selected ? ' mif-tree-node-selected' : ''),'" uid="',node.UID,'">',
-				'<gadget class="mif-tree-gadget-',node.getGadgetType(),'" uid="',node.UID,'"></gadget>',
+				'<gadget class="',node.getGadgetType(),'" uid="',node.UID,'"></gadget>',
 				checkbox,
 				'<icon class="',node.property.closeIcon,'" uid="',node.UID,'"></icon>',
 				'<name uid="',node.UID,'">',node.property.name,'</name>',
@@ -68,13 +68,18 @@ Mif.Tree.Draw={
 	update: function(node){
 		if(!this.isUpdatable(node)) return;
 		if(!node.hasChildren()) node.property.open=false;
-		node.getDOM('gadget').className='mif-tree-gadget-'+node.getGadgetType();
+		node.getDOM('gadget').className=node.getGadgetType();
 		node.getDOM('icon').className=node.property[node.isOpen() ? 'openIcon' : 'closeIcon'];
 		node.getDOM('node')[(node.isLastVisible() ?'add' : 'remove')+'Class']('mif-tree-node-last');
 		if(node.$loading) return;
 		var children=node.getDOM('children');
 		if(node.isOpen()){
-			if(!node.$draw) Mif.Tree.Draw.children(node);
+			if(!node.$draw) {
+				Mif.Tree.Draw.children(node);
+				node.tree.$getIndex();
+				node.getDOM('gadget').className=node.getGadgetType();
+				
+			}
 			children.style.display='block';
 		}else{
 			children.style.display='none';

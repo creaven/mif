@@ -14,6 +14,9 @@ window.addEvent('domready',function(){
 					"name": "node2",
 					"children":[
 						{
+							"name": "node2.3"
+						},
+						{
 							"name": "node2.1"
 						},
 						{

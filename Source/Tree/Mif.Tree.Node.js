@@ -1,6 +1,32 @@
 /*
 Mif.Tree.Node
 */
+
+Mif.sheet.addRules({
+	
+	'tree gadget': {
+		'padding-left': '16px',
+		'z-index': '1',
+		'overflow': 'hidden',
+		'background-repeat': 'no-repeat',
+		'cursor': 'default',
+		'background-position': 'center center'
+	},
+
+	'gadget.none': {
+		'visibility': 'hidden'
+	},
+
+	'gadget.minus': {
+		'background-image': 'down.png'.toMifImg()
+	},
+
+	'gadget.plus': {
+		'background-image': 'right.png'.toMifImg()
+	}
+	
+});
+
 Mif.Tree.Node = new Class({
 
 	Implements: [Events],
@@ -45,18 +71,16 @@ Mif.Tree.Node = new Class({
 			this.tree.fireEvent('toggle', [this, this.property.open]);
 			return this;
 		}
+		if(this.property.loadable && !this.property.loaded) {
+			this.property.open=true;
+			this.fireEvent('toggle', [this.property.open]);
+			this.tree.fireEvent('toggle', [this, this.property.open]);
+            return this.load();
+        }
 		if(parent && !parent.$draw){
 			return toggle.apply(this, []);
 		}
-		if(this.property.loadable && !this.property.loaded) {
-            if(!this.load_event){
-                this.load_event=true;
-                this.addEvent('load',function(){
-                    this.toggle();
-                }.bind(this));
-            }
-            return this.load();
-        }
+
 		if(!this.hasChildren()) return this;
 		return toggle.apply(this, ['drawed']);
 	},

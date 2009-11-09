@@ -4,7 +4,7 @@ Mif.Tree.Load
 
 Mif.sheet.addRules({
 	
-	'.mif-tree-loader-open-icon, .mif-tree-loader-close-icon': {
+	'.mif-tree-loader-icon': {
 		'background-image': 'loader.gif'.toMifImg()
 	}
 	
@@ -30,7 +30,6 @@ Mif.Tree.Load={
 			}
 		}
 		if(parent) parent.property.loaded=true;
-		tree.fireEvent('loadChildren', parent);
 	}
 	
 };
@@ -67,9 +66,9 @@ Mif.Tree.implement({
 				var parent=null;
 			}
 			Mif.Tree.Load.children(json, parent, tree);
+			tree.fireEvent('load');
 			Mif.Tree.Draw[tree.forest ? 'forestRoot' : 'root'](tree);
 			tree.$getIndex();
-			tree.fireEvent('load');
 			return tree;
 		}
 		options=$extend($extend({
@@ -93,10 +92,9 @@ Mif.Tree.Node.implement({
 		function success(json){
 			Mif.Tree.Load.children(json, self, self.tree);
 			delete self.$loading;
-			self.property.loaded=true;
-			Mif.Tree.Draw.update(self);
 			self.fireEvent('load');
-			self.tree.fireEvent('loadNode', self);
+			self.tree.fireEvent('load', self);
+			Mif.Tree.Draw.update(self);
 			return self;
 		}
 		options=$extend($extend($extend({

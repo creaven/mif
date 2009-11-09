@@ -67,28 +67,6 @@ Mif.sheet.addRules({
 		'padding-left': '4px'
 	},
 
-	/*@gadgets*/
-	'tree gadget': {
-		'padding-left': '16px',
-		'z-index': '1',
-		'overflow': 'hidden',
-		'background-repeat': 'no-repeat',
-		'cursor': 'default',
-		'background-position': 'center center'
-	},
-
-	'.mif-tree-gadget-none': {
-		'visibility': 'hidden'
-	},
-
-	'.mif-tree-gadget-minus': {
-		'background-image': 'down.png'.toMifImg()
-	},
-
-	'.mif-tree-gadget-plus': {
-		'background-image': 'right.png'.toMifImg()
-	},
-
 	'tree icon': {
 		'padding-right': '18px',
 		'background-position': '0 50%',
@@ -318,7 +296,9 @@ Mif.Tree = new Class({
 			'drawChildren': function(parent){
 				var children=parent.children;
 				for(var i=0, l=children.length; i<l; i++){
-					children[i].drawToggle();
+					if(children[i].property.open){
+						children[i].drawToggle();
+					}
 				}
 			},
 			'drawRoot': function(){

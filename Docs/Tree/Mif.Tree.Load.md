@@ -63,9 +63,7 @@ Mif.Tree {#Mif.Tree::Load}
 =========================
 
 ### Events:
-* load         - Function to execute when tree loaded.
-* loadNode     - Function to execute when tree node loaded.
-* loadChildren - Function to execute when children json loaded.
+* load         - Function to execute when tree or tree node loaded.
 	
 Mif.Tree Method: load {#Mif.Tree:load}}
 ---------------------------------------
@@ -131,7 +129,7 @@ load tree from json and load json if it's neccesary.
 		},
 		loadOptions: function(){
 			if(node.name=='empty') return {url: 'empty.json'};
-			if(node.data.group='file') return {url: 'getFiles.php',data: {name: node.name}};
+			if(node.data.group='file') return {url: 'getFiles.php', data: {name: node.name}};
 		}
 		...
 	});

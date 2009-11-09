@@ -1,5 +1,5 @@
 window.addEvent('domready',function(){
-	tree = new Mif.Tree({
+	var tree = new Mif.Tree({
 		initialize: function(){
 			new Mif.Tree.KeyNav(this);
 			this.initExpandTo();

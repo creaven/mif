@@ -19,10 +19,6 @@ window.addEvent('domready',function(){
 				storage.restore();
 				switchStorage.restore();
 				selectStorage.restore();
-			}).addEvent('loadChildren', function(){
-				storage.restore();
-				switchStorage.restore();
-				selectStorage.restore();
 			});
 		},
 		types: {// node types

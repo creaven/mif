@@ -45,12 +45,14 @@ Mif.Tree.CookieStorage = new Class({
 				node[this.options.action](true);
 				restored.erase(stored);
 				l--;
+				i--;
 			}
 		}
 		return restored;
 	},
 	
 	initSave: function(){
+		var event=this.options.event;
 		this.tree.addEvent(this.options.event, function(node, state){
 			var value=this.options.store(node);
 			if(state){
