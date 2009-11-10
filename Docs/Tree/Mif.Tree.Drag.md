@@ -21,7 +21,7 @@ new Mif.Tree.Drag(tree, options)
 * open           - (*number*: defaults to 600) time (in ms) during which node not will be opened.
 * scrollDelay    - (*number*: defaults to 100) .
 * scrollSpeed    - (*number*: defaults to 0.2) .
-* modifier       - (*string*: defaults to 'control' for pc and 'shift' for mac) if pressed this key modifier node will be copied.
+* modifier       - (*string*: defaults to 'control' for pc and 'alt' for mac) if pressed this key modifier node will be copied.
 * startPlace     - (*array*: defaults to ['icon', 'name']) dragging begin when mouse is over startPlace
 * group          - (*mixed*: string or array, defaults to 'tree') A named drag drop group to which this object belongs. This tree will only interact with other drag drop objects in the same group.
 * droppables     - (*array*: defaults to []) The objects that the draggable can drop into.

@@ -15,6 +15,7 @@ var Demos = {
 		var hash=document.location.hash;
 		if(hash){
 			var demo=hash.replace('#','');
+			this.demo=demo;
 			Demos.load(demo)
 		}
 	},
@@ -28,7 +29,7 @@ var Demos = {
 			var ul = new Element('ul', {'class': 'folder'}).inject(category, 'after');
 			
 			demos.each(function(value, key) {
-				new Element('li').adopt(new Element('h3').adopt(new Element('a', {
+				var a=new Element('a', {
 					'href': '#'+group+'/'+key, 
 					'text': value.title,
 					'events': {
@@ -36,9 +37,17 @@ var Demos = {
 							e.stop();
 							document.location.hash=group+'/'+key;
 							Demos.load(group+'/'+key);
+							if(Demos.selected){
+								Demos.selected.removeClass('selected');
+							}
+							Demos.selected=this.addClass('selected');
 						}
 					}
-				}))).inject(ul);
+				});
+				if(this.demo==group+'/'+key){
+					Demos.selected=a.addClass('selected');
+				}
+				new Element('li').adopt(new Element('h3').adopt(a)).inject(ul);
 			});
 		});
 	},

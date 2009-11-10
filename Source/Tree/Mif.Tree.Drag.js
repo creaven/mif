@@ -20,7 +20,7 @@ Mif.sheet.addRules({
 
 	'ghost': {
 		'background-color': '#fff',
-		'border': 'solid 2px #e8e8f7',
+		'border': 'solid 1px #e8e8f7',
 		'padding-left': '2px',
 		'position': 'absolute',
 		'display': 'inline',
@@ -35,7 +35,9 @@ Mif.sheet.addRules({
 	},
 
 	'ghost icon': {
-		'width': '16px'
+		'width': '16px',
+		'background-repeat': 'no-repeat',
+		'background-position': 'center center'
 	},
 	
 	'ghost indicator': {
@@ -87,7 +89,7 @@ Mif.Tree.Drag = new Class({
 		open: 600,//time to open node
 		scrollDelay: 100,
 		scrollSpeed: 100,
-		modifier: Browser.Platform.mac ? 'shift' : 'control',//copy
+		modifier: Browser.Platform.mac ? 'alt' : 'control',//copy
 		startPlace: ['icon', 'name'],
 		allowContainerDrop: true
 	},
@@ -359,12 +361,14 @@ Mif.Tree.Drag = new Class({
 	},
 	
 	addGhost: function(){
-		var ghost=new Element('ghost', {
+		var node=this.current;
+		var cls=node.get('open') ? node.get('openIcon') : node.get('closeIcon');
+		Mif.Tree.Drag.ghost=new Element('ghost', {
 			'class': 'notAllowed'
 		})
 		.inject(document.body)
-		.set('html', '<indicator></indicator><icon></icon><name>'+this.current.get('name')+'</name>');
-		Mif.Tree.Drag.ghost=ghost;
+		.set('html', '<indicator></indicator>'+'<icon class="' + cls +'"></icon><name>'+node.get('name')+'</name>')
+		.setStyle('opacity', 0.7);
 	},
 	
 	checkTarget: function(event){
