@@ -10,11 +10,11 @@ window.addEvent('domready',function(){
 					if(this.target && this.target.type=='book' && this.current.type=='book' && this.where=='inside'){
 						this.where='notAllowed';
 					}
-					$('destination').innerHTML=this.target ? this.target.name : '';
+					$('destination').innerHTML=this.target ? this.target.get('name') : '';
 					$('where').innerHTML=this.where;
 				},
 				onStart: function(){
-					$('source').innerHTML=this.current.name;
+					$('source').innerHTML=this.current.get('name');
 				},
 				onComplete: function(){
 					$('destination').innerHTML='';
@@ -53,7 +53,7 @@ window.addEvent('domready',function(){
 		onCopy: function(from, to, where, copy){
 			if(from.getParent()==copy.getParent()){
 				copy.set({
-					name: 'copy '+from.name
+					name: 'copy '+from.get('name')
 				});
 			}
 		}
@@ -115,9 +115,7 @@ window.addEvent('domready',function(){
 		onCopy: function(from, to, where, copy){
 			if(from.getParent()==copy.getParent()){
 				copy.set({
-					property: {
-						name: 'copy '+from.name
-					}
+					name: 'copy '+from.get('name')
 				});
 			}
 		}

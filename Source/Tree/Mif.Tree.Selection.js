@@ -18,7 +18,6 @@ Mif.sheet.addRules({
 Mif.Tree.implement({
 	
 	initSelection: function(){
-		this.defaults.selectClass='';
 		this.bound.attachSelection=this.attachSelection.bind(this);
 		this.addEvent('mousedown', this.bound.attachSelection);
 	},
@@ -68,8 +67,8 @@ Mif.Tree.Node.implement({
 	select: function(state) {
 		this.property.selected = state;
 		if(!Mif.Tree.Draw.isUpdatable(this)) return;
-		var wrapper=this.getDOM('wrapper');
-		wrapper[(state ? 'add' : 'remove')+'Class'](this.property.selectClass||'selected');
+		var wrapper=this.getElement('wrapper');
+		wrapper[(state ? 'add' : 'remove')+'Class']('selected');
 	},
 	
 	isSelected: function(){

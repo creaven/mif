@@ -55,14 +55,14 @@ MIf.Tree.Node Method: constructor {#Mif.Tree.Node:constructor}
 
 
 
-Mif.Tree.Node Method: getDOM {#Mif.Tree.Node:getDOM}
+Mif.Tree.Node Method: getElement {#Mif.Tree.Node:getElement}
 -----------------------------------------------------
 
 return node dom structure element. See also Mif.Tree.Draw.
 
 ### Syntax:
 
-	someNode.getDOM(what);
+	someNode.getElement(what);
 	
 ### Arguments:
 
@@ -74,7 +74,7 @@ return node dom structure element. See also Mif.Tree.Draw.
 
 ### Example:
 	
-	someNode.getDOM('name');
+	someNode.getElement('name');
 
 
 Mif.Tree.Node Method: toggle {#Mif.Tree.Node:toggle}

@@ -10,14 +10,12 @@ DOMTree = new Mif.Tree({
 			cls: 'dom-array'
 		},
 		string:{
-			hoverClass: 'empty',
 			selectClass: 'empty',
 			loadable: false,
 			cls: 'dom-string'
 		},
 		number:{
-			hoverClass: 'empty',
-			selectClass: 'empty',
+			selectClass: 'empty',//TODO fix, selectClass were removed
 			loadable: false,
 			cls: 'dom-number'
 		}

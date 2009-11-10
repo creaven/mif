@@ -65,23 +65,23 @@ Mif.Tree.Node.implement({
 		return this;
 	},
 	
-	copy: function(node, where){
-		if (this.copyDenied) return;
+	copy: function(node, where, nounlink){
+		if (this.property.copyDenied) return;
 		function copy(structure){
 			var node=structure.node;
 			var tree=structure.tree;
-			var options=$unlink({
-				property: node.property,
-				type: node.type,
-				state: node.state,
-				data: node.data
-			});
-			options.state.open=false;
+			var property;
+			if(!nounlink){//TODO change
+				property=$unlink(node.property);
+			}else{
+				property = node.property;
+			}
+			property.open=false;//TODO for why?
 			var nodeCopy = new Mif.Tree.Node({
 				parentNode: structure.parentNode,
 				children: [],
 				tree: tree
-			}, options);
+			}, property);
 			node.children.each(function(child){
 				var childCopy=copy({
 					node: child,
@@ -111,12 +111,13 @@ Mif.Tree.Node.implement({
 			this.tree.root=null;
 		}
 		this.tree.selected=false;
-		this.getDOM('node').destroy();
+		this.getElement('node').destroy();
+		this.getElement('children').destroy();
 		this.tree.$getIndex();
 		Mif.Tree.Draw.update(parent);
 		Mif.Tree.Draw.update(previousVisible);
 		this.recursive(function(){
-			if(this.id) delete Mif.ids[this.id];
+			if(this.property.id) delete Mif.ids[this.property.id];
 		});
 		this.tree.mouse.node=false;
 	}
@@ -130,7 +131,7 @@ Mif.Tree.implement({
 		if(from.inject(to, where)){
 			this.fireEvent('move', [from, to, where]);
 		}
-		return this;
+		return from;
 	},
 	
 	copy: function(from, to, where){
@@ -138,7 +139,7 @@ Mif.Tree.implement({
 		if(copy){
 			this.fireEvent('copy', [from, to, where, copy]);
 		}
-		return this;
+		return copy;
 	},
 	
 	remove: function(node){

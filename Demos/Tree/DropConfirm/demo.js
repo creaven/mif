@@ -44,7 +44,7 @@ window.addEvent('domready',function(){
 		onCopy: function(from, to, where, copy){
 			if(from.getParent()==copy.getParent()){
 				copy.set({
-					name: 'copy '+from.name
+					name: 'copy '+from.get('name')
 				});
 			}
 		},

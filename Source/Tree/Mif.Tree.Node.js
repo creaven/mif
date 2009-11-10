@@ -62,13 +62,16 @@ Mif.Tree.Node = new Class({
 		this._property=['id', 'name', 'cls', 'openIcon', 'closeIcon', 'hidden'];
 	},
 	
-	getDOM: function(what){
+	getElement: function(type){//TODO rename node->row etc
 		var node=$('mif-tree-node-'+this.UID);
-		if(what=='node') return node;
+		if(!type){
+			return new Elements([node, node.getNext()]);
+		}
+		if(type=='node') return node;
 		var wrapper=node.getFirst();
-		if(what=='wrapper') return wrapper;
-		if(what=='children') return node.getNext();
-		return wrapper.getElement(what);
+		if(type=='wrapper') return wrapper;
+		if(type=='children') return node.getNext();
+		return wrapper.getElement(type);
 	},
 	
 	getGadgetType: function(){
@@ -285,17 +288,17 @@ Mif.Tree.Node = new Class({
 		if(!Mif.Tree.Draw.isUpdatable(this)) return this;
 		switch(p){
 			case 'name':
-				this.getDOM('name').set('html', nv);
+				this.getElement('name').set('html', nv);
 				return this;
 			case 'cls':
-				this.getDOM('wrapper').removeClass(cv).addClass(nv);
+				this.getElement('wrapper').removeClass(cv).addClass(nv);
 				return this;
 			case 'openIcon':
 			case 'closeIcon':
-				this.getDOM('icon').removeClass(cv).addClass(nv);//TODO add test
+				this.getElement('icon').removeClass(cv).addClass(nv);//TODO add test
 				return this;
 			case 'hidden':
-				this.getDOM('node').setStyle('display', nv ? 'none' : 'block');
+				this.getElement('node').setStyle('display', nv ? 'none' : 'block');
 				var _previous=this.getPreviousVisible();
 				var _next=this.getNextVisible();
 				var parent=this.getParent();

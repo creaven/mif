@@ -89,6 +89,7 @@ Mif.Tree.Node.implement({
 	load: function(options){
 		var options=this.tree.loadOptionsToObject(options);
 		var self=this;
+		this.$loading=true;
 		function success(json){
 			Mif.Tree.Load.children(json, self, self.tree);
 			delete self.$loading;

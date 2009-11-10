@@ -1,8 +1,12 @@
 
-Mif={
+Mif=new new Class({
+	
+	Implements: [Events],
+	
 	version: 'dev',
+	
 	build: '%build%'
-}
+});
 
 Mif.ids={};
 
@@ -20,7 +24,7 @@ function $mix(original, extended, defaults){
 };
 
 if(Browser.Engine.trident){
-	['tree', 'checkbox', 'row', 'node', 'gadget', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root'].each(function(tag){
+	['tree', 'checkbox', 'row', 'node', 'gadget', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root', 'copy'].each(function(tag){
 		document.createElement(tag);
 	});
 };
@@ -151,3 +155,58 @@ Array.implement({
 	}
 	
 });
+
+
+Element.implement({
+
+	getAncestor: function(match, top){//includes self
+		var parent=this;
+		while(parent){
+			if(parent.match(match)) return parent;
+			parent=parent.getParent();
+			if(parent==top) return false;
+		}
+		return false;
+	},
+	
+	setContent: function(content){
+		return (typeof content == 'string') ? this.set('html', content) : this.adopt(content);
+	}
+	
+});
+
+//Keyboard
+
+Event.Keys.extend({
+	'pgdown': 34,
+	'pgup': 33,
+	'home': 36,
+	'end': 35
+});
+
+
+Mif.Key={
+	modifier: []
+};
+
+document.addEvent('keydown', function(event){
+	Mif.Key.code=event.code;
+	Mif.Key.name=event.key;
+	['alt', 'control', 'meta', 'shift'].each(function(modifier){
+		if(event[modifier]){
+			Mif.Key.modifier.include(modifier);
+		}
+	});
+	Mif.Key.event=event;
+	document.title=Mif.Key.name + " " + Mif.Key.code + " " + Mif.Key.modifier.toString();
+	Mif.fireEvent('keydown', event);
+});
+
+document.addEvent('keyup', function(event){
+	Mif.Key.code=null;
+	Mif.Key.name=null;
+	Mif.Key.modifier=[];
+	Mif.Key.event=null;
+	Mif.fireEvent('keyup', event);
+});
+

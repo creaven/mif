@@ -13,7 +13,7 @@ window.addEvent('domready',function(){
 					})
 				],
 				onDrop: function(current, target, where){
-					//console.log(current, target, where);
+					//getElement.log(current, target, where);
 				}
 			});
 		},
@@ -44,11 +44,10 @@ window.addEvent('domready',function(){
 			}
 		},
 		dfltType:'folder',
-		height: 18,
 		onCopy: function(from, to, where, copy){
 			if(from.getParent()==copy.getParent()){
 				copy.set({
-						name: 'copy '+from.get('name')
+					name: 'copy '+from.get('name')
 				});
 			}
 		}
@@ -100,7 +99,7 @@ window.addEvent('domready',function(){
 		onCopy: function(from, to, where, copy){
 			if(from.getParent()==copy.getParent()){
 				copy.set({
-					name: 'copy '+from.name
+					name: 'copy '+from.get('name')
 				});
 			}
 		}

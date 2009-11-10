@@ -85,7 +85,7 @@ Mif.Tree.Node.implement({
 			var oldState=node.property.checked;
 			node.property.checked=state;
 			if((!node.parentNode&&node.tree.$draw) || (node.parentNode && node.parentNode.$draw)){
-				node.getDOM('checkbox').removeClass('mif-tree-node-'+oldState).addClass('mif-tree-node-'+state);
+				node.getElement('checkbox').removeClass('mif-tree-node-'+oldState).addClass('mif-tree-node-'+state);
 			}
 		};
 		if(type=='simple'){

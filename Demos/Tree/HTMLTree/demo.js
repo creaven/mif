@@ -41,12 +41,12 @@ Mif.Tree.Node.implement({
 
 	hide: function(){
 		this.state.hidden=true;
-		this.getDOM('node').style.display='none';
+		this.getElement('node').style.display='none';
 	},
 	
 	show: function(){
 		this.state.hidden=false;
-		this.getDOM('node').style.display='block';
+		this.getElement('node').style.display='block';
 	},
 	
 	isHide: function(){

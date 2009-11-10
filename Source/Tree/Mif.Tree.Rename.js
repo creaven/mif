@@ -63,7 +63,7 @@ Mif.Tree.implement({
 		this.attachRenameEvents();
 		var input=this.getInput();
 		input.value=node.property.name;
-		this.renameName=node.getDOM('name');
+		this.renameName=node.getElement('name');
 		this.renameNode=node;
 		input.setStyle('width', this.renameName.offsetWidth+15);
 		input.replaces(this.renameName);

@@ -30,6 +30,13 @@ Content-Transfer-Encoding:base64
 iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAm0lEQVQokaXSMQ4BQRjF8d+GRjR6vUaJisItnMGpRKfgECoOoEaIRiMRNCSrmU0mZJfwmvfyZf6Z902GP9X69mApykN0scG5CCpHuRm8jiWmuH66aRC8igb6uGGH9BMECSpoo4MDLngUQWkAE9TQC7UXrzvFSqK8xQjrbJAHpThhgnlWqwg6hhozOa8XQyvcMcY+p8Gbvv4RP+kJP3EcxvITg5QAAAAASUVORK5CYII=
 
 --SEPARATOR
+Content-Type:image/gif
+Content-Location:copy.gif
+Content-Transfer-Encoding:base64
+
+R0lGODlhAwARAJEAAAAAAP///5mZmf///yH5BAEAAAMALAAAAAADABEAAAIPHASjp2ufGkjCoNcgrrEAADs=
+
+--SEPARATOR
 Content-Type:image/png
 Content-Location:down-unfocused.png
 Content-Transfer-Encoding:base64
