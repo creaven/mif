@@ -18,7 +18,7 @@ Mif.sheet.addRules({
 	
 });
 
-Mif.Tree.implement({
+Mif.Tree.implement({//TODO buggy
 	
 	attachRenameEvents: function(){
 		this.wrapper.addEvents({

@@ -3,7 +3,6 @@ window.addEvent('domready',function(){
 		container: $('tree_container'),
 		forest: true,
 		initialize: function(){
-			new Mif.Tree.KeyNav(this);
 			new Mif.Tree.Drag(this, {
 				onDrag: function(){
 					//inject book inside book not allowed;
@@ -62,14 +61,13 @@ window.addEvent('domready',function(){
 
 	tree.load('Tree/files/forest.json');
 
-	tree.loadOptions=function(node){
+	tree.loader.options=function(node){
 		return node.get('name')=='empty' ? 'Tree/files/empty.json' : 'Tree/files/mediumTree.json';
 	}
 	
 	tree2 = new Mif.Tree({
 		container: $('tree_container2'),
 		initialize: function(){
-			new Mif.Tree.KeyNav(this);
 			new Mif.Tree.Drag(this, {
 				onDrag: function(){
 					$('destination').innerHTML=this.target ? this.target.get('name') : '';

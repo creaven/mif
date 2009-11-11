@@ -376,7 +376,7 @@ Mif.Tree.Drag = new Class({
 				if(this.index==-1){
 					this.where='inside';
 					this.target=this.tree.root||this.tree;
-				}else{
+				}else{//TODO fix - add this.coords
 					this.where='after';
 				}
 			}else{

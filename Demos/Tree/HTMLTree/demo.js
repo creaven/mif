@@ -111,9 +111,6 @@ DOMTree = new Mif.Tree({
 		}
 	},
 	dfltType:'open',
-	initialize: function(){
-		new Mif.Tree.KeyNav(this);
-	},
 	onToggle: function(node, state){
 		var next=node.getNext();
 		if(!next) return;
@@ -148,7 +145,7 @@ DOMTree = new Mif.Tree({
 		type: 'close'
 	}]
 });
-DOMTree.loadOptions=function(node){
+DOMTree.loader.options=function(node){
 	var json=[];
 	var el=node.data.el;
 	el.getChildren().each(function(child){

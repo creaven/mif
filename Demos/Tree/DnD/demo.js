@@ -1,9 +1,16 @@
 window.addEvent('domready',function(){
-	tree = new Mif.Tree({
+	
+	var loader = new Mif.Tree.Loader(function(node){
+		// if node name 'empty' load from url 'empty.json'
+		if(!(node instanceof Mif.Tree.Node)) return {};
+		return node.get('name')=='empty' ? 'Tree/files/empty.json' : 'Tree/files/mediumTree.json';
+	});
+	
+	var tree = new Mif.Tree({
 		container: $('tree_container'),
 		forest: true,
+		loader: loader,
 		initialize: function(){
-			new Mif.Tree.KeyNav(this);
 			new Mif.Tree.Drag(this, {
 				droppables: [
 					new Mif.Tree.Drag.Element('drop_container',{
@@ -57,17 +64,12 @@ window.addEvent('domready',function(){
 	tree.load({
 		url: 'Tree/files/forest.json'
 	});
-
-	tree.loadOptions=function(node){
-		// if node name 'empty' load from url 'empty.json'
-		return node.get('name')=='empty' ? 'Tree/files/empty.json' : 'Tree/files/mediumTree.json';
-	}
 	
-	tree2 = new Mif.Tree({
-		forest: true,
+	var tree2 = new Mif.Tree({
 		container: $('tree_container2'),
+		forest: true,
+		loader: loader,
 		initialize: function(){
-			new Mif.Tree.KeyNav(this);
 			new Mif.Tree.Drag(this);
 		},
 		types: {
@@ -133,5 +135,4 @@ window.addEvent('domready',function(){
 		}
 	];
 	tree2.load(json);
-	
 });

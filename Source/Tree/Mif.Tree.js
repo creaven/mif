@@ -144,6 +144,10 @@ Mif.Tree = new Class({
 		if (this.options.initialize && MooTools.version>='1.2.2') {
 			this.options.initialize.call(this);
 		}
+		this.loader=this.options.loader||new Mif.Tree.Loader;
+		if(this.options.loaderOptions){
+			this.loader.options=this.options.loaderOptions;
+		}
 		if(this.options.data){
 			this.load(this.options.data)
 		}

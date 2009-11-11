@@ -16,7 +16,6 @@ var tree = new Mif.Tree({
 	container: $('tree_container'),
 	initialize: function(){
 		this.initSortable();
-		new Mif.Tree.KeyNav(this);
 		this.addEvent('nodeCreate', function(node){
 			node.set({
 				property:{
@@ -54,7 +53,7 @@ tree.load({
 	url: demo_path+'getRoot.php'
 });
 
-tree.loadOptions=function(node){
+tree.loader.options=function(node){
 	return {
 		url: demo_path+'getChildren.php',
 		data: {'abs_path': node.data.abs_path}

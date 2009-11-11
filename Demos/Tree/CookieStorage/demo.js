@@ -116,7 +116,7 @@ window.addEvent('domready',function(){
 					"name": "node3 loadable",
 					"id": "node3",
 					"loadable": true,
-					"loadOptions": children
+					"loaderOptions": children
 				}
 			]
 		}

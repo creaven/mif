@@ -49,6 +49,7 @@ Mif.Tree.Node = new Class({
 	
 	initialize: function(structure, property) {
 		$extend(this, structure);
+		property=property||{};
 		this.children=[];
 		this.defaults=$unlink(this.tree.defaults);
 		this.property=this.defaults;

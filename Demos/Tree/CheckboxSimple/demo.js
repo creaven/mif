@@ -4,7 +4,6 @@ window.addEvent('domready',function(){
 		forest: true,
 		initialize: function(){
 			this.initCheckbox('simple');
-			new Mif.Tree.KeyNav(this);
 		},
 		types: {
 			dflt:{

@@ -23,7 +23,6 @@ DOMTree = new Mif.Tree({
 	sortable: true,
 	initialize: function(){
 		this.initSortable();
-		new Mif.Tree.KeyNav(this);
 	}
 })
 .load({
@@ -34,7 +33,8 @@ DOMTree = new Mif.Tree({
 		}
 	}]
 });
-DOMTree.loadOptions=function(node){
+
+DOMTree.loader.options=function(node){
 	var json=[];
 	var dom=node.property.data.dom;
 	$try(function(){

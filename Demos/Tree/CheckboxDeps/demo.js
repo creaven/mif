@@ -4,7 +4,6 @@ window.addEvent('domready',function(){
 		forest: true,
 		initialize: function(){
 			this.initCheckbox('deps');
-			new Mif.Tree.KeyNav(this);
 		},
 		types: {
 			dflt:{
@@ -36,7 +35,7 @@ window.addEvent('domready',function(){
 	//tree.initSortable();
 	tree.load('Tree/files/forest.json');
 
-	tree.loadOptions=function(node){
+	tree.loader.options=function(node){
 		// if node name 'empty' load from url 'empty.json'
 		return node.get('name')=='empty' ? 'Tree/files/empty.json' : 'Tree/files/mediumTree.json';
 	}

@@ -10,75 +10,11 @@ Mif.sheet.addRules({
 	
 });
 
-Mif.Tree.Load={
-		
-	children: function(children, parent, tree){
-		for( var i=children.length; i--; ){
-			var child=children[i];
-			var subChildren=child.children;
-			var node=new Mif.Tree.Node({
-				tree: tree,
-				parentNode: parent||undefined
-			}, child);
-			if( tree.forest || parent != undefined){
-				parent.children.unshift(node);
-			}else{
-				tree.root=node;
-			}
-			if(subChildren && subChildren.length){
-				arguments.callee(subChildren, node, tree);
-			}
-		}
-		if(parent) parent.property.loaded=true;
-	}
-	
-};
-
 Mif.Tree.implement({
-	
-	loadOptionsToObject: function(options){
-		if(!options) return {};
-		if($type(options)=='array'){
-			options={
-				json: options
-			}
-		}
-		if($type(options)=='string'){
-			options={
-				url: options
-			}
-		}
-		return options;
-	},
 
 	load: function(options){
-		var options=this.loadOptionsToObject(options);
-		var tree=this;
-		this.loadOptions=this.loadOptions||$lambda({});
-		function success(json){
-			if(tree.forest){
-				tree.root=new Mif.Tree.Node({
-					tree: tree,
-					parentNode: null
-				}, {});
-				var parent=tree.root;
-			}else{
-				var parent=null;
-			}
-			Mif.Tree.Load.children(json, parent, tree);
-			tree.fireEvent('load');
-			Mif.Tree.Draw[tree.forest ? 'forestRoot' : 'root'](tree);
-			tree.$getIndex();
-			return tree;
-		}
-		options=$extend($extend({
-			isSuccess: $lambda(true),
-			secure: true,
-			onSuccess: success,
-			method: 'get'
-		}, this.loadOptionsToObject(this.loadOptions())), options);
-		if(options.json) return success(options.json);
-		new Request.JSON(options).send();
+		var loader=this.loader;
+		loader.load(this, options);
 		return this;
 	}
 	
@@ -87,27 +23,117 @@ Mif.Tree.implement({
 Mif.Tree.Node.implement({
 	
 	load: function(options){
-		var options=this.tree.loadOptionsToObject(options);
-		var self=this;
-		this.$loading=true;
-		function success(json){
-			Mif.Tree.Load.children(json, self, self.tree);
-			delete self.$loading;
-			self.fireEvent('load');
-			self.tree.fireEvent('load', self);
-			Mif.Tree.Draw.update(self);
-			return self;
-		}
-		this.tree.loadOptions=this.tree.loadOptions;
-		options=$extend($extend($extend({
+		var loader=this.loader||this.tree.loader;
+		loader.load(this, options);
+		return this;
+	}
+	
+});
+
+
+Mif.Tree.Loader=new Class({
+	
+	Implements: [Events],
+	
+	initialize: function(options){
+		this.options=options;
+		this.defaultOptions={
 			isSuccess: $lambda(true),
 			secure: true,
-			onSuccess: success,
+			onSuccess: this.onSuccess,
 			method: 'get'
-		}, this.tree.loadOptionsToObject(this.tree.options.loadOptions), this.tree.loadOptionsToObject(this.tree.loadOptions(this))), this.tree.loadOptionsToObject(this.property.loadOptions)), options);
-		if(options.json) return success(options.json);
-		new Request.JSON(options).send();
-		return this;
+		};
+	},
+	
+	toOptions: function(options){
+		if(!options) return {};
+		if($type(options)=='array'){
+			options={json: options};
+		}
+		if($type(options)=='string'){
+			options={url: options};
+		}
+		return options;	
+	},
+	
+	load: function(item, options){
+		options=this.toOptions(options);
+		var defaultOptions=$unlink(this.defaultOptions);
+		var localOptions={};
+		var globalOptions=this.toOptions($lambda(this.options)(item));
+		if(item instanceof Mif.Tree.Node){
+			localOptions=this.toOptions($lambda(item.property.loaderOptions)(item));
+		}
+		options=$extend($extend($extend(defaultOptions, globalOptions), localOptions), options);
+		var node, tree;
+		if(item instanceof Mif.Tree.Node){//node
+			node=item;
+			tree=node.tree;
+		}else{
+			tree=item;
+		}
+		var struct={node: node, tree: tree};
+		if(options.json){
+			return this.loadData(options.json, struct);
+		}
+		var request = new Request.JSON(options);
+		request.struct=struct;
+		request.loader=this;
+		request.send();
+	},
+	
+	onSuccess: function(data){
+		this.loader.loadData(data, this.struct);
+	},
+	
+	/*onError: function(){
+		
+	},*/
+	
+	loadData: function(data, struct){
+		var node=struct.node;
+		var tree=struct.tree;
+		if(!node && tree.forest){
+			tree.root=new Mif.Tree.Node({
+				tree: tree,
+				parentNode: null
+			});
+			struct.node=tree.root;
+		}
+		this.jsonToObj(data, struct);
+		if(node){
+			delete node.$loading;
+			node.fireEvent('load');
+			tree.fireEvent('load', node);
+			Mif.Tree.Draw.update(node);
+		}else{
+			tree.fireEvent('load');
+			Mif.Tree.Draw[tree.forest ? 'forestRoot' : 'root'](tree);
+			tree.$getIndex();
+		}
+	},
+	
+	jsonToObj: function(json, struct){
+		var parent=struct.node;
+		var tree=struct.tree;
+		var children=json;
+		for( var i=children.length; i--; ){
+			var child=children[i];
+			var subChildren=child.children;
+			var node=new Mif.Tree.Node({
+				tree: tree,
+				parentNode: parent
+			}, child);
+			if( tree.forest || parent != undefined){
+				parent.children.unshift(node);
+			}else{
+				tree.root=node;
+			}
+			if(subChildren && subChildren.length){
+				arguments.callee(subChildren, {node: node, tree: tree});
+			}
+		}
+		if(parent) parent.property.loaded=true;
 	}
 	
 });

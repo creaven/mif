@@ -3,7 +3,6 @@ window.addEvent('domready',function(){
 		container: $('tree_container'),
 		forest: true,
 		initialize: function(){
-			new Mif.Tree.KeyNav(this);
 			new Mif.Tree.Drag(this, {
 				beforeDrop: function(current, target, where){
 					if(!confirm('drop node?')){
@@ -47,7 +46,7 @@ window.addEvent('domready',function(){
 				});
 			}
 		},
-		loadOptions: 'Tree/files/mediumTree.json'
+		loaderOptions: 'Tree/files/mediumTree.json'
 	});
 
 

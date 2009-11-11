@@ -1,7 +1,6 @@
 window.addEvent('domready',function(){
 	var tree = new Mif.Tree({
 		initialize: function(){
-			new Mif.Tree.KeyNav(this);
 			this.initExpandTo();
 		},
 		container: $('tree_container'),// tree container
@@ -63,7 +62,7 @@ window.addEvent('domready',function(){
 								},
 								{
 									"name": "node2.2.3",
-									"loadOptions": {"json": jsonChildren},
+									"loaderOptions": {"json": jsonChildren},
 									"loadable": true
 								}
 							]

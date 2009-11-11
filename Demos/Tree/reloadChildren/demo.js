@@ -19,7 +19,6 @@ window.addEvent('domready',function(){
 		container: $('tree_container'),
 		forest: true,
 		initialize: function(){
-			new Mif.Tree.KeyNav(this);
 			new Mif.Tree.Drag(this);
 		},
 		types: {
@@ -67,7 +66,7 @@ window.addEvent('domready',function(){
 		}]
 	});
 
-	tree.loadOptions=function(node){
+	tree.loader.options=function(node){
 		return {
 			url: 'reloadChildren/get_json.php?'+$time()
 		};
