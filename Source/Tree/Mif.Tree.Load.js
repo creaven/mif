@@ -98,12 +98,13 @@ Mif.Tree.Node.implement({
 			Mif.Tree.Draw.update(self);
 			return self;
 		}
+		this.tree.loadOptions=this.tree.loadOptions;
 		options=$extend($extend($extend({
 			isSuccess: $lambda(true),
 			secure: true,
 			onSuccess: success,
 			method: 'get'
-		}, this.tree.loadOptionsToObject(this.tree.loadOptions(this))), this.tree.loadOptionsToObject(this.property.loadOptions)), options);
+		}, this.tree.loadOptionsToObject(this.tree.options.loadOptions), this.tree.loadOptionsToObject(this.tree.loadOptions(this))), this.tree.loadOptionsToObject(this.property.loadOptions)), options);
 		if(options.json) return success(options.json);
 		new Request.JSON(options).send();
 		return this;

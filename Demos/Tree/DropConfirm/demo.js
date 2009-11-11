@@ -6,11 +6,10 @@ window.addEvent('domready',function(){
 			new Mif.Tree.KeyNav(this);
 			new Mif.Tree.Drag(this, {
 				beforeDrop: function(current, target, where){
-					if(confirm('drop node?')){
-						this.drop();
-					}else{
-						this.emptydrop();
+					if(!confirm('drop node?')){
+						return false;
 					}
+					return true;
 				}
 			});
 		},
