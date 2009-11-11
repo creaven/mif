@@ -13,7 +13,7 @@ window.addEvent('domready',function(){
 					})
 				],
 				onDrop: function(current, target, where){
-					//getElement.log(current, target, where);
+					//console.log(current, target, where);
 				}
 			});
 		},
