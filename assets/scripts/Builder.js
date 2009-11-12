@@ -28,6 +28,7 @@ var Builder = {
 	scripts: {
 		source: {
 			'Core' : [
+				'Mif.MooTools.XML',
 				'Mif'
 			],
 			'Tree' : [

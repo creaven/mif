@@ -4,7 +4,7 @@ Mif.Tree.Load
 
 Mif.sheet.addRules({
 	
-	'.mif-tree-loader-icon': {
+	'tree .loader-icon': {
 		'background-image': 'loader.gif'.toMifImg()
 	}
 	
@@ -48,7 +48,7 @@ Mif.Tree.Loader=new Class({
 	toOptions: function(options){
 		if(!options) return {};
 		if($type(options)=='array'){
-			options={json: options};
+			options={loadData: options};
 		}
 		if($type(options)=='string'){
 			options={url: options};
@@ -72,9 +72,13 @@ Mif.Tree.Loader=new Class({
 		}else{
 			tree=item;
 		}
+		if(item instanceof Mif.Tree.Node){
+			item.getElement('icon').addClass('loader-icon');
+		}
 		var struct={node: node, tree: tree};
-		if(options.json){
-			return this.loadData(options.json, struct);
+		options.loadData=options.loadData||options.json;
+		if(options.loadData){
+			return this.loadData(options.loadData, struct);
 		}
 		var request = new Request.JSON(options);
 		request.struct=struct;
@@ -100,7 +104,7 @@ Mif.Tree.Loader=new Class({
 			});
 			struct.node=tree.root;
 		}
-		this.jsonToObj(data, struct);
+		this.dataToObj(data, struct);
 		if(node){
 			delete node.$loading;
 			node.fireEvent('load');
@@ -113,10 +117,10 @@ Mif.Tree.Loader=new Class({
 		}
 	},
 	
-	jsonToObj: function(json, struct){
+	dataToObj: function(data, struct){
 		var parent=struct.node;
 		var tree=struct.tree;
-		var children=json;
+		var children=data;
 		for( var i=children.length; i--; ){
 			var child=children[i];
 			var subChildren=child.children;

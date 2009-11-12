@@ -363,7 +363,7 @@ Mif.Tree.Drag = new Class({
 	},
 	
 	checkTarget: function(event){
-		var targetElement=event.target, target;
+		var targetElement=$(event.target), target;
 		if(!targetElement||targetElement==document) return false;
 		var row=targetElement.getAncestor('row');
 		if(row){

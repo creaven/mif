@@ -9,6 +9,9 @@
 		"Toggle":{
 			"title": "Tree toggle event demo"
 		},
+		"TreeFromXml":{
+			"title": "load tree from xml"
+		},
 		"TreeOtherStyle":{
 			"title": "Tree other style"
 		},

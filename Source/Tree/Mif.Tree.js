@@ -243,7 +243,7 @@ Mif.Tree = new Class({
 			this.mouse.node=null;
 		}else{
 			this.mouse.target=target.tagName.toLowerCase();
-			var row=target.getAncestor('row');
+			var row=$(target).getAncestor('row');
 			if(row){
 				this.mouse.node=Mif.Tree.Nodes[row.getAttribute('id').split('mif-tree-node-')[1]];
 			}
