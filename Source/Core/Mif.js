@@ -198,7 +198,6 @@ document.addEvent('keydown', function(event){
 		}
 	});
 	Mif.Key.event=event;
-	document.title=Mif.Key.name + " " + Mif.Key.code + " " + Mif.Key.modifier.toString();
 	Mif.fireEvent('keydown', event);
 });
 
@@ -210,3 +209,25 @@ document.addEvent('keyup', function(event){
 	Mif.fireEvent('keyup', event);
 });
 
+Mif.Mouse={};
+(function(){
+
+	document.addEvent('mouseup', function(event){
+		Mif.fireEvent('mouseup', event);
+	});
+	
+	document.addEvent('mousedown', function(){
+		Mif.Mouse.down=true;
+	});	
+
+	if(Browser.Engine.trident){
+		function mouseup(event){
+			if(event.event.button==0) Mif.fireEvent('mouseup', event);
+			document.removeEvent('mousemove', mouseup);
+		}
+		document.addEvent('mouseleave', function(){
+			if(Mif.Mouse.down) document.addEvent('mousemove', mouseup);
+		});
+	};
+
+})();

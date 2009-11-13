@@ -69,7 +69,6 @@ Mif.Tree.Draw={
 		if(!node.hasChildren()) node.property.open=false;
 		node.getElement('gadget').className=node.getGadgetType();
 		node.getElement('icon').className=node.property[node.isOpen() ? 'openIcon' : 'closeIcon'];
-		node.getElement('node')[(node.isLastVisible() ?'add' : 'remove')+'Class']('mif-tree-node-last');
 		if(node.$loading) return;
 		var children=node.getElement('children');
 		if(node.isOpen()){
@@ -77,6 +76,7 @@ Mif.Tree.Draw={
 				Mif.Tree.Draw.children(node);
 				node.tree.$getIndex();
 				node.getElement('gadget').className=node.getGadgetType();
+				node.tree.updateHover();
 			}
 			children.style.display='block';
 		}else{

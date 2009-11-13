@@ -57,7 +57,7 @@ Mif.sheet.addRules({
 
 	'tree row': {
 		'width': '100%',
-		'position': 'relative',
+		//'position': 'relative',
 		'height': '18px'
 	},
 
@@ -82,7 +82,7 @@ Mif.sheet.addRules({
 		'background-image': 'closeicon.png'.toMifImg()
 	},
 	
-	'tree row:hover name': {
+	'tree row.hover name': {
 		'text-decoration': 'underline'
 	}
 	
@@ -128,8 +128,7 @@ Mif.Tree = new Class({
 			container: $(options.container),
 			UID: 0,
 			key: {},
-			expanded: [],
-			mouse: {}
+			expanded: []
 		});
 		this.height=Mif.sheet.getRule('tree').style.lineHeight.toInt();
 		this.$index=[];
@@ -141,6 +140,7 @@ Mif.Tree = new Class({
 		this.initEvents();
 		this.initScroll();
 		this.initSelection();
+		this.initHover();
 		if (this.options.initialize && MooTools.version>='1.2.2') {
 			this.options.initialize.call(this);
 		}
@@ -161,6 +161,7 @@ Mif.Tree = new Class({
 			onMouseleave: this.onMouseleave.bind(this),
 			onMousedown: this.onMousedown.bind(this),
 			onMouseup: this.onMouseup.bind(this),
+			mouse: this.mouse.bind(this),
 			stopSelection: this.stopSelection.bind(this),
 			toggleOnClick: this.toggleOnClick.bind(this),
 			toggleOnDblclick: this.toggleOnDblclick.bind(this),
@@ -170,10 +171,12 @@ Mif.Tree = new Class({
 		this.wrapper.addEvents({
 			mouseleave: this.bound.onMouseleave,
 			mousedown: this.bound.onMousedown,
-			mouseup: this.bound.onMouseup,
+			mouseover: this.bound.mouse,
+			mouseout: this.bound.mouse,
 			click: this.bound.toggleOnClick,
 			dblclick: this.bound.toggleOnDblclick
 		});
+		Mif.addEvent('mouseup', this.bound.onMouseup);
 		if(Browser.Engine.trident){
 			this.wrapper.addEvent('selectstart', this.bound.stopSelection);
 		};
@@ -229,32 +232,42 @@ Mif.Tree = new Class({
 		}
 	},
 	
-	onMouseleave: function(event){
-		this.mouse.coords={x:null,y:null};
-		this.mouse.target=false;
-		this.mouse.node=false;
-		this.fireEvent('mouseleave', [event]);
-	},
-	
-	onMousedown: function(event){
+	mouse: function(event){
 		var target=document.elementFromPoint(event.page.x, event.page.y);
-		if(!target){
+		if(!target||target==document){
 			this.mouse.target=null;
 			this.mouse.node=null;
 		}else{
 			this.mouse.target=target.tagName.toLowerCase();
+			this.mouse.element=target;
 			var row=$(target).getAncestor('row');
 			if(row){
 				this.mouse.node=Mif.Tree.Nodes[row.getAttribute('id').split('mif-tree-node-')[1]];
 			}
 		}
+	},
+	
+	onMouseleave: function(event){
+		this.mouse.coords={x:null,y:null};
+		this.mouse.target=false;
+		this.mouse.element=false;
+		this.mouse.node=false;
+		this.fireEvent('mouseleave', [event]);
+	},
+	
+	onMousedown: function(event){
+		this.mouse(event);
+		this.mouse.active=event.target.addClass('active');
 		this.fireEvent('mousedown', [event]);
 		this.stopSelection(event);
 		event.preventDefault();
 	},
 	
 	onMouseup: function(event){
-		this.fireEvent('mouseup', [event]);
+		if(this.mouse.active){
+			this.mouse.active.removeClass('active');
+			this.mouse.active=null;
+		};
 	},
 	
 	toggleOnDblclick: function(event){

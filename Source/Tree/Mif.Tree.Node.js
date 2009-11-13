@@ -39,8 +39,24 @@ Mif.sheet.addRules({
 
 	'.selected gadget.plus, gadget.plus': {
 		'background-image': 'right-unfocused.png'.toMifImg()
-	}
+	},
 	
+	'gadget.plus.hover.active': {
+		'background-image': 'right-active.png'.toMifImg()
+	},
+
+	'gadget.minus.hover.active': {
+		'background-image': 'down-active.png'.toMifImg()
+	},
+	
+	'.selected gadget.plus.hover.active': {
+		'background-image': 'right-selected-active.png'.toMifImg()
+	},
+
+	'.selected gadget.minus.hover.active': {
+		'background-image': 'down-selected-active.png'.toMifImg()
+	}
+
 });
 
 Mif.Tree.Node = new Class({
@@ -68,11 +84,9 @@ Mif.Tree.Node = new Class({
 		if(!type){
 			return new Elements([node, node.getNext()]);
 		}
-		if(type=='node') return node;
-		var wrapper=node.getFirst();
-		if(type=='wrapper') return wrapper;
+		if(type=='row') return node;
 		if(type=='children') return node.getNext();
-		return wrapper.getElement(type);
+		return node.getElement(type);
 	},
 	
 	getGadgetType: function(){
@@ -108,6 +122,7 @@ Mif.Tree.Node = new Class({
 	drawToggle: function(){
 		this.tree.$getIndex();
 		Mif.Tree.Draw.update(this);
+		this.tree.updateHover();
 	},
 	
 	recursive: function(fn, args){
@@ -292,14 +307,14 @@ Mif.Tree.Node = new Class({
 				this.getElement('name').set('html', nv);
 				return this;
 			case 'cls':
-				this.getElement('wrapper').removeClass(cv).addClass(nv);
+				this.getElement('node').removeClass(cv).addClass(nv);
 				return this;
 			case 'openIcon':
 			case 'closeIcon':
 				this.getElement('icon').removeClass(cv).addClass(nv);//TODO add test
 				return this;
 			case 'hidden':
-				this.getElement('node').setStyle('display', nv ? 'none' : 'block');
+				this.getElement('row').setStyle('display', nv ? 'none' : '');
 				var _previous=this.getPreviousVisible();
 				var _next=this.getNextVisible();
 				var parent=this.getParent();

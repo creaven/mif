@@ -111,7 +111,7 @@ Mif.Tree.Node.implement({
 			this.tree.root=null;
 		}
 		this.tree.selected=false;
-		this.getElement('node').destroy();
+		this.getElement('row').destroy();
 		this.getElement('children').destroy();
 		this.tree.$getIndex();
 		Mif.Tree.Draw.update(parent);
@@ -120,6 +120,7 @@ Mif.Tree.Node.implement({
 			if(this.property.id) delete Mif.ids[this.property.id];
 		});
 		this.tree.mouse.node=false;
+		this.tree.updateHover();
 	}
 	
 });

@@ -4,12 +4,12 @@ Mif.Tree.Selection
 
 Mif.sheet.addRules({
 	
-	'tree.focus node.selected': {
+	'tree.focus row.selected': {
 		'background-color': '#4891F3',
 		'color': '#fff'
 	},
 	
-	'tree node.selected': {
+	'tree row.selected': {
 		'background-color': '#DEDEDE'
 	}
 	
@@ -67,8 +67,7 @@ Mif.Tree.Node.implement({
 	select: function(state) {
 		this.property.selected = state;
 		if(!Mif.Tree.Draw.isUpdatable(this)) return;
-		var wrapper=this.getElement('wrapper');
-		wrapper[(state ? 'add' : 'remove')+'Class']('selected');
+		this.getElement('row')[(state ? 'add' : 'remove')+'Class']('selected');
 	},
 	
 	isSelected: function(){
