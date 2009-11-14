@@ -157,6 +157,7 @@ a:hover, a:active {
 	float: left;
 	margin: 1px 0 2px 20px;
 	text-shadow: 0 2px 2px rgba(0,0,0,0.4);
+	filter: Shadow(Color=#000000, Direction=135, Strength=1);
 }
 
 #title h1 span {

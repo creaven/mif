@@ -104,5 +104,13 @@
 		"MenuKeyNav":{
 			"title": "KeyNav implementation demo"
 		}
+	},
+	"Button":{
+		"SimpleButton": {
+			"title": "simple push button demo"
+		},
+		"ChangeText": {
+			"title": "change button text demo"
+		}
 	}
 }
