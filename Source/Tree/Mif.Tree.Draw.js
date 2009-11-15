@@ -15,7 +15,7 @@ Mif.Tree.Draw={
 		html.push(
 		'<row ',(node.hidden ? ' style="display:none"' : ''),' id="mif-tree-node-',node.UID,'">',
 			'<node class="',node.property.cls,(node.property.selected ? ' selected' : ''),'">',
-				'<gadget class="',node.getGadgetType(),'"></gadget>',
+				'<toggle class="',node.getToggleType(),'"></toggle>',
 				checkbox,
 				'<icon class="',node.property.closeIcon,'"></icon>',
 				'<name>',node.property.name,'</name>',
@@ -67,7 +67,7 @@ Mif.Tree.Draw={
 	update: function(node){
 		if(!this.isUpdatable(node)) return;
 		if(!node.hasChildren()) node.property.open=false;
-		node.getElement('gadget').className=node.getGadgetType();
+		node.getElement('toggle').className=node.getToggleType();
 		node.getElement('icon').className=node.property[node.isOpen() ? 'openIcon' : 'closeIcon'];
 		if(node.$loading) return;
 		var children=node.getElement('children');
@@ -75,7 +75,7 @@ Mif.Tree.Draw={
 			if(!node.$draw) {
 				Mif.Tree.Draw.children(node);
 				node.tree.$getIndex();
-				node.getElement('gadget').className=node.getGadgetType();
+				node.getElement('toggle').className=node.getToggleType();
 				node.tree.updateHover();
 			}
 			children.style.display='block';

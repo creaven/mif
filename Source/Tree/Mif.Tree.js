@@ -35,7 +35,7 @@ Mif.sheet.addRules({
 		'outline': '0'
 	},
 
-	'tree icon, tree gadget, tree checkbox, tree name': {
+	'tree icon, tree toggle, tree checkbox, tree name': {
 		'cursor': 'inherit',
 		'display': Browser.Engine.trident5 ? 'inline-block' : 'table-cell',
 		'height': '18px',
@@ -276,7 +276,7 @@ Mif.Tree = new Class({
 	},
 	
 	toggleOnClick: function(event){
-		if(this.mouse.target!='gadget') return;
+		if(this.mouse.target!='toggle') return;
 		this.mouse.node.toggle();
 	},
 	

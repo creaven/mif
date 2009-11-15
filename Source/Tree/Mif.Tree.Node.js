@@ -4,7 +4,7 @@ Mif.Tree.Node
 
 Mif.sheet.addRules({
 	
-	'tree gadget': {
+	'tree toggle': {
 		'padding-left': '16px',
 		'z-index': '1',
 		'overflow': 'hidden',
@@ -13,47 +13,47 @@ Mif.sheet.addRules({
 		'background-position': 'center center'
 	},
 
-	'gadget.none': {
+	'toggle.none': {
 		'visibility': 'hidden'
 	},
 
-	'.focus gadget.minus': {
+	'.focus toggle.minus': {
 		'background-image': 'down.png'.toMifImg()
 	},
 
-	'.focus gadget.plus': {
+	'.focus toggle.plus': {
 		'background-image': 'right.png'.toMifImg()
 	},
 	
-	'.focus .selected gadget.plus': {
+	'.focus .selected toggle.plus': {
 		'background-image': 'right-selected.png'.toMifImg()
 	},
 
-	'.focus .selected gadget.minus': {
+	'.focus .selected toggle.minus': {
 		'background-image': 'down-selected.png'.toMifImg()
 	},
 	
-	'.selected gadget.minus, gadget.minus': {
+	'.selected toggle.minus, toggle.minus': {
 		'background-image': 'down-unfocused.png'.toMifImg()
 	},
 
-	'.selected gadget.plus, gadget.plus': {
+	'.selected toggle.plus, toggle.plus': {
 		'background-image': 'right-unfocused.png'.toMifImg()
 	},
 	
-	'gadget.plus.hover.active': {
+	'toggle.plus.hover.active': {
 		'background-image': 'right-active.png'.toMifImg()
 	},
 
-	'gadget.minus.hover.active': {
+	'toggle.minus.hover.active': {
 		'background-image': 'down-active.png'.toMifImg()
 	},
 	
-	'.selected gadget.plus.hover.active': {
+	'.selected toggle.plus.hover.active': {
 		'background-image': 'right-selected-active.png'.toMifImg()
 	},
 
-	'.selected gadget.minus.hover.active': {
+	'.selected toggle.minus.hover.active': {
 		'background-image': 'down-selected-active.png'.toMifImg()
 	}
 
@@ -89,7 +89,7 @@ Mif.Tree.Node = new Class({
 		return node.getElement(type);
 	},
 	
-	getGadgetType: function(){
+	getToggleType: function(){
 		return (this.property.loadable && !this.isLoaded()) ? 'plus' : (this.hasVisibleChildren() ? (this.isOpen() ? 'minus' : 'plus') : 'none');
 	},
 	

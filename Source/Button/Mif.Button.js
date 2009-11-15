@@ -62,7 +62,7 @@ Mif.sheet.addRules({
 		'text-shadow': '1px 1px 0 #F2F2F2',
 		'font-weight': Browser.Platform.mac ? 'none' : 'bold',
 		'color': '#000',
-		'z-index': '10'
+		'z-index': '1'
 	},
 	
 	'bt text.shadow': {
@@ -70,6 +70,14 @@ Mif.sheet.addRules({
 		'top': Browser.Engine.trident5 ? '2px' : '1px',
 		'margin-left': '1px',
 		'color': '#F2F2F2'
+	},
+	
+	'bt icon': {
+		'width': '20px',
+		'height': '100%',
+		'display': 'inline-block',
+		'vertical-align': 'middle',
+		'position': 'relative'
 	}
 	
 });
@@ -92,9 +100,9 @@ Mif.Button=new Class({
 		this.bound={};
 		var html;
 		if(Browser.Engine.trident){
-			html='<bg></bg><text class="shadow">'+options.text+'</text><text>'+options.text+'</text>';
+			html='<bg></bg><icon></icon><text class="shadow">'+options.text+'</text><text>'+options.text+'</text>';
 		}else{
-			html='<bg></bg><text>'+options.text+'</text>'
+			html='<bg></bg><icon></icon><text>'+options.text+'</text>'
 		}
 		this.element=new Element('bt').inject(document.body).set('html', html);
 		this.element.setStyles(this.options.styles);
@@ -157,6 +165,9 @@ Mif.Button=new Class({
 			mousedown: this.bound.onMousedown,
 			click: this.bound.onClick
 		});
+		if(Browser.Engine.trident){
+			this.element.addEvent('selectstart', $lambda(false));
+		}
 		Mif.addEvent('mouseup', this.bound.onMouseup)
 		
 	},
