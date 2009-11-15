@@ -64,11 +64,11 @@ Mif.sheet.addRules({
 	},
 
 	'ghost .inside': {
-		'background-image': 'drop-inside.gif'.toMifImg()//TODO gif->png
+		'background-image': 'plus-circle.png'.toMifImg()//TODO gif->png
 	},
 
 	'ghost .notAllowed': {
-		'background-image': 'drop-notAllowed.gif'.toMifImg()
+		'background-image': 'slash.png'.toMifImg()
 	},
 
 	'tree .drag-source': {

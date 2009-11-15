@@ -29,13 +29,13 @@ window.addEvent('domready',function(){
 				cls: 'disabled'
 			},
 			book:{
-				openIcon: 'mif-tree-book-icon',
+				openIcon: 'mif-tree-book-icon-open',
 				closeIcon: 'mif-tree-book-icon',
 				loadable: true
 			},
-			bin:{
-				openIcon: 'mif-tree-bin-open-icon',
-				closeIcon: 'mif-tree-bin-close-icon'
+			smiley:{
+				openIcon: 'mif-tree-smiley-open-icon',
+				closeIcon: 'mif-tree-smiley-close-icon'
 			}
 		},
 		dfltType:'folder',

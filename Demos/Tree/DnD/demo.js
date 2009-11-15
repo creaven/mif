@@ -41,13 +41,17 @@ window.addEvent('domready',function(){
 				cls: 'disabled'
 			},
 			book:{
-				openIcon: 'mif-tree-book-icon',
+				openIcon: 'mif-tree-book-icon-open',
 				closeIcon: 'mif-tree-book-icon',
 				loadable: true
 			},
-			bin:{
-				openIcon: 'mif-tree-bin-open-icon',
-				closeIcon: 'mif-tree-bin-close-icon'
+			books:{
+				openIcon: 'mif-tree-books-icon',
+				closeIcon: 'mif-tree-books-icon'
+			},
+			smiley:{
+				openIcon: 'mif-tree-smiley-open-icon',
+				closeIcon: 'mif-tree-smiley-close-icon'
 			}
 		},
 		dfltType:'folder',
@@ -89,13 +93,17 @@ window.addEvent('domready',function(){
 				cls: 'disabled'
 			},
 			book:{
-				openIcon: 'mif-tree-book-icon',
+				openIcon: 'mif-tree-book-icon-open',
 				closeIcon: 'mif-tree-book-icon',
 				loadable: true
 			},
-			bin:{
-				openIcon: 'mif-tree-bin-open-icon',
-				closeIcon: 'mif-tree-bin-close-icon'
+			books:{
+				openIcon: 'mif-tree-books-icon',
+				closeIcon: 'mif-tree-books-icon'
+			},
+			smiley:{
+				openIcon: 'mif-tree-smiley-open-icon',
+				closeIcon: 'mif-tree-smiley-close-icon'
 			}
 		},
 		onCopy: function(from, to, where, copy){

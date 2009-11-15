@@ -59,6 +59,7 @@
 	},
 	{
 		"name": "books",
+		"type": "books",
 		"children":[
 			{
 				"name": "node1.5.1",
@@ -72,7 +73,7 @@
 	},
 	{
 		"name": "node1.6",
-		"type": "bin",
+		"type": "smiley",
 		"children":[
 			{
 				"name": "node1.6.1",

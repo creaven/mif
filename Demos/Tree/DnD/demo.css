@@ -35,14 +35,21 @@ font-weight:normal;
 }
 
 .mif-tree-book-icon{
-background-image:url('../images/book_icon.gif');
+background-image:url('../images/book.png');
 }
 
-.mif-tree-bin-open-icon{
-background-image:url('../images/bin_open_icon.gif');
+.mif-tree-book-icon-open{
+background-image:url('../images/book-open.png');
 }
 
-.mif-tree-bin-close-icon{
-background-image:url('../images/bin_close_icon.gif');
+.mif-tree-smiley-open-icon{
+background-image:url('../images/smiley-razz.png');
 }
 
+.mif-tree-smiley-close-icon{
+background-image:url('../images/smiley.png');
+}
+
+.mif-tree-books-icon{
+background-image:url('../images/books.png');
+}
