@@ -6,9 +6,7 @@ $children=array();
 for($i=0;$i<$count;$i++){
 	$children[]='
 		{
-				"property":{
-					"name":"rnd'.rand(30,60).'"
-				}
+			"name":"rnd'.rand(30,60).'"
 		}
 		';
 }

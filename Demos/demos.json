@@ -111,6 +111,14 @@
 		},
 		"ChangeText": {
 			"title": "change button text demo"
+		},
+		"ToolbarButton": {
+			"title": "toolbar button demo"
+		}
+	},
+	"Window": {
+		"SimpleWindow": {
+			"title": "simple window"
 		}
 	}
 }

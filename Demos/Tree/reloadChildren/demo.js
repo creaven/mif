@@ -2,14 +2,19 @@ window.addEvent('domready',function(){
 
 	Mif.Tree.Node.implement({
 		reloadChildren: function() {
-			this.state.loaded=false;
-			this.state.open=false;
-			this.state.loadable=true;
+			if(this.contains(this.tree.selected) && this!=this.tree.selected){
+	            this.tree.unselect();
+	        }
+			this.property.loaded=false;
+			this.property.open=false;
+			this.property.loadable=true;
 			this.children=[];
 			this.$draw=false;
 			this.tree.$getIndex();
 			this.getElement('children').innerHTML='';
 			Mif.Tree.Draw.update(this);
+			this.tree.mouse.node=null;
+	        this.tree.updateHover();
 			return this;
 		}       
 
@@ -20,40 +25,13 @@ window.addEvent('domready',function(){
 		forest: true,
 		initialize: function(){
 			new Mif.Tree.Drag(this);
-		},
-		types: {
-			folder:{
-				openIcon: 'mif-tree-open-icon',
-				closeIcon: 'mif-tree-close-icon'
-			},
-			loader:{
-				openIcon: 'mif-tree-loader-open-icon',
-				closeIcon: 'mif-tree-loader-close-icon',
-				dropDenied: ['inside','after']
-			},
-			disabled:{
-				openIcon: 'mif-tree-open-icon',
-				closeIcon: 'mif-tree-close-icon',
-				dragDisabled: true,
-				cls: 'disabled'
-			},
-			book:{
-				openIcon: 'mif-tree-book-icon-open',
-				closeIcon: 'mif-tree-book-icon',
-				loadable: true
-			},
-			smiley:{
-				openIcon: 'mif-tree-smiley-open-icon',
-				closeIcon: 'mif-tree-smiley-close-icon'
-			}
-		},
-		dfltType:'folder'
+		}
 	});
 	
 	tree.addEvent('loadChildren', function(parent){
 		if(!parent) return;
 		if(!parent.$name){
-			parent.$name=parent.name;
+			parent.$name=parent.get('name');
 		}
 		parent.set({
 			name: parent.$name+' ('+parent.children.length+')'
@@ -61,14 +39,12 @@ window.addEvent('domready',function(){
 	});
 
 	tree.load({
-		json:[{
-			property: {name: 'reload me', loadable: true}
-		}]
+		json:[{name: 'reload me', loadable: true}]
 	});
 
 	tree.loader.options=function(node){
 		return {
-			url: 'reloadChildren/get_json.php?'+$time()
+			url: 'Tree/reloadChildren/get_json.php?'+$time()
 		};
 	}
 	

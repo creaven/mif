@@ -22,20 +22,14 @@ while (($e=readdir($d)) !== false) {
     if ($e=='.' || $e=='..') continue;
     if (!@is_dir($e)){
 		$children[]=array(
-			'property' => array(
-				'name' => $e
-			),
+			'name' => $e,
 			'type' => 'file'
 		);
 	}else{
 		$children[]=array(
-			'property' => array(
-				'name' => $e
-			),
+			'name' => $e,
 			'type' => 'folder',
-			'data' => array(
-				'abs_path' => realpath($e)
-			)
+			'abs_path' => realpath($e)
 		);
 	}
 }

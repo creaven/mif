@@ -89,6 +89,7 @@ Mif.Button=new Class({
 	
 	options: {
 		text: '',
+		'class': '',
 		styles: {
 		}
 	},
@@ -106,6 +107,7 @@ Mif.Button=new Class({
 		}
 		this.element=new Element('bt').inject(document.body).set('html', html);
 		this.element.setStyles(this.options.styles);
+		if(this.options['class']) this.element.addClass(this.options['class']);
 		this.positioning();
 		this.initEvents();
 	},

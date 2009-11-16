@@ -56,8 +56,12 @@ var Builder = {
 				'Mif.Menu.KeyNav'
 			],
 			'Button' : [
-				'Mif.Button'
-			] 
+				'Mif.Button',
+				'Mif.Button.Toolbar'
+			],
+			'Window': [
+				'Mif.Window'
+			]
 		},
 
 		docs: {

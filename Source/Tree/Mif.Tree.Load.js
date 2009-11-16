@@ -111,9 +111,9 @@ Mif.Tree.Loader=new Class({
 			tree.fireEvent('load', node);
 			Mif.Tree.Draw.update(node);
 		}else{
-			tree.fireEvent('load');
 			Mif.Tree.Draw[tree.forest ? 'forestRoot' : 'root'](tree);
 			tree.$getIndex();
+			tree.fireEvent('load');
 		}
 	},
 	

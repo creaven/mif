@@ -1,63 +1,6 @@
-
 #tree_container{
 height:200px;
 width:200px;
 position:relative;
 border:solid 1px #b7b7b7;
-}
-
-
-
-
-#log{
-white-space:nowrap;
-}
-
-ol{
-margin-left:20px;
-}
-
-
-/*@globals*/
-
-.mif-tree-wrapper{
-line-height:20px;/******Tree node height******/
-}
-
-.mif-tree-gadjet{
-background-image:url('aro.gif');
-padding-right: 18px;
-z-index:1;
-overflow:hidden;
-background-repeat:no-repeat;
-cursor:default;
-}
-
-.mif-tree-gadjet-none{
-background:none;
-}
-
-.mif-tree-gadjet-minus{
-background-position: -72px 50%;
-}
-
-.mif-tree-gadjet-plus{
-background-position: 0px 50%;
-}
-
-
-.mif-tree-hover-gadjet .mif-tree-gadjet-minus{
-background-position: -90px 50%;
-}
-
-.mif-tree-hover-gadjet .mif-tree-gadjet-plus{
-background-position: -18px 50%;
-}
-
-/*@selection*/
-
-.mif-tree-node-selected .mif-tree-name{
-background-color: #010161;
-color:#fff;
-text-transform:italic;
 }

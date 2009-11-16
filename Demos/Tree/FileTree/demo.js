@@ -4,7 +4,7 @@ Mif.Tree.Node.implement({
 		var path=[];
 		var node=this;
 		while(node){
-			path.push(node.name);
+			path.push(node.get('name'));
 			node=node.getParent();
 		}
 		return path.reverse().join('/');
@@ -39,11 +39,6 @@ var tree = new Mif.Tree({
 		file:{
 			openIcon: 'mif-tree-file-open-icon',
 			closeIcon: 'mif-tree-file-close-icon'
-		},
-		loader:{
-			openIcon: 'mif-tree-loader-open-icon',
-			closeIcon: 'mif-tree-loader-close-icon',
-			DDnotAllowed: ['inside','after']
 		}
 	},
 	dfltType:'folder'
@@ -56,6 +51,6 @@ tree.load({
 tree.loader.options=function(node){
 	return {
 		url: demo_path+'getChildren.php',
-		data: {'abs_path': node.data.abs_path}
+		data: {'abs_path': node.get('abs_path')}
 	};
 };
