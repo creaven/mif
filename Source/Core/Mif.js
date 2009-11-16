@@ -129,11 +129,11 @@ Mif.Focus=null;
 
 String.implement({
 
-	toMifImg: function(){//for normal browser MifImage - object {name: base64_encoded_image}, for ie MifImage - url to mhtml file
+	toMifImg: function(src){//for normal browser MifImage - object {name: base64_encoded_image}, for ie MifImage - url to mhtml file
 		if(!Browser.Engine.trident){
-			return 'url(data:;base64,'+MifImage[this]+')';
+			return src ? 'data:;base64,'+MifImage[this] : 'url(data:;base64,'+MifImage[this]+')';
 		}else{
-			return 'url(mhtml:'+MifImage+'!'+this+')';
+			return src ? 'mhtml:'+MifImage+'!'+this : 'url(mhtml:'+MifImage+'!'+this+')';
 		}
 	},
 	
