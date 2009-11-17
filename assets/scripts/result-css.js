@@ -1,126 +1,121 @@
-"window bg.tbar, window bg.tbar div": {
+"window.blur bg, window.blur bg div": {
 "position": "absolute",
 "overflow": "hidden"
 },
 
-"window bg.tbar ": {
-"left":"0px",
-"top": "0px",
-"padding-left":"0px",
-"padding-top":  "0px",
+"window.blur bg ": {
+"left":"-19px",
+"top": "-8px",
+"padding-left":"39px",
+"padding-top":  "39px",
 "width": "100%",
 "height": "100%"
 },
 
-"window bg.tbar .top": {
-"height": "5px",
+"window.blur bg .top": {
+"height": "42px",
 "width": "100%",
 "position": "relative",
-"top":"-0px",
-"padding-left":"0px",
-"padding-top": "0px",
-"left":"-0px"
+"top":"-39px",
+"padding-left":"39px",
+"padding-top": "39px",
+"left":"-39px"
 },
 
-"window bg.tbar .center": {
+"window.blur bg .center": {
 "height": "100%",
 "width": "100%",
 "position": "relative",
-"top":"-10px",
-"padding-left":"0px",
-"padding-top": "0px",
-"left":"-0px"
+"top":"-171px",
+"padding-left":"39px",
+"padding-top": "39px",
+"left":"-39px"
 },
 
-"window bg.tbar .bottom": {
-"height": "5px",
+"window.blur bg .bottom": {
+"height": "51px",
 "width": "100%",
-"top":"-10px",
+"top":"-171px",
 "position": "relative",
-"padding-left":"0px",
-"left":"-0px"
+"padding-left":"39px",
+"left":"-39px"
 },
 
-"window bg.tbar .tl": {
-"width": "5px",
-"height": "5px",
-"background": "window-tbar-tl.png".toMifImg(),
+"window.blur bg .tl": {
+"width": "42px",
+"height": "42px",
+"background": "window-bg-blur-tl.png".toMifImg(),
 "left":"0px",
 "top": "0px"
 },
 
-"window bg.tbar .tr": {
-"width": "5px",
-"height": "5px",
+"window.blur bg .tr": {
+"width": "37px",
+"height": "42px",
 "float": "right",
 "position": "relative",
-"background": "window-tbar-tr.png".toMifImg(),
-"top":"-0px"
+"background": "window-bg-blur-tr.png".toMifImg(),
+"top":"-39px"
 },
 
-"window bg.tbar .t": {
-"height": "5px",
+"window.blur bg .t": {
+"height": "42px",
 "width": "100%",
-"left":"-5px",
+"left":"-76px",
 "top": "0",
-"clip": "rect(auto auto auto 10px)",
-"background": "window-tbar-t.png".toMifImg(),
-"padding-left":"0px"
+"clip": "rect(auto auto auto 118px)",
+"background": "window-bg-blur-t.png".toMifImg(),
+"padding-left":"39px"
 },
 
-".ie6 window bg.tbar .t": {
-"left":"-5px",
-"clip": "rect(auto auto auto 10px)"
-},
-
-"window bg.tbar .bl": {
-"width": "5px",
-"height": "5px",
-"background": "window-tbar-bl.png".toMifImg(),
+"window.blur bg .bl": {
+"width": "42px",
+"height": "51px",
+"background": "window-bg-blur-bl.png".toMifImg(),
 "left":"0px"
 },
 
-"window bg.tbar .br": {
-"width": "5px",
-"height": "5px",
+"window.blur bg .br": {
+"width": "37px",
+"height": "51px",
 "float": "right",
 "position": "relative",
-"background": "window-tbar-br.png".toMifImg()
+"background": "window-bg-blur-br.png".toMifImg()
 },
 
-"window bg.tbar .b": {
-"height": "5px",
+"window.blur bg .b": {
+"height": "51px",
 "width" : "100%",
-"left":"-5px",
-"clip": "rect(auto auto auto 10px)",
-"background": "window-tbar-b.png".toMifImg(),
-"padding-left":"0px"
+"left":"-76px",
+"clip": "rect(auto auto auto 118px)",
+"background": "window-bg-blur-b.png".toMifImg(),
+"padding-left":"39px"
 },
 
-"window bg.tbar .l": {
+"window.blur bg .l": {
 "height" : "10000px",
-"width": "5px",
+"width": "42px",
 "left":"0",
-"top": "10px",
-"background": "window-tbar-l.png".toMifImg()
+"top": "93px",
+"background": "window-bg-blur-l.png".toMifImg()
 },
 
-"window bg.tbar .r": {
+"window.blur bg .r": {
 "height" : "10000px",
-"width": "5px",
-"top": "10px",
+"width": "37px",
+"top": "54px",
 "float": "right",
 "position": "relative",
-"background": "window-tbar-r.png".toMifImg()
+"background": "window-bg-blur-r.png".toMifImg()
 },
 
-"window bg.tbar .c": {
+"window.blur bg .c": {
 "height": "10000px",
 "width" : "100%",
-"left":"-5px",
-"top": "10px",
-"clip": "rect(auto auto auto 10px)",
-"background": "window-tbar-c.png".toMifImg(),
-"padding-left":"0px"
+"left":"-76px",
+"top": "93px",
+"clip": "rect(auto auto auto 118px)",
+"background": "window-bg-blur-c.png".toMifImg(),
+"padding-left":"39px"
 }
 
