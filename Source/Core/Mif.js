@@ -24,7 +24,7 @@ function $mix(original, extended, defaults){
 };
 
 if(Browser.Engine.trident){
-	['tree', 'checkbox', 'row', 'node', 'toggle', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root', 'copy', 'bt', 'bg', 'text', 'window', 'handle'].each(function(tag){
+	['tree', 'checkbox', 'row', 'node', 'toggle', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root', 'copy', 'bt', 'bg', 'text', 'window', 'handle', 'tbar', 'bbar', 'content'].each(function(tag){
 		document.createElement(tag);
 	});
 };
@@ -110,7 +110,131 @@ Mif.Util.StyleSheet=new Class({
  
 	getRules: function(){
 		return $A(this.sheet.cssRules||this.sheet.rules);
+	},
+	
+	addBackground: function(selector, img, coords){
+		var left=coords.left||0;
+		var top=coords.top||0;
+		var right=coords.right||0;
+		var bottom=coords.bottom||0;
+		var l=coords.l||0;
+		var t=coords.t||0;
+		var paddingLeft=coords['padding-left']||0;
+		var paddingTop=coords['padding-top']||0;
+		var ext='png';
+		imgs={};
+		['tl', 'tr', 'bl', 'br', 't', 'b', 'l', 'r', 'c'].each(function(side){
+			imgs[side]=img+'-'+side+'.png';
+		});
+		return this.addRule(selector+', '+selector+' div', {
+			'position': 'absolute',
+			'overflow': 'hidden'
+		})
+		.addRule(selector, {
+			'left': l+'px',
+			'top': t+'px',
+			'padding-left': paddingLeft+'px',
+			'padding-top': paddingTop+'px',
+			'width': '100%',
+			'height': '100%'
+		})
+		.addRule(selector+' .top', {
+			'height': top+'px',
+			'width': '100%',
+			'position': 'relative',
+			'top': -paddingTop+'px',
+			'padding-left': paddingLeft+'px',
+			'padding-top': paddingTop+'px',
+			'left': -paddingLeft+'px'
+		})
+		.addRule(selector+' .center', {
+			'height': '100%',
+			'width': '100%',
+			'position': 'relative',
+			'top': -(bottom+top+2*paddingTop)+'px',
+			'padding-left': paddingLeft+'px',
+			'padding-top': paddingTop+'px',
+			'left': -paddingLeft+'px'
+		})
+		.addRule(selector+' .bottom', {
+			'height': bottom+'px',
+			'width': '100%',
+			'top': -(bottom+top+2*paddingTop)+'px',
+			'position': 'relative',
+			'padding-left': paddingLeft+'px',
+			'left': -paddingLeft+'px'
+		})
+		.addRule(selector+' .tl', {
+			'width': left+'px',
+			'height': top+'px',
+			'background': imgs['tl'].toMifImg(),
+			'left': '0px',
+			'top': '0px'
+		})
+		.addRule(selector+' .tr', {
+			'width': right+'px',
+			'height': top+'px',
+			'float': 'right',
+			'position': 'relative',
+			'background': imgs['tr'].toMifImg(),
+			'top': -paddingTop+'px'
+		})
+		.addRule(selector+' .t', {
+			'height': top+'px',
+			'width': '100%',
+			'left': -(right+paddingLeft)+'px',
+			'top': '0px',
+			'clip': 'rect(auto auto auto '+(left+right+paddingLeft)+'px)',
+			'background': imgs['t'].toMifImg(),
+			'padding-left': paddingLeft+'px'
+		})
+		.addRule(selector+' .bl', {
+			'width': left+'px',
+			'height': bottom+'px',
+			'background': imgs['bl'].toMifImg(),
+			'left': '0px'
+		})
+		.addRule(selector+' .br', {
+			'width': right+'px',
+			'height': bottom+'px',
+			'float': 'right',
+			'position': 'relative',
+			'background': imgs['br'].toMifImg()
+		})
+		.addRule(selector+' .b', {
+			'height': bottom+'px',
+			'width': '100%',
+			'left': -(right+paddingLeft)+'px',
+			'clip': 'rect(auto auto auto '+(left+right+paddingLeft)+'px)',
+			'background': imgs['b'].toMifImg(),
+			'padding-left': paddingLeft+'px'
+		})
+		.addRule(selector+' .l', {
+			'height': '10000px',
+			'width': left+'px',
+			'left': '0px',
+			'top': (top+bottom)+'px',
+			'background': imgs['l'].toMifImg()
+		})
+		.addRule(selector+' .r', {
+			'height': '10000px',
+			'width': right+'px',
+			'top': (top+bottom-paddingTop)+'px',
+			'float': 'right',
+			'position': 'relative',
+			'background': imgs['r'].toMifImg()
+		})
+		.addRule(selector+' .c', {
+			'height': '10000px',
+			'width': '100%',
+			'left': -(right+paddingLeft)+'px',
+			'top': (top+bottom)+'px',
+			'clip': 'rect(auto auto auto '+(left+right+paddingLeft)+'px)',
+			'background': imgs['c'].toMifImg(),
+			'padding-left': paddingLeft+'px'
+		});
 	}
+	
 });
  
 Mif.Util.StyleSheet.implement({
@@ -124,6 +248,22 @@ Mif.Util.StyleSheet.implement({
 });
  
 Mif.sheet=new Mif.Util.StyleSheet();
+
+Mif.bg='<div class="top">'+
+			'<div class="tl"></div>'+
+			'<div class="t"></div>'+
+			'<div class="tr"></div>'+
+		'</div>'+
+		'<div class="center">'+
+			'<div class="l"></div>'+
+			'<div class="c"></div>'+
+			'<div class="r"></div>'+
+		'</div>'+
+		'<div class="bottom">'+
+			'<div class="bl"></div>'+
+			'<div class="b"></div>'+
+			'<div class="br"></div>'+
+		'</div>';
 
 Mif.Focus=null;
 

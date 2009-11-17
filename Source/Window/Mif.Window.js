@@ -45,6 +45,7 @@ Mif.sheet.addRules({
 	},
 	
 	'window tbar': {
+		//'display': 'none',
 		'width': '100%',
 		'height': '50px',
 		//'background': 'green',
@@ -52,294 +53,70 @@ Mif.sheet.addRules({
 		'left': '0',
 		'top': '0'
 	},
-	
-	"window bg, window bg div": {
-	"position": "absolute",
-	"overflow": "hidden"
-	},
 
-	"window bg ": {
-	"left":"-17px",
-	"top": "-10px",
-	"padding-left":"36px",
-	"padding-top":  "68px",
-	"width": "100%",
-	"height": "100%"
-	},
 
-	"window bg .top": {
-	"height": "26px",
-	"width": "100%",
-	"position": "relative",
-	"top":"-68px",
-	"padding-left":"36px",
-	"padding-top": "68px",
-	"left":"-36px"
-	},
 
-	"window bg .center": {
-	"height": "100%",
-	"width": "100%",
-	"position": "relative",
-	"top":"-232px",
-	"padding-left":"36px",
-	"padding-top": "68px",
-	"left":"-36px"
-	},
-
-	"window bg .bottom": {
-	"height": "35px",
-	"width": "100%",
-	"top":"-232px",
-	"position": "relative",
-	"padding-left":"36px",
-	"left":"-36px"
-	},
-
-	"window bg .tl": {
-	"width": "34px",
-	"height": "26px",
-	"background": "window-bg-tl.png".toMifImg(),
-	"left":"0px",
-	"top": "0px"
-	},
-
-	"window bg .tr": {
-	"width": "31px",
-	"height": "26px",
-	"float": "right",
-	"position": "relative",
-	"background": "window-bg-tr.png".toMifImg(),
-	"top":"-68px"
-	},
-
-	"window bg .t": {
-	"height": "26px",
-	"width": "100%",
-	"left":"-67px",
-	"top": "0",
-	"clip": "rect(auto auto auto 101px)",
-	"background": "window-bg-t.png".toMifImg(),
-	"padding-left":"36px"
-	},
-
-	".ie6 window bg .t": {
-	"left":"-31px",
-	"clip": "rect(auto auto auto 65px)"
-	},
-
-	"window bg .bl": {
-	"width": "34px",
-	"height": "35px",
-	"background": "window-bg-bl.png".toMifImg(),
-	"left":"0px"
-	},
-
-	"window bg .br": {
-	"width": "31px",
-	"height": "35px",
-	"float": "right",
-	"position": "relative",
-	"background": "window-bg-br.png".toMifImg()
-	},
-
-	"window bg .b": {
-	"height": "35px",
-	"width" : "100%",
-	"left":"-67px",
-	"clip": "rect(auto auto auto 101px)",
-	"background": "window-bg-b.png".toMifImg(),
-	"padding-left":"36px"
-	},
-
-	"window bg .l": {
-	"height" : "10000px",
-	"width": "34px",
-	"left":"0",
-	"top": "96px",
-	"background": "window-bg-l.png".toMifImg()
-	},
-
-	"window bg .r": {
-	"height" : "10000px",
-	"width": "31px",
-	"top": "28px",
-	"float": "right",
-	"position": "relative",
-	"background": "window-bg-r.png".toMifImg()
-	},
-
-	"window bg .c": {
-	"height": "10000px",
-	"width" : "100%",
-	"left":"-67px",
-	"top": "96px",
-	"clip": "rect(auto auto auto 101px)",
-	"background": "window-bg-c.png".toMifImg(),
-	"padding-left":"36px"
+	"window.top-noround > bg .tl": {
+		"background-image": "window-bg-noround-tl.png".toMifImg()
 	},
 	
-//tbar styles
-
-	"window bg.tbar, window bg.tbar div": {
-	"position": "absolute",
-	"overflow": "hidden"
-	},
-
-	"window bg.tbar ": {
-	"left":"0px",
-	"top": "0px",
-	"padding-left":"0px",
-	"padding-top":  "0px",
-	"width": "100%",
-	"height": "100%"
-	},
-
-	"window bg.tbar .top": {
-	"height": "5px",
-	"width": "100%",
-	"position": "relative",
-	"top":"-0px",
-	"padding-left":"0px",
-	"padding-top": "0px",
-	"left":"-0px"
-	},
-
-	"window bg.tbar .center": {
-	"height": "100%",
-	"width": "100%",
-	"position": "relative",
-	"top":"-10px",
-	"padding-left":"0px",
-	"padding-top": "0px",
-	"left":"-0px"
-	},
-
-	"window bg.tbar .bottom": {
-	"height": "5px",
-	"width": "100%",
-	"top":"-10px",
-	"position": "relative",
-	"padding-left":"0px",
-	"left":"-0px"
-	},
-
-	"window bg.tbar .tl": {
-	"width": "5px",
-	"height": "5px",
-	"background": "window-tbar-tl.png".toMifImg(),
-	"left":"0px",
-	"top": "0px"
-	},
-
-	"window bg.tbar .tr": {
-	"width": "5px",
-	"height": "5px",
-	"float": "right",
-	"position": "relative",
-	"background": "window-tbar-tr.png".toMifImg(),
-	"top":"-0px"
-	},
-
-	"window bg.tbar .t": {
-	"height": "5px",
-	"width": "100%",
-	"left":"-5px",
-	"top": "0",
-	"clip": "rect(auto auto auto 10px)",
-	"background": "window-tbar-t.png".toMifImg(),
-	"padding-left":"0px"
-	},
-
-	".ie6 window bg.tbar .t": {
-	"left":"-5px",
-	"clip": "rect(auto auto auto 10px)"
-	},
-
-	"window bg.tbar .bl": {
-	"width": "5px",
-	"height": "5px",
-	"background": "window-tbar-bl.png".toMifImg(),
-	"left":"0px"
-	},
-
-	"window bg.tbar .br": {
-	"width": "5px",
-	"height": "5px",
-	"float": "right",
-	"position": "relative",
-	"background": "window-tbar-br.png".toMifImg()
-	},
-
-	"window bg.tbar .b": {
-	"height": "5px",
-	"width" : "100%",
-	"left":"-5px",
-	"clip": "rect(auto auto auto 10px)",
-	"background": "window-tbar-b.png".toMifImg(),
-	"padding-left":"0px"
-	},
-
-	"window bg.tbar .l": {
-	"height" : "10000px",
-	"width": "5px",
-	"left":"0",
-	"top": "10px",
-	"background": "window-tbar-l.png".toMifImg()
-	},
-
-	"window bg.tbar .r": {
-	"height" : "10000px",
-	"width": "5px",
-	"top": "10px",
-	"float": "right",
-	"position": "relative",
-	"background": "window-tbar-r.png".toMifImg()
-	},
-
-	"window bg.tbar .c": {
-	"height": "10000px",
-	"width" : "100%",
-	"left":"-5px",
-	"top": "10px",
-	"clip": "rect(auto auto auto 10px)",
-	"background": "window-tbar-c.png".toMifImg(),
-	"padding-left":"0px"
-	}
-
-	
-
-	
-	/*'window bg': {
-		'position': 'absolute'
+	"window.top-noround > bg .tr": {
+		"background-image": "window-bg-noround-tr.png".toMifImg()
 	},
 	
-	'window bg.left': {
-		'background-repeat': 'no-repeat',
-		'background-image': 'window-left.png'.toMifImg(),
-		'left': '0',
-		'top': '0',
-		'width': '6px',
-		'height': '132px'
+	"window.bottom-noround > bg .bl": {
+		"background-image": "window-bg-noround-bl.png".toMifImg()
 	},
 	
-	'window bg.center': {
-		'background-repeat': 'repeat-x',
-		'background-image': 'window-center.png'.toMifImg(),
-		'left': '6px',
-		'right': '6px',
-		'height': '132px'
+	"window.bottom-noround > bg .br": {
+		"background-image": "window-bg-noround-br.png".toMifImg()
 	},
 	
-	'window bg.right': {
-		'background-repeat': 'no-repeat',
-		'background-image': 'window-right.png'.toMifImg(),
-		'right': '0',
-		'top': '0',
-		'width': '6px',
-		'height': '132px'
-	}*/
 	
+//window blured
+
+	"window.blur.top-noround > bg .tl": {
+		"background-image": "window-bg-blur-noround-tl.png".toMifImg()
+	},
+	
+	"window.blur.top-noround > bg .tr": {
+		"background-image": "window-bg-blur-noround-tr.png".toMifImg()
+	},
+	
+	"window.blur.bottom-noround > bg .bl": {
+		"background-image": "window-bg-blur-noround-bl.png".toMifImg()
+	},
+	
+	"window.blur.bottom-noround > bg .br": {
+		"background-image": "window-bg-blur-noround-br.png".toMifImg()
+	}	
+	
+})
+.addBackground('window > bg', 'window-bg', {
+	'left': 58,
+	'top': 53,
+	'right': 65,
+	'bottom': 60,
+	'padding-left': 54,
+	'padding-top': 54,
+	'l': -27,
+	't': -16
+})
+.addBackground('window.blur > bg', 'window-bg-blur', {
+	'left': 42,
+	'top': 42,
+	'right': 37,
+	'bottom': 51,
+	'padding-left': 39,
+	'padding-top': 39,
+	'l': -19,
+	't': -8
+})
+.addBackground('window tbar > bg.tbar', 'window-tbar', {
+	'left': 5,
+	'top': 5,
+	'right': 5,
+	'bottom': 5
 });
 
 
@@ -353,27 +130,16 @@ Mif.Window=new Class({
 		bbar: null
 	},
 	
-	initialize: function(){
+	initialize: function(options){
+		this.setOptions(options);
 		this.element=new Element('window').inject(document.body);
-		var bg8='<div class="top">'+
-					'<div class="tl"></div>'+
-					'<div class="t"></div>'+
-					'<div class="tr"></div>'+
-				'</div>'+
-				'<div class="center">'+
-					'<div class="l"></div>'+
-					'<div class="c"></div>'+
-					'<div class="r"></div>'+
-				'</div>'+
-				'<div class="bottom">'+
-					'<div class="bl"></div>'+
-					'<div class="b"></div>'+
-					'<div class="br"></div>'+
-				'</div>';
-		var html='<bg>'+bg8+'</bg><tbar><bg class="tbar">'+bg8+'</bg><img src="'+'gradient.png'.toMifImg(true)+'"></img></tbar><content></content><bbar></bbar><handle></handle>';
+		var html='<bg>'+Mif.bg+'</bg><tbar><bg class="tbar">'+Mif.bg+'</bg><img src="'+'gradient.png'.toMifImg(true)+'"></img></tbar><content></content><bbar></bbar><handle></handle>';
 		this.element.innerHTML=html//'<bg class="left"></bg><bg class="center"></bg><bg class="right"></bg>';
 		this.initEvents();
 		this.setHandle();
+		if(this.options['class']){
+			this.element.addClass(this.options['class']);
+		}
 	},
 	
 	initEvents: function(){
