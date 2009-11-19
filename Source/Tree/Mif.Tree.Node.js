@@ -80,7 +80,7 @@ Mif.Tree.Node = new Class({
 	},
 	
 	getElement: function(type){//TODO rename node->row etc
-		var node=$('mif-tree-node-'+this.UID);
+		var node=document.id('mif-tree-node-'+this.UID);
 		if(!type){
 			return new Elements([node, node.getNext()]);
 		}

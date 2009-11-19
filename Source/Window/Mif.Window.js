@@ -57,42 +57,42 @@ Mif.sheet.addRules({
 
 
 	"window.top-noround > bg .tl": {
-		"background-image": "window-bg-noround-tl.png".toMifImg()
+		"background-image": "window-noround-tl.png".toMifImg()
 	},
 	
 	"window.top-noround > bg .tr": {
-		"background-image": "window-bg-noround-tr.png".toMifImg()
+		"background-image": "window-noround-tr.png".toMifImg()
 	},
 	
 	"window.bottom-noround > bg .bl": {
-		"background-image": "window-bg-noround-bl.png".toMifImg()
+		"background-image": "window-noround-bl.png".toMifImg()
 	},
 	
 	"window.bottom-noround > bg .br": {
-		"background-image": "window-bg-noround-br.png".toMifImg()
+		"background-image": "window-noround-br.png".toMifImg()
 	},
 	
 	
 //window blured
 
 	"window.blur.top-noround > bg .tl": {
-		"background-image": "window-bg-blur-noround-tl.png".toMifImg()
+		"background-image": "window-blur-noround-tl.png".toMifImg()
 	},
 	
 	"window.blur.top-noround > bg .tr": {
-		"background-image": "window-bg-blur-noround-tr.png".toMifImg()
+		"background-image": "window-blur-noround-tr.png".toMifImg()
 	},
 	
 	"window.blur.bottom-noround > bg .bl": {
-		"background-image": "window-bg-blur-noround-bl.png".toMifImg()
+		"background-image": "window-blur-noround-bl.png".toMifImg()
 	},
 	
 	"window.blur.bottom-noround > bg .br": {
-		"background-image": "window-bg-blur-noround-br.png".toMifImg()
+		"background-image": "window-blur-noround-br.png".toMifImg()
 	}	
 	
 })
-.addBackground('window > bg', 'window-bg', {
+.addBackground('window > bg', 'window', {
 	'left': 58,
 	'top': 53,
 	'right': 65,
@@ -102,7 +102,7 @@ Mif.sheet.addRules({
 	'l': -27,
 	't': -16
 })
-.addBackground('window.blur > bg', 'window-bg-blur', {
+.addBackground('window.blur > bg', 'window-blur', {
 	'left': 42,
 	'top': 42,
 	'right': 37,
@@ -112,7 +112,13 @@ Mif.sheet.addRules({
 	'l': -19,
 	't': -8
 })
-.addBackground('window tbar > bg.tbar', 'window-tbar', {
+.addBackground('window tbar > bg', 'window-tbar', {
+	'left': 5,
+	'top': 5,
+	'right': 5,
+	'bottom': 5
+})
+.addBackground('window bbar > bg', 'window-bbar', {
 	'left': 5,
 	'top': 5,
 	'right': 5,
@@ -133,7 +139,7 @@ Mif.Window=new Class({
 	initialize: function(options){
 		this.setOptions(options);
 		this.element=new Element('window').inject(document.body);
-		var html='<bg>'+Mif.bg+'</bg><tbar><bg class="tbar">'+Mif.bg+'</bg><img src="'+'gradient.png'.toMifImg(true)+'"></img></tbar><content></content><bbar></bbar><handle></handle>';
+		var html='<bg>'+Mif.bg+'</bg><tbar><bg>'+Mif.bg+'</bg><img src="'+'gradient.png'.toMifImg(true)+'"></img></tbar><content></content><bbar><bg>'+Mif.bg+'</bg><img src="'+'gradient.png'.toMifImg(true)+'"></img></bbar><handle></handle>';
 		this.element.innerHTML=html//'<bg class="left"></bg><bg class="center"></bg><bg class="right"></bg>';
 		this.initEvents();
 		this.setHandle();

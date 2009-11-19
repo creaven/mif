@@ -1,111 +1,111 @@
 {
-	"Tree":{
-		"SimpleTree":{
+	"Tree": {
+		"SimpleTree": {
 			"title": "Simple Tree"
 		},
-		"Select":{
+		"Select": {
 			"title": "Tree select event demo"
 		},
-		"Toggle":{
+		"Toggle": {
 			"title": "Tree toggle event demo"
 		},
-		"TreeFromXml":{
+		"TreeFromXml": {
 			"title": "load tree from xml"
 		},
-		"TreeOtherStyle":{
+		"TreeOtherStyle": {
 			"title": "Tree other style"
 		},
-		"changeType":{
+		"changeType": {
 			"title": "change node type demo"
 		},
-		"IconUrl":{
+		"IconUrl": {
 			"title": "set icon using url instead class"
 		},
-		"FileTree":{
+		"FileTree": {
 			"title": "File tree"
 		},
-		"DOMTree":{
+		"DOMTree": {
 			"title": "DOM Tree"
 		},
-		"HTMLTree":{
+		"HTMLTree": {
 			"title": "HTML Tree"
 		},
-		"ExpandTo":{
+		"ExpandTo": {
 			"title": "Using expandTo property demo"
 		},
-		"Hide":{
+		"Hide": {
 			"title": "Hidden property"
 		},
-		"KeyNav":{
+		"KeyNav": {
 			"title": "Key navigation implementation demo"
 		},
-		"CheckboxSimple":{
+		"CheckboxSimple": {
 			"title": "Tree simple checkboxes"
 		},
-		"CheckboxDeps":{
+		"CheckboxDeps": {
 			"title": "Tree dependences checkboxes"
 		},
-		"DragAndDrop":{
+		"DragAndDrop": {
 			"title": "Tree drag'n'drop"
 		},
-		"DnD":{
+		"DnD": {
 			"title": "D'n'd with drop container"
 		},
-		"DropConfirm":{
+		"DropConfirm": {
 			"title": "D'n'd with drop confirmation"
 		},
-		"Rename":{
+		"Rename": {
 			"title": "Rename node"
 		},
-		"SortableTree":{
+		"SortableTree": {
 			"title": "sortable tree"
 		},
-		"AddNode":{
+		"AddNode": {
 			"title": "Add node"
 		},
-		"AddNode2":{
+		"AddNode2": {
 			"title": "Another add node demo"
 		},
-		"reloadChildren":{
+		"reloadChildren": {
 			"title": "reload children and update clicked node name"
 		},
-		"CookieStorage":{
+		"CookieStorage": {
 			"title": "cookie storage"
 		},
-		"ProtectedNode":{
+		"ProtectedNode": {
 			"title": "protected from change node"
 		}
 	},
-	"Menu":{
-		"ContextMenu":{
+	"Menu": {
+		"ContextMenu": {
 			"title": "Context menu demo"
 		},
-		"SimpleMenu":{
+		"SimpleMenu": {
 			"title": "simple menu demo"
 		},
-		"ContextMenuART":{
+		"ContextMenuART": {
 			"title": "ART style context menu"
 		},
-		"ContextMenuARTCustomStyle":{
+		"ContextMenuARTCustomStyle": {
 			"title": "another ART style context menu"
 		},
-		"ContextMenuCustomStyle":{
+		"ContextMenuCustomStyle": {
 			"title": "another style context menu"
 		},
-		"MenuButton":{
+		"MenuButton": {
 			"title": "Menu attached to button"
 		},
-		"AddItem":{
+		"AddItem": {
 			"title": "How to add item, example"
 		},
-		"ContextMenuCanvas":{
+		"ContextMenuCanvas": {
 			"title": "Menu with canvas graphic"
 		},
-		"MenuKeyNav":{
+		"MenuKeyNav": {
 			"title": "KeyNav implementation demo"
 		}
 	},
-	"Button":{
+	"Button": {
 		"SimpleButton": {
 			"title": "simple push button demo"
 		},
