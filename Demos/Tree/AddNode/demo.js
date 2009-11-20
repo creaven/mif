@@ -18,7 +18,7 @@ window.addEvent('domready',function(){
 		Mif.id('node2.1').inject(Mif.id('node4'));
 	})
 	.load({
-		url: 'Tree/files/simpleTree.json'
+		url: DemoRoot+'Demos/Tree/files/simpleTree.json'
 	});
 	
 	
