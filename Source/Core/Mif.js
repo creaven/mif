@@ -14,6 +14,9 @@ Mif.id=function(id){
 	return Mif.ids[id];
 }
 
+Mif.uids={};
+Mif.UID=0;
+
 function $mix(original, extended, defaults){
 	for (var key in (extended || {})) {
 		if(original[key]==undefined||original[key]==defaults[key]){
@@ -24,7 +27,7 @@ function $mix(original, extended, defaults){
 };
 
 if(Browser.Engine.trident){
-	['tree', 'checkbox', 'row', 'node', 'toggle', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root', 'copy', 'bt', 'bg', 'text', 'window', 'handle', 'tbar', 'bbar', 'content'].each(function(tag){
+	['tree', 'checkbox', 'row', 'node', 'toggle', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root', 'copy', 'bt', 'bg', 'text', 'window', 'handle', 'tbar', 'bbar', 'content', 'tabs', 'header'].each(function(tag){
 		document.createElement(tag);
 	});
 };
@@ -236,7 +239,7 @@ Mif.Util.StyleSheet=new Class({
 	}
 	
 });
- 
+/*
 Mif.Util.StyleSheet.implement({
 	debug: function(){
 		var code='';
@@ -246,8 +249,23 @@ Mif.Util.StyleSheet.implement({
 		return code;
 	}
 });
- 
+*/
 Mif.sheet=new Mif.Util.StyleSheet();
+
+Mif.sheet.addRules({
+	
+	'html, body': {
+		'width': '100%',
+		'height': '100%',
+		'position': 'absolute'
+	},
+	
+	'*': {
+		'margin': '0',
+		'padding': '0'
+	}
+	
+})
 
 Mif.bg='<div class="top">'+
 			'<div class="tl"></div>'+

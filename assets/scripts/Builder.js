@@ -61,6 +61,9 @@ var Builder = {
 			],
 			'Window': [
 				'Mif.Window'
+			],
+			'Tabs': [
+				'Mif.Tabs'
 			]
 		},
 
