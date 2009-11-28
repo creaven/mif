@@ -47,7 +47,7 @@ Returns checked checkboxes.
 	
 	
 
-Mif.Tree.Node {#Mif.Tree.Node::Checkbox}
+Mif.Tree.Item {#Mif.Tree.Item::Checkbox}
 ========================================
 
 ### Properties:
@@ -60,7 +60,7 @@ Mif.Tree.Node {#Mif.Tree.Node::Checkbox}
 
 * checked - node checkbox state
 
-Mif.Tree.Node Method: switch {#Mif.Tree.Node:switch}
+Mif.Tree.Item Method: switch {#Mif.Tree.Item:switch}
 ----------------------------------------------------
 
 switch checkbox state.

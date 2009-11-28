@@ -1,6 +1,7 @@
 /*
 Mif.Tree.KeyNav
 */
+
 Mif.Tree.KeyNav=new Class({
 	
 	initialize: function(tree){
@@ -70,7 +71,7 @@ Mif.Tree.KeyNav=new Class({
 			if( current.hasChildren() && current.isOpen() ){
 				current.toggle();
 			}else{
-				if(current.tree.forest && current.getParent().isRoot()) return false;
+				if(current.owner.forest && current.getParent().isRoot()) return false;
 				return this.tree.select(current.getParent());
 			}
 		}

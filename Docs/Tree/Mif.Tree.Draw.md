@@ -28,7 +28,7 @@ Html structure is:
 
 ### Arguments:
 
-1. node - (*Mif.Tree.Node*) node parent for drawing children.
+1. node - (*Mif.Tree.Item*) node parent for drawing children.
 
 
 
@@ -47,7 +47,7 @@ Mif.Tree.Draw.update(node);
 
 ### Arguments:
 
-1. node - (*Mif.Tree.Node*) node for updates.
+1. node - (*Mif.Tree.Item*) node for updates.
 
 ### Example:
 

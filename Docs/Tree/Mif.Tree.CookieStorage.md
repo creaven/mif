@@ -25,7 +25,7 @@ Mif.Tree.CookieStorage Method: constructor {#Mif.Tree.CookieStorage:constructor}
 * action          - (*string*: defaults to 'toggle') method used to change node state (toggle/switch)
 
 
-Mif.Tree.CookieStorage Method: restore {#Mif.Tree.Node:restore}
+Mif.Tree.CookieStorage Method: restore {#Mif.Tree.Item:restore}
 ---------------------------------------------------------------
 
 restore nodes states.

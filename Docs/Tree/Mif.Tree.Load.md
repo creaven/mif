@@ -40,7 +40,7 @@ Load children from json object. JSON object structure:
 ### Arguments:
 
 1. children  - (*object*) json children object.
-2. parent - (*Mif.Tree.Node*) children parent node.
+2. parent - (*Mif.Tree.Item*) children parent node.
 3. tree - (*Mif.Tree*) tree control.
 
 ### Example:
@@ -96,10 +96,10 @@ load tree from json and load json if it's neccesary.
 ### Note:
 You can set default options in loadOptions function in Mif.Tree options.
 
-Mif.Tree.Node {#Mif.Tree.Node::Load}
+Mif.Tree.Item {#Mif.Tree.Item::Load}
 ====================================
 	
-Mif.Tree.Node Method: load {#Mif.Tree.Node:load}
+Mif.Tree.Item Method: load {#Mif.Tree.Item:load}
 ------------------------------------------------
 
 load tree from json and load json if it's neccesary.
@@ -114,7 +114,7 @@ load tree from json and load json if it's neccesary.
 
 ### Returns:
 
-* (*Mif.Tree.Node*) someNode
+* (*Mif.Tree.Item*) someNode
 
 ### Events:
 

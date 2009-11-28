@@ -2,7 +2,7 @@ window.addEvent('domready',function(){
 	
 	var loader = new Mif.Tree.Loader(function(node){
 		// if node name 'empty' load from url 'empty.json'
-		if(!(node instanceof Mif.Tree.Node)) return {};
+		if(!(node instanceof Mif.Tree.Item)) return {};
 		return node.get('name')=='empty' ? 'Tree/files/empty.json' : 'Tree/files/mediumTree.json';
 	});
 	

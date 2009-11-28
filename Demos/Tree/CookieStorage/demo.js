@@ -1,9 +1,9 @@
 window.addEvent('domready',function(){
 
-	Mif.Tree.Node.implement({
+	Mif.Tree.Item.implement({
 	
 		switchSelect: function(state){
-			this.tree[state ? 'select' : 'unselect'](this);
+			this.owner[state ? 'select' : 'unselect'](this);
 		}
 		
 	});

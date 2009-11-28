@@ -4,16 +4,16 @@ window.addEvent('domready',function(){
 	})
 	.addEvent('load', function(){
 		var root=this.root;
-		var newNode=new Mif.Tree.Node({
+		var newNode=new Mif.Tree.Item({name: 'node1'}, {
             parentNode: root,
-            tree: tree
-            }, {name: 'node1'});
+            owner: tree
+            });
         tree.add(newNode, root, 'inside');
 
-        var newNode2=new Mif.Tree.Node({
+        var newNode2=new Mif.Tree.Item({name: 'node1.1'}, {
             parentNode: newNode,
-            tree: tree
-            }, {name: 'node1.1'});
+            owner: tree
+            });
         tree.add(newNode2, newNode, 'inside');
 	});
 	tree.load([{name: 'root'}])

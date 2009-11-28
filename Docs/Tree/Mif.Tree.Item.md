@@ -1,21 +1,21 @@
-Class Mif.Tree.Node {#Mif.Tree.Node}
+Class Mif.Tree.Item {#Mif.Tree.Item}
 ===================================
 Tree node class.
 
 ### Implements:
 	Events
 
-MIf.Tree.Node Method: constructor {#Mif.Tree.Node:constructor}
+Mif.Tree.Item Method: constructor {#Mif.Tree.Item:constructor}
 ------------------------------------------------
 	
 ### Syntax:
 
-	var node = new Mif.Tree.Node(structure, options);
+	var node = new Mif.Tree.Item(structure, options);
 
 ### Arguments:
 
 1. structure - (*object*) object {tree: tree, parentNode: parent}
-1. options   - (*object*) Mif.Tree.Node options.
+1. options   - (*object*) Mif.Tree.Item options.
 
 ### Options:
 
@@ -32,7 +32,7 @@ MIf.Tree.Node Method: constructor {#Mif.Tree.Node:constructor}
 * openIconUrl - url for open icon
 * closeIconUrl- url for close icon
 * cls         - extra css class addes to node wrapper. See also html node structure in Mif.Tree.Draw.
-* loadable    - Load nodes on expand using Mif.Tree.Node load method if node.state.loaded=false.
+* loadable    - Load nodes on expand using Mif.Tree.Item load method if node.state.loaded=false.
 * id          - id. If id exists, we can get node using Mif.id(node_id) function.
 
 **state**
@@ -47,7 +47,7 @@ MIf.Tree.Node Method: constructor {#Mif.Tree.Node:constructor}
 
 
 ### Example:
-	var newNode=new Mif.Tree.Node({
+	var newNode=new Mif.Tree.Item({
 		parentNode: node1,
 		tree: tree
 	});
@@ -55,7 +55,7 @@ MIf.Tree.Node Method: constructor {#Mif.Tree.Node:constructor}
 
 
 
-Mif.Tree.Node Method: getElement {#Mif.Tree.Node:getElement}
+Mif.Tree.Item Method: getElement {#Mif.Tree.Item:getElement}
 -----------------------------------------------------
 
 return node dom structure element. See also Mif.Tree.Draw.
@@ -77,7 +77,7 @@ return node dom structure element. See also Mif.Tree.Draw.
 	someNode.getElement('name');
 
 
-Mif.Tree.Node Method: toggle {#Mif.Tree.Node:toggle}
+Mif.Tree.Item Method: toggle {#Mif.Tree.Item:toggle}
 -----------------------------------------------------
 
 By default toggles the node between expanded/collapsed.
@@ -92,13 +92,13 @@ By default toggles the node between expanded/collapsed.
 
 ### Returns:
 
-* (*Mif.Tree.Node*) toggled node.
+* (*Mif.Tree.Item*) toggled node.
 
 ### Example:
 	
 	someNode.toggle();
 
-Mif.Tree.Node Method: recursive {#Mif.Tree.Node:recursive}
+Mif.Tree.Item Method: recursive {#Mif.Tree.Item:recursive}
 ----------------------------------------------------------
 
 recursive walk throuth the tree and apply some function for each node.
@@ -119,7 +119,7 @@ recursive walk throuth the tree and apply some function for each node.
 	});
 	//expandes tree
 
-Mif.Tree.Node Method: isOpen {#Mif.Tree.Node:isOpen}
+Mif.Tree.Item Method: isOpen {#Mif.Tree.Item:isOpen}
 ----------------------------------------------------
 
 return true if node opened, else false.
@@ -136,7 +136,7 @@ return true if node opened, else false.
 	
 	alert(someNode.isOpen());
 
-Mif.Tree.Node Method: isLoaded {#Mif.Tree.Node:isLoaded}
+Mif.Tree.Item Method: isLoaded {#Mif.Tree.Item:isLoaded}
 --------------------------------------------------------
 
 Return true if node were loaded.
@@ -156,7 +156,7 @@ Return true if node were loaded.
 
 
 
-Mif.Tree.Node Method: isLast {#Mif.Tree.Node:isLast}
+Mif.Tree.Item Method: isLast {#Mif.Tree.Item:isLast}
 -----------------------------------------------------
 
 return true if this is last child
@@ -175,7 +175,7 @@ return true if this is last child
 
 	
 
-Mif.Tree.Node Method: isFirst {#Mif.Tree.Node:isFirst}
+Mif.Tree.Item Method: isFirst {#Mif.Tree.Item:isFirst}
 ------------------------------------------------------
 
 return true if this is first child
@@ -194,7 +194,7 @@ return true if this is first child
 
 	
 
-Mif.Tree.Node Method: isRoot {#Mif.Tree.Node:isRoot}
+Mif.Tree.Item Method: isRoot {#Mif.Tree.Item:isRoot}
 ----------------------------------------------------
 
 return true if this is root node
@@ -213,7 +213,7 @@ return true if this is root node
 
 
 
-Mif.Tree.Node Method: getChildren {#Mif.Tree.Node:getChildren}
+Mif.Tree.Item Method: getChildren {#Mif.Tree.Item:getChildren}
 --------------------------------------------------------------
 
 return this node children
@@ -231,7 +231,7 @@ return this node children
 	someNode.getChildren();
 
 
-Mif.Tree.Node Method: getNext {#Mif.Tree.Node:getNext}
+Mif.Tree.Item Method: getNext {#Mif.Tree.Item:getNext}
 ------------------------------------------------------
 
 returns next node.
@@ -242,13 +242,13 @@ returns next node.
 	
 ### Returns:
 
-* (*Mif.Tree.Node*) next node or null.
+* (*Mif.Tree.Item*) next node or null.
 
 ### Example:
 	
 	someNode.getNext();
 
-Mif.Tree.Node Method: getPrevious {#Mif.Tree.Node:getPrevious}
+Mif.Tree.Item Method: getPrevious {#Mif.Tree.Item:getPrevious}
 --------------------------------------------------------------
 
 returns previous node.
@@ -259,13 +259,13 @@ returns previous node.
 	
 ### Returns:
 
-* (*Mif.Tree.Node*) previous node or null.
+* (*Mif.Tree.Item*) previous node or null.
 
 ### Example:
 	
 	someNode.getPrevious();
 
-Mif.Tree.Node Method: getFirst {#Mif.Tree.Node:getFirst}
+Mif.Tree.Item Method: getFirst {#Mif.Tree.Item:getFirst}
 --------------------------------------------------------
 
 returns first child.
@@ -276,14 +276,14 @@ returns first child.
 	
 ### Returns:
 
-* (*Mif.Tree.Node*) first child or null.
+* (*Mif.Tree.Item*) first child or null.
 
 ### Example:
 	
 	someNode.getFirst();
 
 	
-Mif.Tree.Node Method: getLast {#Mif.Tree.Node:getLast}
+Mif.Tree.Item Method: getLast {#Mif.Tree.Item:getLast}
 ------------------------------------------------------
 
 returns last child.
@@ -294,13 +294,13 @@ returns last child.
 	
 ### Returns:
 
-* (*Mif.Tree.Node*) last child or null.
+* (*Mif.Tree.Item*) last child or null.
 
 ### Example:
 	
 	someNode.getLast();
 
-Mif.Tree.Node Method: getParent {#Mif.Tree.Node:getParent}
+Mif.Tree.Item Method: getParent {#Mif.Tree.Item:getParent}
 ----------------------------------------------------------
 
 returns parent node.
@@ -311,7 +311,7 @@ returns parent node.
 	
 ### Returns:
 
-* (*Mif.Tree.Node*) parent node or null.
+* (*Mif.Tree.Item*) parent node or null.
 
 ### Example:
 	
@@ -319,7 +319,7 @@ returns parent node.
 
 
 
-Mif.Tree.Node Method: getNextVisible {#Mif.Tree.Node:getNextVisible}
+Mif.Tree.Item Method: getNextVisible {#Mif.Tree.Item:getNextVisible}
 --------------------------------------------------------------------
 
 returns next visible node.
@@ -330,7 +330,7 @@ returns next visible node.
 	
 ### Returns:
 
-* (*Mif.Tree.Node*) next visible node or null.
+* (*Mif.Tree.Item*) next visible node or null.
 
 ### Example:
 	
@@ -338,7 +338,7 @@ returns next visible node.
 	
 
 
-Mif.Tree.Node Method: getPreviousVisible {#Mif.Tree.Node:getPreviousVisible}
+Mif.Tree.Item Method: getPreviousVisible {#Mif.Tree.Item:getPreviousVisible}
 ----------------------------------------------------------------------------
 
 returns previous visible node.
@@ -349,14 +349,14 @@ returns previous visible node.
 	
 ### Returns:
 
-* (*Mif.Tree.Node*) previous visible node or null.
+* (*Mif.Tree.Item*) previous visible node or null.
 
 ### Example:
 	
 	someNode.getPreviousVisible();
 	
 
-Mif.Tree.Node Method: getVisiblePosition {#Mif.Tree.Node:getVisiblePosition}
+Mif.Tree.Item Method: getVisiblePosition {#Mif.Tree.Item:getVisiblePosition}
 ----------------------------------------------------------------------------
 
 returns position of node. If node invisible -1.
@@ -373,7 +373,7 @@ returns position of node. If node invisible -1.
 	
 	alert(someNode.getVisiblePosition()==-1 ? someNode.name+' invisilbe' : someNode.name+' visible');
 	
-Mif.Tree.Node Method: contains {#Mif.Tree.Node:contains}
+Mif.Tree.Item Method: contains {#Mif.Tree.Item:contains}
 --------------------------------------------------------
 
 returns true if this node contains other node.
@@ -384,7 +384,7 @@ returns true if this node contains other node.
 	
 ### Argumens:
 
-1. node - (*Mif.Tree.Node*) examined node.
+1. node - (*Mif.Tree.Item*) examined node.
 	
 ### Returns:
 
@@ -412,7 +412,7 @@ returns true if this node contains other node.
 	alert(node3.contains(node1));//alert false;
 	
 
-Mif.Tree.Node Method: addType {#Mif.Tree.Node:addType}
+Mif.Tree.Item Method: addType {#Mif.Tree.Item:addType}
 ------------------------------------------------------
 
 add type to node (analog addClass for dom elements).
@@ -427,14 +427,14 @@ add type to node (analog addClass for dom elements).
 	
 ### Returns:
 
-* (*Mif.Tree.Node*) returns this node.
+* (*Mif.Tree.Item*) returns this node.
 
 ### Example:
 	
 	someNode.addType('bin');
 	
 
-Mif.Tree.Node Method: removeType {#Mif.Tree.Node:removeType}
+Mif.Tree.Item Method: removeType {#Mif.Tree.Item:removeType}
 ------------------------------------------------------------
 
 remove node type (analog removeClass for dom elements).
@@ -449,14 +449,14 @@ remove node type (analog removeClass for dom elements).
 	
 ### Returns:
 
-* (*Mif.Tree.Node*) returns this node.
+* (*Mif.Tree.Item*) returns this node.
 
 ### Example:
 	
 	someNode.removeType('folder');
 	
 
-Mif.Tree.Node Method: set {#Mif.Tree.Node:set}
+Mif.Tree.Item Method: set {#Mif.Tree.Item:set}
 ------------------------------------------------------------
 
 set node properties.
@@ -471,7 +471,7 @@ set node properties.
 	
 ### Returns:
 
-* (*Mif.Tree.Node*) returns this node.
+* (*Mif.Tree.Item*) returns this node.
 
 ### Example:
 	

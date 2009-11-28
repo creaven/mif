@@ -2,148 +2,48 @@
 Mif.Tree
 */
 
-Mif.sheet.addRules({
-	'row, children, tree, node, wrapper': {
-		'display': 'block'
-	},
-
-	'tree': {
-		'position': 'relative',
-		'width': '100%',
-		'height': '100%',
-		'min-height': Browser.Engine.trident5 ? '100%' : 'auto',
-		'overflow': 'auto',
-		'font-family': '"Lucida Grande", "Lucida Sans Unicode", Arial, Verdana, sans-serif',
-		'font-size': '12px',
-		'color': '#000',
-		'line-height': '18px',
-		'white-space': 'nowrap',
-		'cursor': 'default'
-	},
-	
-	'tree wrapper': {
-		'height': Browser.Engine.trident5 ? 'auto' : '100%',
-		'min-height': Browser.Engine.trident5 ? '100%' : 'auto',
-		'width': '100%',
-		'overflow': 'visible',
-		'display': 'table',
-		'position': 'absolute',
-		'background-image': 'zebra.png'.toMifImg()
-	},
-
-	'tree:focus': {
-		'outline': '0'
-	},
-
-	'tree icon, tree toggle, tree checkbox, tree name': {
-		'cursor': 'inherit',
-		'display': Browser.Engine.trident5 ? 'inline-block' : 'table-cell',
-		'height': '18px',
-		'vertical-align': 'middle'
-	},
-	
-	'tree node': {
-		'height': '18px'
-	},
-
-	'tree children': {
-		'width': '100%',
-		'display': 'none'
-	},
-
-	'tree children children node': {
-		'padding-left': '36px'
-	},
-
-	'tree row': {
-		'width': '100%',
-		//'position': 'relative',
-		'height': '18px'
-	},
-
-	'tree name': {
-		'cursor': 'default',
-		'overflow': 'hidden',
-		'padding-left': '4px'
-	},
-
-	'tree icon': {
-		'padding-right': '18px',
-		'background-position': '0 50%',
-		'background-repeat': 'no-repeat',
-		'cursor': 'inherit'
-	},
-	
-	'.mif-tree-open-icon': {
-		'background-image': 'openicon.png'.toMifImg()
-	},
-
-	'.mif-tree-close-icon': {
-		'background-image': 'closeicon.png'.toMifImg()
-	},
-	
-	'tree row.hover name': {
-		'text-decoration': 'underline'
-	}
-	
-});
-
-(function(){
-	for(var i=1; i<30; i++){
-		var rule='tree '+'children '.repeat(i)+'node';
-		Mif.sheet.addRule(rule, 'padding-left: '+18*i+'px');
-	}
-})();
-
-
 Mif.Tree = new Class({
-
-	Implements: [new Events, new Options],
+	
+	Extends: Mif.Component,
 		
-	options:{
+	options: {
 		types: {},
 		forest: false,
 		animateScroll: true,
 		selectable: ['input']
 	},
 	
+	defaults: {
+		name: '',
+		cls: '',
+		openIcon: 'mif-tree-open-icon',
+		closeIcon: 'mif-tree-close-icon',
+		loadable: false,
+		hidden: false,
+		open: false,
+		type: 'dflt'
+	},
+	
 	initialize: function(options) {
 		this.setOptions(options);
-		this.defaults={
-			name: '',
-			cls: '',
-			openIcon: 'mif-tree-open-icon',
-			closeIcon: 'mif-tree-close-icon',
-			loadable: false,
-			hidden: false,
-			open: false,
-			type: 'dflt'
-		};
 		$extend(this, {
 			types: $extend({
 				dflt: {}
 			}, this.options.types),
 			forest: this.options.forest,
-			animateScroll: this.options.animateScroll,
-			container: $(options.container),
-			UID: 0,
-			key: {},
-			expanded: []
+			container: $(this.options.container),
+			$index: [],
+			focusable: true,
+			itemName: 'row',
+			height: Mif.sheet.getRule('tree').style.lineHeight.toInt()
 		});
-		this.height=Mif.sheet.getRule('tree').style.lineHeight.toInt();
-		this.$index=[];
 		this.updateOpenState();
-		Mif.Tree.UID++;
 		this.element=new Element('tree').inject(this.container);
 		this.wrapper=new Element('wrapper').inject(this.element);
-		this.bound={};
-		this.initEvents();
-		this.initScroll();
-		this.initSelection();
-		this.initHover();
-		if (this.options.initialize && MooTools.version>='1.2.2') {
-			this.options.initialize.call(this);
-		}
+		this.itemContainer=this.wrapper;
+		this.parent();
+		this.scroll=new Fx.Scroll(this.element, {link: 'cancel'});
+		this.addSelection().addHover();
 		this.loader=this.options.loader||new Mif.Tree.Loader;
 		if(this.options.loaderOptions){
 			this.loader.options=this.options.loaderOptions;
@@ -151,72 +51,29 @@ Mif.Tree = new Class({
 		if(this.options.data){
 			this.load(this.options.data)
 		}
-		if(Mif.Tree.KeyNav){
-			new Mif.Tree.KeyNav(this);
-		}
+		if(this.options.initialize) this.options.initialize.call(this);
 	},
 	
-	initEvents: function(){
+	events: function(){
+		this.parent();
 		$extend(this.bound, {
-			onMouseleave: this.onMouseleave.bind(this),
-			onMousedown: this.onMousedown.bind(this),
-			onMouseup: this.onMouseup.bind(this),
-			mouse: this.mouse.bind(this),
-			stopSelection: this.stopSelection.bind(this),
 			toggleOnClick: this.toggleOnClick.bind(this),
-			toggleOnDblclick: this.toggleOnDblclick.bind(this),
-			blurOnClick: this.blurOnClick.bind(this),
-			focus: this.focus.bind(this)
+			toggleOnDblclick: this.toggleOnDblclick.bind(this)
 		});
 		this.wrapper.addEvents({
-			mouseleave: this.bound.onMouseleave,
-			mousedown: this.bound.onMousedown,
-			mouseover: this.bound.mouse,
-			mouseout: this.bound.mouse,
 			click: this.bound.toggleOnClick,
 			dblclick: this.bound.toggleOnDblclick
 		});
-		Mif.addEvent('mouseup', this.bound.onMouseup);
-		if(Browser.Engine.trident){
-			this.wrapper.addEvent('selectstart', this.bound.stopSelection);
-		};
-		this.addEvent('mousedown', this.bound.focus);
-		document.addEvent('click', this.bound.blurOnClick);
     },
 	
-	stopSelection: function(event){
-		var target=$(event.target);
-		var selectable=this.options.selectable;
-		for(var i=0, l=selectable.length;i<l;i++){
-			if(target.match(selectable[i])) return true;
-		}
-		return false;
+	toggleOnDblclick: function(event){
+		var target=this.mouse.target;
+		this.mouse.item.toggle();
 	},
-    
-	blurOnClick: function(event){
-		var target=event.target;
-		while(target){
-			if(target==this.element) return;
-			target=target.parentNode;
-		}
-		this.blur();
-	},
-    
-	focus: function(){
-		if(Mif.Focus==this) return this;
-		if(Mif.Focus){
-			Mif.Focus.blur();
-		}
-		Mif.Focus=this;
-		this.element.addClass('focus');
-		return this.fireEvent('focus');
-	},
-    
-	blur: function(){
-		if(Mif.Focus!=this) return this;
-		Mif.Focus=null;
-		this.element.removeClass('focus');
-		return this.fireEvent('blur');
+	
+	toggleOnClick: function(event){
+		if(this.mouse.target!='toggle') return;
+		this.mouse.item.toggle();
 	},
 	
 	$getIndex: function(){//returns array of visible nodes.
@@ -232,58 +89,6 @@ Mif.Tree = new Class({
 		}
 	},
 	
-	mouse: function(event){
-		var target=document.elementFromPoint(event.page.x, event.page.y);
-		if(!target||target==document){
-			this.mouse.target=null;
-			this.mouse.node=null;
-		}else{
-			this.mouse.target=target.tagName.toLowerCase();
-			this.mouse.element=target;
-			var row=$(target).getAncestor('row');
-			if(row){
-				this.mouse.node=Mif.Tree.Nodes[row.getAttribute('id').split('mif-tree-node-')[1]];
-			}
-		}
-	},
-	
-	onMouseleave: function(event){
-		this.mouse.coords={x:null,y:null};
-		this.mouse.target=false;
-		this.mouse.element=false;
-		this.mouse.node=false;
-		this.fireEvent('mouseleave', [event]);
-	},
-	
-	onMousedown: function(event){
-		this.mouse(event);
-		this.mouse.active=event.target.addClass('active');
-		this.fireEvent('mousedown', [event]);
-		this.stopSelection(event);
-		event.preventDefault();
-	},
-	
-	onMouseup: function(event){
-		if(this.mouse.active){
-			this.mouse.active.removeClass('active');
-			this.mouse.active=null;
-		};
-	},
-	
-	toggleOnDblclick: function(event){
-		var target=this.mouse.target;
-		this.mouse.node.toggle();
-	},
-	
-	toggleOnClick: function(event){
-		if(this.mouse.target!='toggle') return;
-		this.mouse.node.toggle();
-	},
-	
-	initScroll: function(){
-		this.scroll=new Fx.Scroll(this.element, {link: 'cancel'});
-	},
-	
 	scrollTo: function(node){//TODO buggy if exists horizontal scroll line
 		var position=node.getVisiblePosition();
 		var top=position*this.height;
@@ -293,7 +98,7 @@ Mif.Tree = new Class({
 			this.scroll.fireEvent('complete');
 			return false;
 		}
-		if(this.animateScroll){
+		if(this.options.animateScroll){
 			this.scroll.start(this.element.scrollLeft, top-(down ? this.element.clientHeight-this.height : this.height));
 		}else{
 			this.scroll.set(this.element.scrollLeft, top-(down ? this.element.clientHeight-this.height : this.height));
@@ -318,5 +123,3 @@ Mif.Tree = new Class({
 	}
 	
 });
-
-Mif.Tree.UID=0;

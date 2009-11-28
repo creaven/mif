@@ -35,11 +35,11 @@ implements sortalbe functionality.
 
 
 
-Class Mif.Tree.Node {#Mif.Tree.Node::Sort}
+Class Mif.Tree.Item {#Mif.Tree.Item::Sort}
 ==========================================
 
 
-Mif.Tree.Node Method: sort {#Mif.Tree.Node:sort}
+Mif.Tree.Item Method: sort {#Mif.Tree.Item:sort}
 ------------------------------------------------
 
 sort this node children.

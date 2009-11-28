@@ -17,14 +17,14 @@ Mif.sheet.addRules({
 
 Mif.Tree.implement({
 	
-	initSelection: function(){
+	addSelection: function(){
 		this.bound.attachSelection=this.attachSelection.bind(this);
-		this.addEvent('mousedown', this.bound.attachSelection);
+		return this.addEvent('mousedown', this.bound.attachSelection);
 	},
 	
 	attachSelection: function(event){
 		if(!['icon', 'name', 'node'].contains(this.mouse.target)) return;
-		var node=this.mouse.node;
+		var node=this.mouse.item;
 		if(!node) return;
 		this.select(node);
 	},
@@ -62,7 +62,7 @@ Mif.Tree.implement({
 	
 });
 
-Mif.Tree.Node.implement({
+Mif.Tree.Item.implement({
 		
 	select: function(state) {
 		this.property.selected = state;

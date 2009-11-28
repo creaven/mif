@@ -26,7 +26,7 @@ Mif.Tree.implement({
 			}
 		}
 		return {
-			node: Mif.Tree.Nodes[target.getAttribute('uid')],
+			node: Mif.Tree.Items[target.getAttribute('uid')],
 			target: type
 		}
 	}
@@ -34,10 +34,10 @@ Mif.Tree.implement({
 });
 
 
-Mif.Tree.Node.prototype.getNextVisible_=Mif.Tree.Node.prototype.getNextVisible;
-Mif.Tree.Node.prototype.getPreviousVisible_=Mif.Tree.Node.prototype.getPreviousVisible;
+Mif.Tree.Item.prototype.getNextVisible_=Mif.Tree.Item.prototype.getNextVisible;
+Mif.Tree.Item.prototype.getPreviousVisible_=Mif.Tree.Item.prototype.getPreviousVisible;
 
-Mif.Tree.Node.implement({
+Mif.Tree.Item.implement({
 
 	hide: function(){
 		this.state.hidden=true;
@@ -82,7 +82,7 @@ Mif.Tree.KeyNav.implement({
 			forward=forward.getNextVisible();
 			if(!forward) return;
 		}while(forward.type=='close');
-		if( forward ) this.tree.select(forward)
+		if( forward ) this.owner.select(forward)
 	},
 	
 	goBack: function(current){
@@ -91,7 +91,7 @@ Mif.Tree.KeyNav.implement({
 			back=back.getPreviousVisible();
 			if(!back) return;
 		}while(back.type=='close');
-		if (back) this.tree.select(back);
+		if (back) this.owner.select(back);
 	}
 
 });
@@ -124,7 +124,7 @@ DOMTree = new Mif.Tree({
 	},
 	onSelect: function(node){
 		if(node.type=='close'){
-			node.tree.select(node.getPrevious());
+			node.owner.select(node.getPrevious());
 		}
 		this.wrapper.focus();
 	}

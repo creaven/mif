@@ -13,8 +13,8 @@ Mif.Tree.Draw={
 		}
 		html=html||[];
 		html.push(
-		'<row ',(node.hidden ? ' style="display:none"' : ''),' id="mif-tree-node-',node.UID,'">',
-			'<node class="',node.property.cls,(node.property.selected ? ' selected' : ''),'">',
+		'<row class="',node.property.cls,(node.property.selected ? ' selected' : ''),'" ',(node.property.hidden ? ' style="display:none"' : ''),' uid="'+node.UID+'" id="mif-tree-node-',node.UID,'">',
+			'<node>',
 				'<toggle class="',node.getToggleType(),'"></toggle>',
 				checkbox,
 				'<icon class="',node.property.closeIcon,'"></icon>',
@@ -36,7 +36,7 @@ Mif.Tree.Draw={
 		}
 		container=container || parent.getElement('children');
 		container.set('html', html.join(''));
-		parent.tree.fireEvent('drawChildren',[parent]);
+		parent.owner.fireEvent('drawChildren',[parent]);
 	},
 	
 	root: function(tree){
@@ -47,7 +47,7 @@ Mif.Tree.Draw={
 	},
 	
 	forestRoot: function(tree){
-		var container=new Element('root').addClass('mif-tree-children-root').injectInside(tree.wrapper);
+		var container=new Element('root').addClass('mif-tree-children-root').inject(tree.wrapper);
 		Mif.Tree.Draw.children(tree.root, container);
 	},
 	
@@ -57,9 +57,9 @@ Mif.Tree.Draw={
 	
 	isUpdatable: function(node){
 		if(
-			(!node||!node.tree) ||
+			(!node||!node.owner) ||
 			(node.getParent() && !node.getParent().$draw) || 
-			(node.isRoot() && (!node.tree.$draw||node.tree.forest)) 
+			(node.isRoot() && (!node.owner.$draw||node.owner.forest)) 
 		) return false;
 		return true;
 	},
@@ -74,15 +74,15 @@ Mif.Tree.Draw={
 		if(node.isOpen()){
 			if(!node.$draw) {
 				Mif.Tree.Draw.children(node);
-				node.tree.$getIndex();
+				node.owner.$getIndex();
 				node.getElement('toggle').className=node.getToggleType();
-				node.tree.updateHover();
+				node.owner.updateHover();
 			}
-			children.style.display='block';
+			children.style.display=node.property.hidden ? 'none' : 'block';
 		}else{
 			children.style.display='none';
 		}
-		node.tree.fireEvent('updateNode', node);
+		node.owner.fireEvent('updateNode', node);
 		return node;
 	},
 	
@@ -95,10 +95,10 @@ Mif.Tree.Draw={
 			return;
 		}
 		var container;
-		if(node.tree.forest && node.parentNode.isRoot()){
-			container=node.tree.wrapper.getElement('root');
-		}else if(node==node.tree.root){
-			container=node.tree.wrapper;
+		if(node.owner.forest && node.parentNode.isRoot()){
+			container=node.owner.wrapper.getElement('root');
+		}else if(node==node.owner.root){
+			container=node.owner.wrapper;
 		}else{
 			container=node.parentNode.getElement('children');
 		}

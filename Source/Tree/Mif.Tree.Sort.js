@@ -30,10 +30,10 @@ Mif.Tree.implement({
 });
 
 
-Mif.Tree.Node.implement({
+Mif.Tree.Item.implement({
 
 	sort: function(sortFunction){
-		this.children.sort(sortFunction||this.tree.sortFunction);
+		this.children.sort(sortFunction||this.owner.sortFunction);
 		return this;
 	}
 	

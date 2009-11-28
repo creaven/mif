@@ -3,10 +3,10 @@ Mif.Tree.Rename {#Mif.Tree.Rename}
 
 Implements rename functionality. 
 
-Mif.Tree.Node {#Mif.Tree.Node::Rename}
+Mif.Tree.Item {#Mif.Tree.Item::Rename}
 ==========================================
 
-Mif.Tree.Node Method: rename {#Mif.Tree.Name:rename}
+Mif.Tree.Item Method: rename {#Mif.Tree.Name:rename}
 ------------------------------------------------------
 
 inline edit name. 

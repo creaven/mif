@@ -13,7 +13,7 @@ Sets the currently selected node.
 
 ### Arguments:
 
-1. node - (*Mif.Tree.Node*) node which will be selected.
+1. node - (*Mif.Tree.Item*) node which will be selected.
 2. preventFocus -(*boolean* optional) prevent focus tree for gecko browsers.(focus necessary for keynav)
 
 ### Example: 
@@ -58,10 +58,10 @@ Returns true if node selected.
 
 
 	
-Mif.Tree.Node {#Mif.Tree.Node::Selection}
+Mif.Tree.Item {#Mif.Tree.Item::Selection}
 =========================================
 	
-Mif.Tree.Node Method: isSelected {#Mif.Tree.Node:isSelected}
+Mif.Tree.Item Method: isSelected {#Mif.Tree.Item:isSelected}
 ------------------------------------------------------------
 
 Returns true if node selected. 

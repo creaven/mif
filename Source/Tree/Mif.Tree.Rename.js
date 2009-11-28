@@ -104,11 +104,11 @@ Mif.Tree.implement({//TODO buggy
 	
 });
 
-Mif.Tree.Node.implement({
+Mif.Tree.Item.implement({
 	
 	rename: function(){
 		if (this.property.renameDenied) return;
-		this.tree.startRename(this);
+		this.owner.startRename(this);
 	}
 	
 });

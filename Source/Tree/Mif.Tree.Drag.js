@@ -150,7 +150,7 @@ Mif.Tree.Drag = new Class({
 	start: function(event){
 		var target=this.tree.mouse.target;
 		if(!target) return;
-		this.current=$splat(this.options.startPlace).contains(target) ? this.tree.mouse.node : false;
+		this.current=$splat(this.options.startPlace).contains(target) ? this.tree.mouse.item : false;
 		if(!this.current || this.current.property.dragDisabled) return;
 		this.fireEvent('beforeStart', this.element);
 		Mif.Tree.Drag.current=this.current;
@@ -324,9 +324,9 @@ Mif.Tree.Drag = new Class({
 		if(where=='notAllowed'){
 			return;
 		}
-		//if(target && target.tree) this.tree.select(target);
+		//if(target && target.owner) this.tree.select(target);
 		if(where=='inside'){
-			if(target.tree && !target.isOpen() && !this.openTimer && (target.property.loadable||target.hasChildren()) ){
+			if(target.owner && !target.isOpen() && !this.openTimer && (target.property.loadable||target.hasChildren()) ){
 				this.openingElement=target.getElement('row').setStyle('cursor', 'progress');
 				this.openTimer=setTimeout(this.bound.onOpen, this.options.open);
 			}
@@ -370,8 +370,8 @@ Mif.Tree.Drag = new Class({
 	
 	checkTarget: function(event){
 		this.tree.mouse(event);
-		var target=this.tree.mouse.node;
-		var row=this.tree.mouse.node.getElement('row')
+		var target=this.tree.mouse.item;
+		var row=this.tree.mouse.item.getElement('row')
 		if(!target){
 			if(this.options.allowContainerDrop && (this.tree.forest||!this.tree.root)){
 				this.target=this.tree.$index.getLast();
@@ -479,8 +479,8 @@ Mif.Tree.Drag = new Class({
 		var current=this.current, target=this.target, where=this.where;
 		Mif.Tree.Drag.ghost.dispose();
 		var action=this.options.action || (Mif.Key.modifier.contains(this.options.modifier) ? 'copy' : 'move');
-		if(this.where=='inside' && target.tree && !target.isOpen()){
-			if(target.tree) target.toggle();
+		if(this.where=='inside' && target.owner && !target.isOpen()){
+			if(target.owner) target.toggle();
 			if(target.$loading){
 				var onLoad=function(){
 					this.tree[action](current, target, where);

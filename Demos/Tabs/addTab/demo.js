@@ -21,34 +21,35 @@ window.addEvent('domready', function(){
 			content: 'fourth tab content'
 		}
 	]);
+	console.log('wwww')
 	var newAfterTab=new Mif.Tab({
 		title: 'new after tab added',
 		content: 'some new after tab content here'
-	}, {tabs: SampleTabs});
-	newAfterTab.inject(SampleTabs.tabs[1])
-	
+	}, {owner: SampleTabs});
+	newAfterTab.inject(SampleTabs.items[1])
+	console.log('sdf')
 	var newBeforeTab=new Mif.Tab({
 		title: 'new before tab added',
 		content: 'some new before tab content here'
-	}, {tabs: SampleTabs});
-	newBeforeTab.inject(SampleTabs.tabs[1], 'before')
-	
+	}, {owner: SampleTabs});
+	newBeforeTab.inject(SampleTabs.items[1], 'before');
+	console.log('before');
 	var newTopTab=new Mif.Tab({
 		title: 'new top tab added',
 		content: 'some new top tab content here'
-	}, {tabs: SampleTabs});
-	newTopTab.inject(SampleTabs.tabs[1], 'top')
+	}, {owner: SampleTabs});
+	newTopTab.inject(SampleTabs.items[1], 'top')
 	
 	var newBottomTab=new Mif.Tab({
 		title: 'new bottom tab added',
 		content: 'some new bottom tab content here'
-	}, {tabs: SampleTabs});
-	newBottomTab.inject(SampleTabs.tabs[1], 'bottom');
+	}, {owner: SampleTabs});
+	newBottomTab.inject(SampleTabs.items[1], 'bottom');
 	
 	var newTabAfterThird=new Mif.Tab({
 		title: 'new tab after third',
 		content: 'content for new tab after third'
-	}, {tabs: SampleTabs});
+	}, {owner: SampleTabs});
 	
 	newTabAfterThird.inject(3, 'after')
 	

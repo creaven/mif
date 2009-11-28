@@ -18,7 +18,7 @@ Mif.Tree Method: constructor {#Mif.Tree:constructor}
 
 ### Options:
 
-* types         - (*object*) node types. Object with keys - type names and values - type properties. Properties will be added as default properties for all nodes of this type. Properties is the Mif.Tree.Node properties. See Mif.Tree.Node properties for more info.
+* types         - (*object*) node types. Object with keys - type names and values - type properties. Properties will be added as default properties for all nodes of this type. Properties is the Mif.Tree.Item properties. See Mif.Tree.Item properties for more info.
 * dfltType      - (*string*) default type.
 * forest        - (*boolean*: defaults to false) if true tree don't have root node.
 * animateScroll - (*boolean*: defaults to true) animate scrollTo function.
@@ -93,7 +93,7 @@ Scrolls the node into view.
 
 ### Arguments:
 
-1. node - (*Mif.Tree.Node*) node which will scrolled into view.
+1. node - (*Mif.Tree.Item*) node which will scrolled into view.
 
 ### Note: 
 	This function used in Mif.Tree.Drag and Mif.Tree.Transform.
@@ -111,7 +111,7 @@ Make node visible, expanding all parent nodes.
 
 ### Arguments:
 
-1. node - (*Mif.Tree.Node*) node which will be visible.
+1. node - (*Mif.Tree.Item*) node which will be visible.
 
 ### Return:
 

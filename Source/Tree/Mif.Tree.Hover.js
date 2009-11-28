@@ -3,15 +3,16 @@ Mif.Tree.Hover
 */
 Mif.Tree.implement({
 	
-	initHover: function(){
+	addHover: function(){
 		this.bound.hover=this.hover.bind(this);
 		this.wrapper.addEvent('mouseover', this.bound.hover);
 		this.wrapper.addEvent('mouseout', this.bound.hover);
 		this.hovered=[];
+		return this;
 	},
 	
 	hover: function(){
-		var targetNode=this.mouse.node;
+		var targetNode=this.mouse.item;
 		var targetElement=this.mouse.element;
 		var exists=[];
 		for(var i=0, l=this.hovered.length; i<l; i++){
@@ -64,7 +65,7 @@ Mif.Tree.implement({
 	
 });
 
-Mif.Tree.Node.implement({
+Mif.Tree.Item.implement({
 	
 	hover: function(element, state){
 		//console.log(element);

@@ -320,11 +320,11 @@ Add new node.
        |-node4  
 	   
 
-Class Mif.Tree.Node {#Mif.Tree.Node::Transform}
+Class Mif.Tree.Item {#Mif.Tree.Item::Transform}
 ===============================================
 
 
-(private) Mif.Tree.Node Method: inject {#Mif.Tree.Node:inject}
+(private) Mif.Tree.Item Method: inject {#Mif.Tree.Item:inject}
 --------------------------------------------------------------
 
 inject this node after, before or inside another. It's **private** method. You should use Mif.Tree.move instead.
@@ -347,7 +347,7 @@ It's private method. You should use Mif.Tree.move instead.
 
 
 
-(private) Mif.Tree.Node Method: copy {#Mif.Tree.Node:copy}
+(private) Mif.Tree.Item Method: copy {#Mif.Tree.Item:copy}
 ----------------------------------------------------------
 
 inject copy of this node after, before or inside another. It's **private** method.
@@ -370,7 +370,7 @@ inject copy of this node after, before or inside another. It's **private** metho
 It's private method. You should use Mif.Tree.copy instead.
 
 
-(private) Mif.Tree.Node Method: remove {#Mif.Tree.Node:remove}
+(private) Mif.Tree.Item Method: remove {#Mif.Tree.Item:remove}
 ----------------------------------------------------
 
 remove this node.

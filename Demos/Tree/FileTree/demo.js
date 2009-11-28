@@ -1,4 +1,4 @@
-Mif.Tree.Node.implement({
+Mif.Tree.Item.implement({
 		
 	getPath: function(){
 		var path=[];

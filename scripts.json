@@ -3,11 +3,14 @@ TODO fix scripts.json
 */
 {
 	"Core":{
+		"Mif": "Mif Core"
+	},
+	"Tree":{
 		"Mif.Tree":{
-			"deps": ["Mif.Tree.mootools-patch", "Mif.Tree", "Mif.Tree.Node", "Mif.Tree.Load", "Mif.Tree.Selection", "Mif.Tree.Hover", "Mif.Tree.Draw"],
+			"deps": ["Mif.Tree", "Mif.Tree.Item", "Mif.Tree.Load", "Mif.Tree.Selection", "Mif.Tree.Hover", "Mif.Tree.Draw"],
 			"desc": "Mif.Tree control base file"
 		},
-		"Mif.Tree.Node":{
+		"Mif.Tree.Item":{
 			"deps": ["Mif.Tree"],
 			"desc": "Mif.Tree node class"
 		},
@@ -27,12 +30,6 @@ TODO fix scripts.json
 			"deps": ["Mif.Tree"],
 			"desc": "load nodes from json, load json"
 		},
-		"Mif.Tree.mootools-patch":{
-			"deps": [],
-			"desc": "fix mootools bugs patch"
-		}
-	},
-	"More":{
 		"Mif.Tree.KeyNav":{
 			"deps": ["Mif.Tree"],
 			"desc": "implement Mif.Tree keyboard navigation with up, left, right, down"

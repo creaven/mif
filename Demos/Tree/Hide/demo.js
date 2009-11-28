@@ -44,12 +44,14 @@ window.addEvent('domready',function(){
 		if(selected){
 			selected.set({hidden: true});
 		}
+		return false;
 	});
 	
 	$('show').addEvent('click', function(){
 		tree.root.recursive(function(){
 			this.set({hidden: false});
 		});
+		return false;
 	});
 	
 });

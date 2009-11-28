@@ -1,86 +1,30 @@
 /*
-Mif.Tree.Node
+Mif.Tree.Item
 */
 
-Mif.sheet.addRules({
-	
-	'tree toggle': {
-		'padding-left': '16px',
-		'z-index': '1',
-		'overflow': 'hidden',
-		'background-repeat': 'no-repeat',
-		'cursor': 'default',
-		'background-position': 'center center'
-	},
-
-	'toggle.none': {
-		'visibility': 'hidden'
-	},
-
-	'.focus toggle.minus': {
-		'background-image': 'down.png'.toMifImg()
-	},
-
-	'.focus toggle.plus': {
-		'background-image': 'right.png'.toMifImg()
-	},
-	
-	'.focus .selected toggle.plus': {
-		'background-image': 'right-selected.png'.toMifImg()
-	},
-
-	'.focus .selected toggle.minus': {
-		'background-image': 'down-selected.png'.toMifImg()
-	},
-	
-	'.selected toggle.minus, toggle.minus': {
-		'background-image': 'down-unfocused.png'.toMifImg()
-	},
-
-	'.selected toggle.plus, toggle.plus': {
-		'background-image': 'right-unfocused.png'.toMifImg()
-	},
-	
-	'toggle.plus.hover.active': {
-		'background-image': 'right-active.png'.toMifImg()
-	},
-
-	'toggle.minus.hover.active': {
-		'background-image': 'down-active.png'.toMifImg()
-	},
-	
-	'.selected toggle.plus.hover.active': {
-		'background-image': 'right-selected-active.png'.toMifImg()
-	},
-
-	'.selected toggle.minus.hover.active': {
-		'background-image': 'down-selected-active.png'.toMifImg()
-	}
-
-});
-
-Mif.Tree.Node = new Class({
+Mif.Tree.Item = new Class({
 
 	Implements: [Events],
 	
-	initialize: function(structure, property) {
-		$extend(this, structure);
+	initialize: function(property, struct) {
+		$extend(this, struct);
 		property=property||{};
 		this.children=[];
-		this.defaults=$unlink(this.tree.defaults);
+		this.defaults=$unlink(this.owner.defaults);
 		this.property=this.defaults;
-		$extend(this.property, this.tree.types[property.type||'dflt']);
+		$extend(this.property, this.owner.types[property.type||'dflt']);
 		this.property=$extend(this.property, property);
-		this.UID=Mif.Tree.Node.UID++;
-		Mif.Tree.Nodes[this.UID]=this;
+		this.UID=++Mif.UID;
+		Mif.uids[this.UID]=this;
 		var id=this.property.id;
 		if(id!=null) Mif.ids[id]=this;
-		this.tree.fireEvent('nodeCreate', [this]);
+		this.owner.fireEvent('nodeCreate', [this]);
 		this._property=['id', 'name', 'cls', 'openIcon', 'closeIcon', 'hidden'];
 	},
 	
 	getElement: function(type){//TODO rename node->row etc
 		var node=document.id('mif-tree-node-'+this.UID);
+		if(!node) return false;
 		if(!type){
 			return new Elements([node, node.getNext()]);
 		}
@@ -102,13 +46,13 @@ Mif.Tree.Node = new Class({
 				this.drawToggle();
 			}
 			this.fireEvent('toggle', [this.property.open]);
-			this.tree.fireEvent('toggle', [this, this.property.open]);
+			this.owner.fireEvent('toggle', [this, this.property.open]);
 			return this;
 		}
 		if(this.property.loadable && !this.property.loaded) {
 			this.property.open=true;
 			this.fireEvent('toggle', [this.property.open]);
-			this.tree.fireEvent('toggle', [this, this.property.open]);
+			this.owner.fireEvent('toggle', [this, this.property.open]);
             return this.load();
         }
 		if(parent && !parent.$draw){
@@ -120,9 +64,9 @@ Mif.Tree.Node = new Class({
 	},
 	
 	drawToggle: function(){
-		this.tree.$getIndex();
+		this.owner.$getIndex();
 		Mif.Tree.Draw.update(this);
-		this.tree.updateHover();
+		this.owner.updateHover();
 	},
 	
 	recursive: function(fn, args){
@@ -216,17 +160,17 @@ Mif.Tree.Node = new Class({
 	},
 	
 	getPreviousVisible: function(){
-		var index=this.tree.$index.indexOf(this);
-		return index==0 ? null : this.tree.$index[index-1];
+		var index=this.owner.$index.indexOf(this);
+		return index==0 ? null : this.owner.$index[index-1];
 	},
 	
 	getNextVisible: function(){
-		var index=this.tree.$index.indexOf(this);
-		return index<this.tree.$index.length-1 ? this.tree.$index[index+1] : null;
+		var index=this.owner.$index.indexOf(this);
+		return index<this.owner.$index.length-1 ? this.owner.$index[index+1] : null;
 	},
 	
 	getVisiblePosition: function(){
-		return this.tree.$index.indexOf(this);
+		return this.owner.$index.indexOf(this);
 	},
 	
 	hasVisibleChildren: function(){
@@ -274,12 +218,12 @@ Mif.Tree.Node = new Class({
 			}
 			return this;
 		}
-		this.tree.fireEvent('beforeSet', [this, property, value]);
+		this.owner.fireEvent('beforeSet', [this, property, value]);
 		var nv=value;//new value
 		var cv=this.property[property];//curent value
 		this.updateProperty(property, cv, nv);
 		this.property[property]=value;
-		this.tree.fireEvent('set', [this, property, value]);
+		this.owner.fireEvent('set', [this, property, value]);
 		return this;
 	},
 	
@@ -295,7 +239,7 @@ Mif.Tree.Node = new Class({
 			this._property.each(function(p){
 				current[p]=this.property[p];
 			}, this);
-			$mix(this.property, this.tree.types[nv], this.defaults)
+			$mix(this.property, this.owner.types[nv], this.defaults)
 			this._property.each(function(p){
 				this.updateProperty(p, current[p], this.property[p]);
 			}, this);
@@ -315,11 +259,12 @@ Mif.Tree.Node = new Class({
 				return this;
 			case 'hidden':
 				this.getElement('row').setStyle('display', nv ? 'none' : '');
+				this.getElement('children').setStyle('display', nv ? 'none' : 'block');
 				var _previous=this.getPreviousVisible();
 				var _next=this.getNextVisible();
 				var parent=this.getParent();
-				this.property[p]=nv;//TODO why?
-				this.tree.$getIndex();
+				//this.property[p]=nv;//TODO why?
+				this.owner.$getIndex();
 				var previous=this.getPreviousVisible();
 				var next=this.getNextVisible();
 				[_previous, _next, previous, next, parent].each(function(node){
@@ -330,6 +275,3 @@ Mif.Tree.Node = new Class({
 	}
 	
 });
-
-Mif.Tree.Node.UID=0;
-Mif.Tree.Nodes={};

@@ -9,7 +9,6 @@ Mif=new new Class({
 });
 
 Mif.ids={};
-
 Mif.id=function(id){
 	return Mif.ids[id];
 }
@@ -27,14 +26,12 @@ function $mix(original, extended, defaults){
 };
 
 if(Browser.Engine.trident){
-	['tree', 'checkbox', 'row', 'node', 'toggle', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root', 'copy', 'bt', 'bg', 'text', 'window', 'handle', 'tbar', 'bbar', 'content', 'tabs', 'header'].each(function(tag){
+	['tree', 'checkbox', 'row', 'node', 'toggle', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root', 'copy', 'bt', 'bg', 'text', 'window', 'handle', 'tbar', 'bbar', 'content', 'tabs', 'tab', 'container',  'header'].each(function(tag){
 		document.createElement(tag);
 	});
 };
 
-Mif.Util={};
-
-Mif.Util.StyleSheet=new Class({
+Mif.StyleSheet=new Class({
  
 	initialize: function(){
 		this.createSheet();
@@ -240,7 +237,7 @@ Mif.Util.StyleSheet=new Class({
 	
 });
 /*
-Mif.Util.StyleSheet.implement({
+Mif.StyleSheet.implement({
 	debug: function(){
 		var code='';
 		for(selector in this.styles){
@@ -250,7 +247,7 @@ Mif.Util.StyleSheet.implement({
 	}
 });
 */
-Mif.sheet=new Mif.Util.StyleSheet();
+Mif.sheet=new Mif.StyleSheet();
 
 Mif.sheet.addRules({
 	

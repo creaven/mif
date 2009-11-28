@@ -31,11 +31,15 @@ var Builder = {
 				'Mif.MooTools.XML',
 				'Mif'
 			],
+			'Component': [
+				'Mif.Component'
+			],
 			'Tree' : [
 				'Mif.Tree', 
-				'Mif.Tree.Node',
+				'Mif.Tree.Item',
 				'Mif.Tree.Hover',
-				'Mif.Tree.Selection', 
+				'Mif.Tree.Selection',
+				'Mif.Tree.Sheet',
 				'Mif.Tree.Load', 
 				'Mif.Tree.Draw',
 				'Mif.Tree.KeyNav', 
@@ -63,7 +67,9 @@ var Builder = {
 				'Mif.Window'
 			],
 			'Tabs': [
-				'Mif.Tabs'
+				'Mif.Tabs',
+				'Mif.Tabs.Drag',
+				'Mif.Tabs.Sheet'
 			]
 		},
 
@@ -73,7 +79,7 @@ var Builder = {
 			],
 			'Tree' : [
 				'Mif.Tree', 
-				'Mif.Tree.Node', 
+				'Mif.Tree.Item', 
 				'Mif.Tree.Hover', 
 				'Mif.Tree.Selection', 
 				'Mif.Tree.Load', 

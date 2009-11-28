@@ -49,7 +49,7 @@ new Mif.Tree.Drag(tree, options)
 								//...other options
 							})
 							
-Class Mif.Tree.Node {#Mif.Tree.Node::Drag}
+Class Mif.Tree.Item {#Mif.Tree.Item::Drag}
 ==========================================
 
 ### Properties

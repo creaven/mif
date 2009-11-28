@@ -1,20 +1,20 @@
 window.addEvent('domready',function(){
 
-	Mif.Tree.Node.implement({
+	Mif.Tree.Item.implement({
 		reloadChildren: function() {
-			if(this.contains(this.tree.selected) && this!=this.tree.selected){
-	            this.tree.unselect();
+			if(this.contains(this.owner.selected) && this!=this.owner.selected){
+	            this.owner.unselect();
 	        }
 			this.property.loaded=false;
 			this.property.open=false;
 			this.property.loadable=true;
 			this.children=[];
 			this.$draw=false;
-			this.tree.$getIndex();
+			this.owner.$getIndex();
 			this.getElement('children').innerHTML='';
 			Mif.Tree.Draw.update(this);
-			this.tree.mouse.node=null;
-	        this.tree.updateHover();
+			this.owner.mouse.item=null;
+	        this.owner.updateHover();
 			return this;
 		}       
 

@@ -20,10 +20,10 @@ Mif.Tree.implement({
 	
 });
 
-Mif.Tree.Node.implement({
+Mif.Tree.Item.implement({
 	
 	load: function(options){
-		var loader=this.loader||this.tree.loader;
+		var loader=this.loader||this.owner.loader;
 		loader.load(this, options);
 		return this;
 	}
@@ -61,21 +61,21 @@ Mif.Tree.Loader=new Class({
 		var defaultOptions=$unlink(this.defaultOptions);
 		var localOptions={};
 		var globalOptions=this.toOptions($lambda(this.options)(item));
-		if(item instanceof Mif.Tree.Node){
+		if(item instanceof Mif.Tree.Item){
 			localOptions=this.toOptions($lambda(item.property.loaderOptions)(item));
 		}
 		options=$extend($extend($extend(defaultOptions, globalOptions), localOptions), options);
 		var node, tree;
-		if(item instanceof Mif.Tree.Node){//node
+		if(item instanceof Mif.Tree.Item){//node
 			node=item;
-			tree=node.tree;
+			tree=node.owner;
 		}else{
 			tree=item;
 		}
-		if(item instanceof Mif.Tree.Node){
+		if(item instanceof Mif.Tree.Item){
 			item.getElement('icon').addClass('loader-icon');
 		}
-		var struct={node: node, tree: tree};
+		var struct={node: node, owner: tree};
 		options.loadData=options.loadData||options.json;
 		if(options.loadData){
 			return this.loadData(options.loadData, struct);
@@ -96,10 +96,10 @@ Mif.Tree.Loader=new Class({
 	
 	loadData: function(data, struct){
 		var node=struct.node;
-		var tree=struct.tree;
+		var tree=struct.owner;
 		if(!node && tree.forest){
-			tree.root=new Mif.Tree.Node({
-				tree: tree,
+			tree.root=new Mif.Tree.Item({}, {
+				owner: tree,
 				parentNode: null
 			});
 			struct.node=tree.root;
@@ -119,22 +119,22 @@ Mif.Tree.Loader=new Class({
 	
 	dataToObj: function(data, struct){
 		var parent=struct.node;
-		var tree=struct.tree;
+		var tree=struct.owner;
 		var children=data;
 		for( var i=children.length; i--; ){
 			var child=children[i];
 			var subChildren=child.children;
-			var node=new Mif.Tree.Node({
-				tree: tree,
+			var node=new Mif.Tree.Item(child, {
+				owner: tree,
 				parentNode: parent
-			}, child);
+			});
 			if( tree.forest || parent != undefined){
 				parent.children.unshift(node);
 			}else{
 				tree.root=node;
 			}
 			if(subChildren && subChildren.length){
-				arguments.callee(subChildren, {node: node, tree: tree});
+				arguments.callee(subChildren, {node: node, owner: tree});
 			}
 		}
 		if(parent) parent.property.loaded=true;

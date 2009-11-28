@@ -58,7 +58,7 @@ Mif.Tree.implement({
 	
 	checkboxClick: function(event){
 		if(this.mouse.target!='checkbox') {return;}
-		this.mouse.node['switch']();
+		this.mouse.item['switch']();
 	},
 	
 	getChecked: function(includePartially){
@@ -72,24 +72,24 @@ Mif.Tree.implement({
 
 });
 
-Mif.Tree.Node.implement({
+Mif.Tree.Item.implement({
 
 	'switch' : function(state){
 		if(this.property.checked==state||!this.property.hasCheckbox) return;
-		var type=this.tree.checkboxType;
+		var type=this.owner.checkboxType;
 		var checked=(this.property.checked=='checked') ? 'unchecked' : 'checked';
 		var setState=function(node, state){
 			if(!node.property.hasCheckbox) return;
 			var oldState=node.property.checked;
 			node.property.checked=state;
-			if((!node.parentNode&&node.tree.$draw) || (node.parentNode && node.parentNode.$draw)){
+			if((!node.parentNode&&node.owner.$draw) || (node.parentNode && node.parentNode.$draw)){
 				node.getElement('checkbox').removeClass('mif-tree-node-'+oldState).addClass('mif-tree-node-'+state);
 			}
 		};
 		if(type=='simple'){
 			setState(this, checked);
-			this.tree.fireEvent(checked=='checked' ? 'check' : 'unCheck', this);
-			this.tree.fireEvent('switch', [this, (checked=='checked' ? true : false)]);
+			this.owner.fireEvent(checked=='checked' ? 'check' : 'unCheck', this);
+			this.owner.fireEvent('switch', [this, (checked=='checked' ? true : false)]);
 			return this;
 		};
 		this.recursive(function(){
@@ -97,7 +97,7 @@ Mif.Tree.Node.implement({
 		});
 		function setParentCheckbox(node){
 			if(!node.property.hasCheckbox) return;
-			if(!node.parentNode || (node.tree.forest && !node.parentNode.parentNode)) return;
+			if(!node.parentNode || (node.owner.forest && !node.parentNode.parentNode)) return;
 			var parent=node.parentNode;
 			var state='';
 			var children=parent.children;
