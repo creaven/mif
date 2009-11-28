@@ -69,7 +69,9 @@ var Builder = {
 			'Tabs': [
 				'Mif.Tabs',
 				'Mif.Tabs.Drag',
-				'Mif.Tabs.Sheet'
+				'Mif.Tabs.Sheet',
+				'Mif.Tabs.Draw',
+				'Mif.Tabs.Transform'
 			]
 		},
 

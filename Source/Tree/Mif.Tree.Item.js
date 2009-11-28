@@ -22,17 +22,6 @@ Mif.Tree.Item = new Class({
 		this._property=['id', 'name', 'cls', 'openIcon', 'closeIcon', 'hidden'];
 	},
 	
-	getElement: function(type){//TODO rename node->row etc
-		var node=document.id('mif-tree-node-'+this.UID);
-		if(!node) return false;
-		if(!type){
-			return new Elements([node, node.getNext()]);
-		}
-		if(type=='row') return node;
-		if(type=='children') return node.getNext();
-		return node.getElement(type);
-	},
-	
 	getToggleType: function(){
 		return (this.property.loadable && !this.isLoaded()) ? 'plus' : (this.hasVisibleChildren() ? (this.isOpen() ? 'minus' : 'plus') : 'none');
 	},
@@ -65,7 +54,7 @@ Mif.Tree.Item = new Class({
 	
 	drawToggle: function(){
 		this.owner.$getIndex();
-		Mif.Tree.Draw.update(this);
+		this.owner.update(this);
 		this.owner.updateHover();
 	},
 	
@@ -245,7 +234,7 @@ Mif.Tree.Item = new Class({
 			}, this);
 			return this;
 		}
-		if(!Mif.Tree.Draw.isUpdatable(this)) return this;
+		if(!this.owner.isUpdatable(this)) return this;
 		switch(p){
 			case 'name':
 				this.getElement('name').set('html', nv);
@@ -267,8 +256,9 @@ Mif.Tree.Item = new Class({
 				this.owner.$getIndex();
 				var previous=this.getPreviousVisible();
 				var next=this.getNextVisible();
+				var tree=this.owner;
 				[_previous, _next, previous, next, parent].each(function(node){
-					Mif.Tree.Draw.update(node);
+					tree.update(node);
 				});
 				return this;
 		}

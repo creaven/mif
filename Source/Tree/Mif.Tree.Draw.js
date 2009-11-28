@@ -2,7 +2,7 @@
 Mif.Tree.Draw
 */
 
-Mif.Tree.Draw={
+Mif.Tree.implement({
 
 	getHTML: function(node, html){
 		if($defined(node.property.checked)){
@@ -26,7 +26,7 @@ Mif.Tree.Draw={
 		return html;
 	},
 	
-	children: function(parent, container){
+	drawChildren: function(parent, container){
 		parent.open=true;
 		parent.$draw=true;
 		var html=[];
@@ -39,19 +39,19 @@ Mif.Tree.Draw={
 		parent.owner.fireEvent('drawChildren',[parent]);
 	},
 	
-	root: function(tree){
-		var domRoot=this.node(tree.root);
-		domRoot.injectInside(tree.wrapper);
-		tree.$draw=true;
-		tree.fireEvent('drawRoot');
+	drawRoot: function(){
+		var domRoot=this.drawNode(this.root);
+		domRoot.injectInside(this.wrapper);
+		this.$draw=true;
+		return this.fireEvent('drawRoot');
 	},
 	
-	forestRoot: function(tree){
-		var container=new Element('root').addClass('mif-tree-children-root').inject(tree.wrapper);
-		Mif.Tree.Draw.children(tree.root, container);
+	drawForestRoot: function(){
+		var container=new Element('root').addClass('mif-tree-children-root').inject(this.wrapper);
+		this.drawChildren(this.root, container);
 	},
 	
-	node: function(node){
+	drawNode: function(node){
 		return new Element('div').inject(document.body).set('html', this.getHTML(node).join('')).dispose().getChildren();
 	},
 	
@@ -59,7 +59,7 @@ Mif.Tree.Draw={
 		if(
 			(!node||!node.owner) ||
 			(node.getParent() && !node.getParent().$draw) || 
-			(node.isRoot() && (!node.owner.$draw||node.owner.forest)) 
+			(node.isRoot() && (!this.$draw||this.forest)) 
 		) return false;
 		return true;
 	},
@@ -73,36 +73,52 @@ Mif.Tree.Draw={
 		var children=node.getElement('children');
 		if(node.isOpen()){
 			if(!node.$draw) {
-				Mif.Tree.Draw.children(node);
-				node.owner.$getIndex();
+				this.drawChildren(node);
+				this.$getIndex();
 				node.getElement('toggle').className=node.getToggleType();
-				node.owner.updateHover();
+				this.updateHover();
 			}
 			children.style.display=node.property.hidden ? 'none' : 'block';
 		}else{
 			children.style.display='none';
 		}
-		node.owner.fireEvent('updateNode', node);
+		this.fireEvent('updateNode', node);
 		return node;
 	},
 	
-	inject: function(node, element){
+	updateInject: function(node, element){
 		if(!this.isUpdatable(node)) return;
-		element=element||node.getElement()||this.node(node);
+		element=element||node.getElement()||this.drawNode(node);
 		var previous=node.getPrevious();
 		if(previous){
 			new Elements([element[1], element[0]]).inject(previous.getElement('children'), 'after');
 			return;
 		}
 		var container;
-		if(node.owner.forest && node.parentNode.isRoot()){
-			container=node.owner.wrapper.getElement('root');
-		}else if(node==node.owner.root){
-			container=node.owner.wrapper;
+		if(this.forest && node.parentNode.isRoot()){
+			container=this.wrapper.getElement('root');
+		}else if(node==this.root){
+			container=this.wrapper;
 		}else{
 			container=node.parentNode.getElement('children');
 		}
 		new Elements([element[1], element[0]]).inject(container, 'top');
 	}
 	
-};
+});
+
+
+Mif.Tree.Item.implement({
+	
+	getElement: function(type){//TODO rename node->row etc
+		var node=document.id('mif-tree-node-'+this.UID);
+		if(!node) return false;
+		if(!type){
+			return new Elements([node, node.getNext()]);
+		}
+		if(type=='row') return node;
+		if(type=='children') return node.getNext();
+		return node.getElement(type);
+	}
+	
+});

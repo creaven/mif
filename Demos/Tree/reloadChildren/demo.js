@@ -2,8 +2,9 @@ window.addEvent('domready',function(){
 
 	Mif.Tree.Item.implement({
 		reloadChildren: function() {
-			if(this.contains(this.owner.selected) && this!=this.owner.selected){
-	            this.owner.unselect();
+			var tree=this.owner;
+			if(this.contains(tree.selected) && this!=tree.selected){
+	            tree.unselect();
 	        }
 			this.property.loaded=false;
 			this.property.open=false;
@@ -12,9 +13,9 @@ window.addEvent('domready',function(){
 			this.$draw=false;
 			this.owner.$getIndex();
 			this.getElement('children').innerHTML='';
-			Mif.Tree.Draw.update(this);
-			this.owner.mouse.item=null;
-	        this.owner.updateHover();
+			tree.update(this);
+			tree.mouse.item=null;
+	        tree.updateHover();
 			return this;
 		}       
 
