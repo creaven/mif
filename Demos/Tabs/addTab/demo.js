@@ -21,36 +21,35 @@ window.addEvent('domready', function(){
 			content: 'fourth tab content'
 		}
 	]);
-	console.log('wwww')
-	var newAfterTab=new Mif.Tab({
+	
+	var newAfterTab=new Mif.Tabs.Item({
 		title: 'new after tab added',
 		content: 'some new after tab content here'
 	}, {owner: SampleTabs});
 	newAfterTab.inject(SampleTabs.items[1])
-	console.log('sdf')
-	var newBeforeTab=new Mif.Tab({
+	
+	var newBeforeTab=new Mif.Tabs.Item({
 		title: 'new before tab added',
 		content: 'some new before tab content here'
 	}, {owner: SampleTabs});
 	newBeforeTab.inject(SampleTabs.items[1], 'before');
-	console.log('before');
-	var newTopTab=new Mif.Tab({
+	
+	var newTopTab=new Mif.Tabs.Item({
 		title: 'new top tab added',
 		content: 'some new top tab content here'
 	}, {owner: SampleTabs});
 	newTopTab.inject(SampleTabs.items[1], 'top')
 	
-	var newBottomTab=new Mif.Tab({
+	var newBottomTab=new Mif.Tabs.Item({
 		title: 'new bottom tab added',
 		content: 'some new bottom tab content here'
 	}, {owner: SampleTabs});
 	newBottomTab.inject(SampleTabs.items[1], 'bottom');
 	
-	var newTabAfterThird=new Mif.Tab({
+	var newTabAfterThird=new Mif.Tabs.Item({
 		title: 'new tab after third',
 		content: 'content for new tab after third'
 	}, {owner: SampleTabs});
-	
 	newTabAfterThird.inject(3, 'after')
 	
 });

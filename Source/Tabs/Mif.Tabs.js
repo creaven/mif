@@ -26,7 +26,7 @@ Mif.Tabs= new Class({
 	load: function(items){
 		if(!items.length) return this;
 		for(var i=0, l=items.length; i<l; i++){
-			var tab=new Mif.Tab(items[i], {owner: this});
+			var tab=new Mif.Tabs.Item(items[i], {owner: this});
 			this.items.push(tab);
 			tab.header.inject(this.header);
 			tab.content.inject(this.container);
@@ -69,7 +69,7 @@ Mif.Tabs= new Class({
 	
 });
 
-Mif.Tab = new Class({
+Mif.Tabs.Item = new Class({
 	
 	initialize: function(property, struct){
 		$extend(this, struct);
@@ -113,7 +113,7 @@ Mif.Tab = new Class({
 });
 
 
-Mif.Tab.implement({
+Mif.Tabs.Item.implement({
 	
 	draw: function(){
 		this.header=new Element('tab', {
@@ -140,7 +140,7 @@ Mif.Tab.implement({
 	
 });
 
-Mif.Tab.implement({
+Mif.Tabs.Item.implement({
 	
 	inject: function(current, where){
 		if($type(current)=='number'){
