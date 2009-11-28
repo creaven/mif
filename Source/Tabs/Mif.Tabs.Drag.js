@@ -6,7 +6,13 @@ Mif.Tabs.Drag=new Class({
 	Implements: [Events, Options],
 	
 	options: {
-		snap: 4
+		snap: 4,
+		fxOnComplete: {
+			duration: 150
+		},
+		fxOnDrag: {
+			duration: 150
+		}
 	},
 	
 	initialize: function(tabs, options){
@@ -70,8 +76,7 @@ Mif.Tabs.Drag=new Class({
 		});
 		this.offsetLeft=this.currentPos*this.tabWidth;
 		this.tab=tab;
-		var fx=new Fx({
-			duration: 150,
+		var fx=new Fx($extend(this.options.fxOnDrag, {
 			onStart: function(){
 				this.fxComplete=false;
 			}.bind(this),
@@ -82,7 +87,7 @@ Mif.Tabs.Drag=new Class({
 				this.set(this.tabWidth);
 				this.fxComplete=true;
 			}
-		});
+		}));
 		fx.tabWidth=this.tabWidth;
 		fx.set=function(now){
 			if(this.first) this.first.setStyle('margin-left', this.tabWidth-now)
@@ -94,7 +99,7 @@ Mif.Tabs.Drag=new Class({
 	onComplete: function(){
 		var nextTab=this.nextTab;
 		this.fx.cancel();
-		var fx=new Fx.Morph(this.current.header, {
+		var fx=new Fx.Morph(this.current.header, $extend(this.options.fxOnComplete, {
 			onComplete: function(){
 				this.element.setStyles({
 					position: '',
@@ -104,9 +109,8 @@ Mif.Tabs.Drag=new Class({
 				if(nextTab){
 					nextTab.header.setStyle('margin-left', '');
 				}
-			},
-			duration: 150
-		});
+			}
+		}));
 		fx.start({
 			left: this.current.index()*this.tabWidth
 		})
@@ -152,18 +156,6 @@ Mif.Tabs.Drag=new Class({
 			this.currentPos=pos;
 		}
 		this.tab.setStyle('left', left);
-	},
-	
-	addGhost: function(){
-		var node=this.current;
-		var cls=node.get('open') ? node.get('openIcon') : node.get('closeIcon');
-		Mif.Tree.Drag.ghost=new Element('ghost', {
-			'class': 'notAllowed'
-		})
-		.inject(document.body)
-		.set('html', '<indicator></indicator>'+'<icon class="' + cls +'"></icon><name>'+node.get('name')+'</name>')
-		.setStyle('opacity', 0.7);
 	}
-	
 	
 });
