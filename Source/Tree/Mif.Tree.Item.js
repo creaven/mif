@@ -27,7 +27,7 @@ Mif.Tree.Item = new Class({
 	},
 	
 	toggle: function(state) {
-		if(this.property.open==state || this.$loading || this.$toggling) return this;
+		if(this.property.open==state || this.$loading) return this;
 		var parent=this.getParent();
 		function toggle(type){
 			this.property.open = !this.property.open;

@@ -483,8 +483,8 @@ Mif.Tree.Drag = new Class({
 			if(target.owner) target.toggle();
 			if(target.$loading){
 				var onLoad=function(){
-					this.tree[action](current, target, where);
-					this.tree.select(current).scrollTo(current);
+					this.owner[action](current, target, where);
+					this.owner.select(current).scrollTo(current);
 					this.fireEvent('drop', [current, target, where]);
 					target.removeEvent('load',onLoad);
 				};

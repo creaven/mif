@@ -57,6 +57,7 @@ Mif.Tree.Loader=new Class({
 	},
 	
 	load: function(item, options){
+		item.$loading=true;
 		options=this.toOptions(options);
 		var defaultOptions=$unlink(this.defaultOptions);
 		var localOptions={};
@@ -106,10 +107,11 @@ Mif.Tree.Loader=new Class({
 		}
 		this.dataToObj(data, struct);
 		if(node){
-			delete node.$loading;
+			node.$loading=null;
 			node.fireEvent('load');
 			tree.fireEvent('load', node).update(node);
 		}else{
+			tree.$loading=null
 			tree[tree.forest ? 'drawForestRoot' : 'drawRoot'](tree);
 			tree.$getIndex();
 			tree.fireEvent('load');
