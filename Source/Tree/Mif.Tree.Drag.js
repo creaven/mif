@@ -479,24 +479,25 @@ Mif.Tree.Drag = new Class({
 		var current=this.current, target=this.target, where=this.where;
 		Mif.Tree.Drag.ghost.dispose();
 		var action=this.options.action || (Mif.Key.modifier.contains(this.options.modifier) ? 'copy' : 'move');
+		function drop(){
+			this.owner.unselect();
+			var resultNode=this.owner[action](current, target, where);
+			Mif.Tree.Drag.dropZone.owner.focus();
+			this.owner.select(resultNode).scrollTo(resultNode);
+			this.fireEvent('drop', [current, target, where, resultNode]);
+		};
 		if(this.where=='inside' && target.owner && !target.isOpen()){
 			if(target.owner) target.toggle();
 			if(target.$loading){
 				var onLoad=function(){
-					this.owner[action](current, target, where);
-					this.owner.select(current).scrollTo(current);
-					this.fireEvent('drop', [current, target, where]);
+					drop.call(this)
 					target.removeEvent('load',onLoad);
 				};
 				target.addEvent('load',onLoad);
 				return;
 			};
 		};
-		this.tree.unselect();
-		var resultNode=this.tree[action](current, target, where);
-		Mif.Tree.Drag.dropZone.owner.focus();
-		this.tree.select(resultNode).scrollTo(resultNode);
-		this.fireEvent('drop', [current, target, where, resultNode]);
+		drop.call(this)
 	},
 	
 	onStop: function(){

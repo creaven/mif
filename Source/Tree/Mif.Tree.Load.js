@@ -108,8 +108,9 @@ Mif.Tree.Loader=new Class({
 		this.dataToObj(data, struct);
 		if(node){
 			node.$loading=null;
+			tree.update(node);
 			node.fireEvent('load');
-			tree.fireEvent('load', node).update(node);
+			tree.fireEvent('load', node);
 		}else{
 			tree.$loading=null
 			tree[tree.forest ? 'drawForestRoot' : 'drawRoot'](tree);
