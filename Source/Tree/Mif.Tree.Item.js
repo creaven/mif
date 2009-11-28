@@ -4,7 +4,7 @@ Mif.Tree.Item
 
 Mif.Tree.Item = new Class({
 
-	Implements: [Events],
+	Implements: [Mif.Component.Item],
 	
 	initialize: function(property, struct) {
 		$extend(this, struct);

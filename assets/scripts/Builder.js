@@ -32,7 +32,9 @@ var Builder = {
 				'Mif'
 			],
 			'Component': [
-				'Mif.Component'
+				'Mif.Component',
+				'Mif.Component.Item',
+				'Mif.Component.Selection'
 			],
 			'Tree' : [
 				'Mif.Tree', 
@@ -68,10 +70,13 @@ var Builder = {
 			],
 			'Tabs': [
 				'Mif.Tabs',
+				'Mif.Tabs.Item',
 				'Mif.Tabs.Drag',
 				'Mif.Tabs.Sheet',
 				'Mif.Tabs.Draw',
-				'Mif.Tabs.Transform'
+				'Mif.Tabs.Transform',
+				'Mif.Tabs.Selection',
+				'Mif.Tabs.Load'
 			]
 		},
 

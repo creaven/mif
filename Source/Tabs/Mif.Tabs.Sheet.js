@@ -48,7 +48,8 @@ Mif.sheet.addRules({
 	//normal tabs styles
 	
 	'tabs > header tab': {
-		'min-width': '70px'
+		'min-width': '100px',
+		'max-width': '200px'
 	},
 	
 	'tabs > header text': {
