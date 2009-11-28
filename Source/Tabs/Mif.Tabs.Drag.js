@@ -7,10 +7,10 @@ Mif.Tabs.Drag=new Class({
 	
 	options: {
 		snap: 4,
-		fxOnComplete: {
+		fxComplete: {
 			duration: 150
 		},
-		fxOnDrag: {
+		fxDrag: {
 			duration: 150
 		}
 	},
@@ -44,7 +44,6 @@ Mif.Tabs.Drag=new Class({
 	start: function(event){
 		var target=this.owner.mouse.target;
 		if(!target) return;
-		//this.current=$splat(this.options.startPlace).contains(target) ? this.tree.mouse.item : false;
 		this.current=this.owner.mouse.item;
 		if(!this.current || this.current.property.dragDisabled) return;
 		this.fireEvent('beforeStart', this.element);
@@ -76,7 +75,7 @@ Mif.Tabs.Drag=new Class({
 		});
 		this.offsetLeft=this.currentPos*this.tabWidth;
 		this.tab=tab;
-		var fx=new Fx($extend(this.options.fxOnDrag, {
+		var fx=new Fx($extend(this.options.fxDrag, {
 			onStart: function(){
 				this.fxComplete=false;
 			}.bind(this),
@@ -99,7 +98,7 @@ Mif.Tabs.Drag=new Class({
 	onComplete: function(){
 		var nextTab=this.nextTab;
 		this.fx.cancel();
-		var fx=new Fx.Morph(this.current.header, $extend(this.options.fxOnComplete, {
+		var fx=new Fx.Morph(this.current.header, $extend(this.options.fxComplete, {
 			onComplete: function(){
 				this.element.setStyles({
 					position: '',
