@@ -10,8 +10,11 @@ Mif.sheet.addRules({
 	'tabs > header': {
 		'position': 'absolute',
 		'height': '24px',
-		'width': '100%',
-		'cursor': 'default'
+		'left': '0',
+		'right': '0',
+		'cursor': 'default',
+		'overflow': 'hidden',
+		'white-space': 'nowrap'
 	},
 	
 	'tabs > container': {
@@ -19,6 +22,34 @@ Mif.sheet.addRules({
 		'top': '23px',
 		'bottom': '0px',
 		'width': '100%'
+	},
+	
+	'tabs > scroll': {
+		'position': 'absolute',
+		'width': '20px',
+		'height': '24px',
+		'top': '0',
+		'display': 'none',
+		'z-index': '3'
+	},
+	
+	'tabs > scroll.left': {
+		'left': '0',
+		'background': 'green'
+	},
+	
+	'tabs > scroll.right': {
+		'right': '0',
+		'background': 'red'
+	},
+	
+	'tabs.scroll > header': {
+		'left': '20px',
+		'right': '20px'
+	},
+	
+	'tabs.scroll > scroll': {
+		'display': 'block'
 	},
 	
 	'tabs > header > tab': {
@@ -48,7 +79,7 @@ Mif.sheet.addRules({
 	//normal tabs styles
 	
 	'tabs > header tab': {
-		'min-width': '100px',
+		'min-width': '150px',
 		'max-width': '200px'
 	},
 	
@@ -86,10 +117,12 @@ Mif.sheet.addRules({
 		'right': '0px'
 	},
 	
-	'tabs > header bg.line': {
+	'tabs > header > bg.line': {
 		'width': '100%',
 		'height': '3px',
-		'background': 'tab-line.png'.toMifImg(),
+		'background-image': 'tab-line.png'.toMifImg(),
+		'background-repeat': 'repeat-x',
+		'background-position': 'left bottom',
 		'position': 'absolute',
 		'left': '0',
 		'bottom': '1px',

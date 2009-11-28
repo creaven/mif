@@ -5,17 +5,16 @@ Mif.Tabs.Draw
 Mif.Tabs.implement({
 	
 	draw: function(item){
-		item.header=new Element('tab', {
+		item.tab=new Element('tab', {
 			id: 'mif-tabs-tab-'+item.UID,
 			uid: item.UID,
-			'class': item.property.selected ? 'selected' : '',
-			html: '<bg class="left"></bg><bg class="center"></bg><bg class="right"></bg><text>'+item.property.title+'</text>'
-		});
+			'class': item.property.selected ? 'selected' : ''
+		}).inject(this.header).set('html', '<bg class="left"></bg><bg class="center"></bg><bg class="right"></bg><text>'+item.property.title+'</text>');
 		item.content=new Element('content', {
 			id: 'mif-tabs-content-'+item.UID,
 			'class': item.property.selected ? 'selected' : ''
 		});
-		item.content.setContent(item.property.content);
+		item.content.setContent(item.property.content).inject(this.container);
 	},
 	
 	isUpdatable: function(item){

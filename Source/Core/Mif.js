@@ -26,7 +26,7 @@ function $mix(original, extended, defaults){
 };
 
 if(Browser.Engine.trident){
-	['tree', 'checkbox', 'row', 'node', 'toggle', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root', 'copy', 'bt', 'bg', 'text', 'window', 'handle', 'tbar', 'bbar', 'content', 'tabs', 'tab', 'container',  'header'].each(function(tag){
+	['tree', 'checkbox', 'row', 'node', 'toggle', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root', 'copy', 'bt', 'bg', 'text', 'window', 'handle', 'tbar', 'bbar', 'content', 'tabs', 'tab', 'container',  'header', 'scroll'].each(function(tag){
 		document.createElement(tag);
 	});
 };

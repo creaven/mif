@@ -19,11 +19,21 @@ Mif.Component=new Class({
 		this.Item=this.constructor.Item;
 		this.UID=++Mif.UID;
 		Mif.uids[this.UID]=this;
+		this.element.setAttribute('uid', this.UID);
 		if(this.options.id){
 			Mif.ids[this.options.id]=this;
 		}
 		this.bound={};
 		this.events();
+		this.addSelection();
+	},
+	
+	addRule: function(selector, styles){
+		Mif.sheet.addRule('[uid="'+this.UID+'"] '+selector, styles);
+	},
+	
+	addRules: function(selector, styles){
+		Mif.sheet.addRules('[uid="'+this.UID+'"] '+selector, styles);
 	},
 	
 	inject: function(element, how){

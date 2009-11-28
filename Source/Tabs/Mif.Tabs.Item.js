@@ -21,14 +21,14 @@ Mif.Tabs.Item = new Class({
 	disable: function(){
 		if(this.property.disabled) return false;
 		this.property.disabled=true;
-		this.getElement('header').addClass('disabled');
+		this.getElement('tab').addClass('disabled');
 		this.getElement('content').addClass('disabled');
 	},
 	
 	enable: function(){
 		if(!this.property.disabled) return false;
 		this.property.disabled=false;
-		this.getElement('header').removeClass('disabled');
+		this.getElement('tab').removeClass('disabled');
 		this.getElement('content').removeClass('disabled');
 	},
 	
