@@ -10,7 +10,7 @@ Mif.sheet.addRules({
 		'height': '100%',
 		'min-height': Browser.Engine.trident5 ? '100%' : 'auto',
 		'overflow': 'auto',
-		'font-family': '"Lucida Grande", "Lucida Sans Unicode", Arial, Verdana, sans-serif',
+		'font-family': '"Lucida Grande", "Helvetica", Arial, Verdana, sans-serif',
 		'font-size': '12px',
 		'color': '#000',
 		'line-height': '18px',
@@ -36,7 +36,7 @@ Mif.sheet.addRules({
 		'cursor': 'inherit',
 		'display': 'inline-block',
 		'height': '18px',
-		'vertical-align': 'middle'
+		'vertical-align': 'top'
 	},
 	
 	'tree node': {
@@ -61,7 +61,8 @@ Mif.sheet.addRules({
 	'tree name': {
 		'cursor': 'default',
 		'overflow': 'hidden',
-		'padding-left': '4px'
+		'padding-left': '4px',
+		'vertical-align': Browser.Engine.webkit ? 'middle' : 'top'
 	},
 
 	'tree icon': {

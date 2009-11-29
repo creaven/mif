@@ -26,7 +26,7 @@ function $mix(original, extended, defaults){
 };
 
 if(Browser.Engine.trident){
-	['tree', 'checkbox', 'row', 'node', 'toggle', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root', 'copy', 'bt', 'bg', 'text', 'window', 'handle', 'tbar', 'bbar', 'content', 'tabs', 'tab', 'container',  'header', 'scroll'].each(function(tag){
+	['tree', 'checkbox', 'row', 'node', 'toggle', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root', 'copy', 'bt', 'bg', 'text', 'window', 'handle', 'tbar', 'bbar', 'content', 'tabs', 'tab', 'container',  'header', 'scroll', 'l', 'r', 't', 'b', 'c', 'layout', 'overlay', 'temp'].each(function(tag){
 		document.createElement(tag);
 	});
 };
@@ -262,7 +262,7 @@ Mif.sheet.addRules({
 		'padding': '0'
 	}
 	
-})
+});
 
 Mif.bg='<div class="top">'+
 			'<div class="tl"></div>'+
@@ -279,6 +279,18 @@ Mif.bg='<div class="top">'+
 			'<div class="b"></div>'+
 			'<div class="br"></div>'+
 		'</div>';
+
+Mif.Temp=new Element('temp');
+window.addEvent('domready', function(){
+	Mif.Temp.inject(document.body);
+});
+
+Mif.sheet.addRule('temp', {
+	'width': '0',
+	'height': '0',
+	'overflow': 'hidden',
+	'display': 'none'
+});
 
 Mif.Focus=null;
 

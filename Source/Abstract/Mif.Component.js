@@ -10,39 +10,19 @@ Mif.Grid - Mif.Grid.Item - field, itemContainer - element, itemName - 'field', n
 
 Mif.Component=new Class({
 	
-	Implements: [Events, Options],
+	Extends: Mif.Element,
 	
 	initialize: function(){
 		if(this.constructor.KeyNav){
 			new this.constructor.KeyNav(this);
 		}
 		this.Item=this.constructor.Item;
-		this.UID=++Mif.UID;
-		Mif.uids[this.UID]=this;
-		this.element.setAttribute('uid', this.UID);
-		if(this.options.id){
-			Mif.ids[this.options.id]=this;
-		}
+		this.parent();
 		this.bound={};
 		this.events();
 		this.addSelection();
 	},
-	
-	addRule: function(selector, styles){
-		Mif.sheet.addRule('[uid="'+this.UID+'"] '+selector, styles);
-	},
-	
-	addRules: function(selector, styles){
-		Mif.sheet.addRules('[uid="'+this.UID+'"] '+selector, styles);
-	},
-	
-	inject: function(element, how){
-		//this.fireEvent('inject:before', [element, how]);
-		//if(this.stopedEvent.contains('inject')) return;
-		this.element.inject(element, how);
-		return this.fireEvent('inject', [element, how]);
-	},
-	
+		
 	events: function(){
 		$extend(this.bound, {
 			onMouseleave: this.onMouseleave.bind(this),

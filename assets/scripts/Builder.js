@@ -31,7 +31,8 @@ var Builder = {
 				'Mif.MooTools.XML',
 				'Mif'
 			],
-			'Component': [
+			'Abstract': [
+				'Mif.Element',
 				'Mif.Component',
 				'Mif.Component.Item',
 				'Mif.Component.Selection'
@@ -77,6 +78,10 @@ var Builder = {
 				'Mif.Tabs.Transform',
 				'Mif.Tabs.Selection',
 				'Mif.Tabs.Load'
+			],
+			'Layout': [
+				'Mif.Layout.Sheet',
+				'Mif.Layout'
 			]
 		},
 

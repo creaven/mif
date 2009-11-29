@@ -31,14 +31,13 @@ Mif.Tree = new Class({
 				dflt: {}
 			}, this.options.types),
 			forest: this.options.forest,
-			container: $(this.options.container),
 			$index: [],
 			focusable: true,
 			itemName: 'row',
 			height: Mif.sheet.getRule('tree').style.lineHeight.toInt()
 		});
 		this.updateOpenState();
-		this.element=new Element('tree').inject(this.container);
+		this.element=new Element('tree').inject(document.id(this.options.container)||Mif.Temp);
 		this.wrapper=new Element('wrapper').inject(this.element);
 		this.itemContainer=this.wrapper;
 		this.parent();
