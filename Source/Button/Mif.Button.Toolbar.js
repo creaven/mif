@@ -1,38 +1,38 @@
 Mif.sheet.addRules({
 
-	'bt.toolbar': {
+	'pushbutton.toolbar': {
 		'height': '24px',
 		'min-width': '25px',
 		'padding': '0 0px',
 		'background-image': 'toolbar-button-right.png'.toMifImg()
 	},
 	
-	'bt.toolbar bg': {
+	'pushbutton.toolbar bg': {
 		'background-image': 'toolbar-button-left.png'.toMifImg(),
 		'height': '24px'
 	},
 	
-	'bt.toolbar.hover': {
+	'pushbutton.toolbar.hover': {
 		'background-image': 'toolbar-button-right.png'.toMifImg()
 	},
 	
-	'bt.toolbar.hover bg': {
+	'pushbutton.toolbar.hover bg': {
 		'background-image': 'toolbar-button-left.png'.toMifImg()
 	},
 	
-	'bt.toolbar.active.hover': {
+	'pushbutton.toolbar.active.hover': {
 		'background-image': 'toolbar-button-active-right.png'.toMifImg()
 	},
 	
-	'bt.toolbar.active.hover bg': {
+	'pushbutton.toolbar.active.hover bg': {
 		'background-image': 'toolbar-button-active-left.png'.toMifImg()
 	},
 	
-	'bt.toolbar.active': {
+	'pushbutton.toolbar.active': {
 		'background-image': 'toolbar-button-right.png'.toMifImg()
 	},
 	
-	'bt.toolbar.active bg': {
+	'pushbutton.toolbar.active bg': {
 		'background-image': 'toolbar-button-left.png'.toMifImg()
 	}
 	

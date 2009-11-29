@@ -1,7 +1,7 @@
 
 Mif.sheet.addRules({
 
-	'bt': {
+	'pushbutton': {
 		'cursor': 'default',
 		'overflow': 'hidden',
 		'height': '22px',
@@ -18,7 +18,7 @@ Mif.sheet.addRules({
 		'background-position': 'right 0'
 	},
 	
-	'bt bg': {
+	'pushbutton bg': {
 		'background-image': 'button-left.png'.toMifImg(),
 		'background-repeat': 'no-repeat',
 		'width': '50px',
@@ -29,31 +29,31 @@ Mif.sheet.addRules({
 		'top': '0'
 	},
 	
-	'bt.hover': {
+	'pushbutton.hover': {
 		'background-image': 'button-hover-right.png'.toMifImg()
 	},
 	
-	'bt.hover bg': {
+	'pushbutton.hover bg': {
 		'background-image': 'button-hover-left.png'.toMifImg()
 	},
 	
-	'bt.active.hover': {
+	'pushbutton.active.hover': {
 		'background-image': 'button-active-hover-right.png'.toMifImg()
 	},
 	
-	'bt.active.hover bg': {
+	'pushbutton.active.hover bg': {
 		'background-image': 'button-active-hover-left.png'.toMifImg()
 	},
 	
-	'bt.active': {
+	'pushbutton.active': {
 		'background-image': 'button-right.png'.toMifImg()
 	},
 	
-	'bt.active bg': {
+	'pushbutton.active bg': {
 		'background-image': 'button-left.png'.toMifImg()
 	},
 	
-	'bt text': {
+	'pushbutton text': {
 		'display': 'inline-block',
 		'position': 'relative',
 		'height': '22px',
@@ -65,14 +65,14 @@ Mif.sheet.addRules({
 		'z-index': '1'
 	},
 	
-	'bt text.shadow': {
+	'pushbutton text.shadow': {
 		'position': 'absolute',
 		'top': Browser.Engine.trident5 ? '2px' : '1px',
 		'margin-left': '1px',
 		'color': '#F2F2F2'
 	},
 	
-	'bt icon': {
+	'pushbutton icon': {
 		'width': '20px',
 		'height': '100%',
 		'display': 'inline-block',
@@ -105,7 +105,7 @@ Mif.Button=new Class({
 		}else{
 			html='<bg></bg><icon></icon><text>'+options.text+'</text>'
 		}
-		this.element=new Element('bt').inject(document.body).set('html', html);
+		this.element=new Element('pushbutton').inject(document.body).set('html', html);
 		this.element.setStyles(this.options.styles);
 		if(this.options['class']) this.element.addClass(this.options['class']);
 		this.positioning();

@@ -1,5 +1,5 @@
 #!/opt/local/bin/python2.5
- 
+
 import Image, sys, os.path, shutil
  
 args=sys.argv

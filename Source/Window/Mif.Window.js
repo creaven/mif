@@ -6,16 +6,13 @@ Mif.sheet.addRules({
 		'height': '200px',
 		'position': 'absolute',
 		//'border': 'solid 1px black',
+		'font-family': '"Lucida Grande", Helvetica, Arial, Verdana, sans-serif',
+		'font-size': '12px',
+		'color': '#000',
 		'z-index': 10,
 		'left': '10px',
 		'top': '10px',
 		'background': '#C4C4C41'
-	},
-	
-	'window img': {
-		'width': '100%',
-		'height': '100%',
-		'position': 'absolute'
 	},
 	
 	'window handle': {
@@ -24,11 +21,11 @@ Mif.sheet.addRules({
 		'right': '0',
 		'width': '11px',
 		'height': '11px',
-		'background-image': 'window-handle.png'.toMifImg()
+		'background': 'window-handle.png'.toMifImg()+ ' -1px -1px no-repeat'
 	},
 
 	'window content': {
-		'top': '50px',
+		'top': '20px',
 		'bottom': '20px',
 		'width': '100%',
 		//'background': '#EDE3DD',
@@ -44,63 +41,34 @@ Mif.sheet.addRules({
 		'bottom':'0'
 	},
 	
-	'window tbar': {
+	'window titlebar': {
 		//'display': 'none',
 		'width': '100%',
-		'height': '50px',
+		'height': '20px',
 		//'background': 'green',
 		'position': 'absolute',
 		'left': '0',
-		'top': '0'
+		'top': '0',
+		'text-align': 'center',
+		'border-bottom': 'solid 1px #EAEAEA'
 	},
+	
+	'window titlebar text': {
+		'line-height': '20px',
+		'cursor': 'default'
+	}
 
-
-
-	"window.top-noround > bg .tl": {
-		"background-image": "window-noround-tl.png".toMifImg()
-	},
-	
-	"window.top-noround > bg .tr": {
-		"background-image": "window-noround-tr.png".toMifImg()
-	},
-	
-	"window.bottom-noround > bg .bl": {
-		"background-image": "window-noround-bl.png".toMifImg()
-	},
-	
-	"window.bottom-noround > bg .br": {
-		"background-image": "window-noround-br.png".toMifImg()
-	},
-	
-	
-//window blured
-
-	"window.blur.top-noround > bg .tl": {
-		"background-image": "window-blur-noround-tl.png".toMifImg()
-	},
-	
-	"window.blur.top-noround > bg .tr": {
-		"background-image": "window-blur-noround-tr.png".toMifImg()
-	},
-	
-	"window.blur.bottom-noround > bg .bl": {
-		"background-image": "window-blur-noround-bl.png".toMifImg()
-	},
-	
-	"window.blur.bottom-noround > bg .br": {
-		"background-image": "window-blur-noround-br.png".toMifImg()
-	}	
 	
 })
 .addBackground('window > bg', 'window', {
-	'left': 58,
-	'top': 53,
-	'right': 65,
-	'bottom': 60,
-	'padding-left': 54,
-	'padding-top': 54,
-	'l': -27,
-	't': -16
+	'left': 36,
+	'top': 30,
+	'right': 30,
+	'bottom': 30,
+	'padding-left': 28,
+	'padding-top': 26,
+	'l': -13,
+	't': -11
 })
 .addBackground('window.blur > bg', 'window-blur', {
 	'left': 42,
@@ -111,24 +79,11 @@ Mif.sheet.addRules({
 	'padding-top': 39,
 	'l': -19,
 	't': -8
-})
-.addBackground('window tbar > bg', 'window-tbar', {
-	'left': 5,
-	'top': 5,
-	'right': 5,
-	'bottom': 5
-})
-.addBackground('window bbar > bg', 'window-bbar', {
-	'left': 5,
-	'top': 5,
-	'right': 5,
-	'bottom': 5
 });
-
 
 Mif.Window=new Class({
 	
-	Implements: [Events, Options],
+	Extends: Mif.Element,
 	
 	options: {
 		title: 'untitled',
@@ -139,22 +94,35 @@ Mif.Window=new Class({
 	initialize: function(options){
 		this.setOptions(options);
 		this.element=new Element('window').inject(document.body);
-		var html='<bg>'+Mif.bg+'</bg><tbar><bg>'+Mif.bg+'</bg><img src="'+'gradient.png'.toMifImg(true)+'"></img></tbar><content></content><bbar><bg>'+Mif.bg+'</bg><img src="'+'gradient.png'.toMifImg(true)+'"></img></bbar><handle></handle>';
-		this.element.innerHTML=html//'<bg class="left"></bg><bg class="center"></bg><bg class="right"></bg>';
-		this.initEvents();
+		var html='<bg>'+Mif.bg+'</bg>'+
+			'<titlebar>'+
+			 	'<text>'+this.options.title+'</text>'+ 
+			'</titlebar>'+
+			'<content></content>'+
+			'<handle></handle>';
+		this.element.innerHTML=html;
+		this.events();
 		this.setHandle();
+		this.makeDraggable();
 		if(this.options['class']){
 			this.element.addClass(this.options['class']);
 		}
 	},
 	
-	initEvents: function(){
+	events: function(){
 		
 	},
 	
 	setHandle: function(){
 		this.element.makeResizable({
-			handle: this.element.getElement('handle')
+			handle: this.element.getElement('handle'),
+			limit: {x: [100, 10000], y: [100, 10000]}
+		});
+	},
+	
+	makeDraggable: function(){
+		this.element.makeDraggable({
+			handle: this.element.getElement('titlebar')
 		});
 	}
 	

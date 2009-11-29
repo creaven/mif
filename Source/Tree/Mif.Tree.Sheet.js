@@ -10,7 +10,7 @@ Mif.sheet.addRules({
 		'height': '100%',
 		'min-height': Browser.Engine.trident5 ? '100%' : 'auto',
 		'overflow': 'auto',
-		'font-family': '"Lucida Grande", "Helvetica", Arial, Verdana, sans-serif',
+		'font-family': '"Lucida Grande", Helvetica, Arial, Verdana, sans-serif',
 		'font-size': '12px',
 		'color': '#000',
 		'line-height': '18px',

@@ -30,6 +30,10 @@ Mif.Element=new Class({
 	inject: function(element, how){
 		this.element.inject(element, how);
 		return this.fireEvent('inject', [element, how]);
+	},
+	
+	getElement: function(el){
+		return this.element.getElement(el);
 	}
 	
 });

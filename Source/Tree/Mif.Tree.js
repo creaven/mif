@@ -37,7 +37,7 @@ Mif.Tree = new Class({
 			height: Mif.sheet.getRule('tree').style.lineHeight.toInt()
 		});
 		this.updateOpenState();
-		this.element=new Element('tree').inject(document.id(this.options.container)||Mif.Temp);
+		this.element=new Element('tree').inject(document.id(this.options.container)||Mif.temp);
 		this.wrapper=new Element('wrapper').inject(this.element);
 		this.itemContainer=this.wrapper;
 		this.parent();

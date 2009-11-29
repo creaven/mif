@@ -26,7 +26,7 @@ function $mix(original, extended, defaults){
 };
 
 if(Browser.Engine.trident){
-	['tree', 'checkbox', 'row', 'node', 'toggle', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root', 'copy', 'bt', 'bg', 'text', 'window', 'handle', 'tbar', 'bbar', 'content', 'tabs', 'tab', 'container',  'header', 'scroll', 'l', 'r', 't', 'b', 'c', 'layout', 'overlay', 'temp'].each(function(tag){
+	['tree', 'checkbox', 'row', 'node', 'toggle', 'icon', 'name', 'children', 'background', 'wrapper', 'pointer', 'ghost', 'indicator', 'root', 'copy', 'pushbutton', 'bg', 'text', 'window', 'handle', 'titlebar', 'content', 'tabs', 'tab', 'container',  'header', 'scroll', 'l', 'r', 't', 'b', 'c', 'layout', 'overlay', 'temp'].each(function(tag){
 		document.createElement(tag);
 	});
 };
@@ -280,9 +280,9 @@ Mif.bg='<div class="top">'+
 			'<div class="br"></div>'+
 		'</div>';
 
-Mif.Temp=new Element('temp');
+Mif.temp=new Element('temp');
 window.addEvent('domready', function(){
-	Mif.Temp.inject(document.body);
+	Mif.temp.inject(document.body);
 });
 
 Mif.sheet.addRule('temp', {
