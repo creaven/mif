@@ -10,13 +10,13 @@ Mif.Tabs.Item.implement({
 		}
 		where=where||'after';
 		if(where=='before'||where=='after'){
-			this.header.inject(current.header, where);
-			this.content.inject(current.content, where);
+			this.getElement('tab').inject(current.getElement('tab'), where);
+			this.getElement('content').inject(current.getElement('content'), where);
 			this.owner.items.erase(this);
 			this.owner.items.inject(this, current , where);
 		}else{
-			this.header.inject(this.owner.header, where);
-			this.content.inject(this.owner.container, where);
+			this.getElement('tab').inject(this.owner.header, where);
+			this.getElement('content').inject(this.owner.container, where);
 			this.owner.items.erase(this);
 			this.owner.items[where=='top' ? 'unshift' : 'push'](this);
 		}
@@ -37,8 +37,8 @@ Mif.Tabs.implement({
 			tab=this.items[tab];
 		};
 		this.items.erase(tab);
-		tab.header.dispose();
-		tab.content.dispose();
+		tab.getElement('tab').dispose();
+		tab.getElement('content').dispose();
 		return this.fireEvent('remove', tab);
 	}
 	

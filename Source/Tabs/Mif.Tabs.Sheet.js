@@ -80,41 +80,31 @@ Mif.sheet.addRules({
 	
 	'tabs > header tab': {
 		'min-width': '150px',
-		'max-width': '200px'
+		'max-width': '200px',
+		'background': 'tab-right.png'.toMifImg()+' no-repeat right top'
 	},
 	
 	'tabs > header text': {
-		'position': 'relative',
-		'display': 'inline-block',
-		'height': '20px',
+		'position': 'absolute',
+		'display': 'inline',
+		'height': '100%',
+		'line-height': '24px',
+		'vertical-align': 'middle',
 		'margin': '0 10px',
-		'font-size': '12px'
+		'font-size': '12px',
+		'z-index': '100'
+	},
+	
+	'tabs > header bg': {
+		'display': 'block',
+		'position': 'absolute',
+		'height': '100%'
 	},
 	
 	'tabs > header bg.left': {
-		'position': 'absolute',
-		'display': 'inline-block',
 		'background': 'tab-left.png'.toMifImg(),
-		'width': '10px',
-		'height': '100%'
-	},
-	
-	'tabs > header bg.center': {
-		'position': 'absolute',
-		'display': 'inline-block',
-		'background': 'tab-center.png'.toMifImg(),
-		'left': '10px',
-		'right': '10px',
-		'height': '100%'
-	},
-	
-	'tabs > header bg.right': {
-		'position': 'absolute',
-		'display': 'inline-block',
-		'background': 'tab-right.png'.toMifImg(),
-		'width': '10px',
-		'height': '100%',
-		'right': '0px'
+		'left': '0px',
+		'right': '10px'
 	},
 	
 	'tabs > header > bg.line': {

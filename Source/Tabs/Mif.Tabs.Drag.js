@@ -60,12 +60,12 @@ Mif.Tabs.Drag=new Class({
 	},
 	
 	onStart: function(){
-		var tab=this.current.header;
+		var tab=this.current.getElement('tab');
 		this.currentPos=this.current.index();
 		this.tabWidth=tab.offsetWidth;
 		var nextTab=this.current.getNext();
 		if(nextTab){
-			nextTab.header.setStyle('margin-left', this.tabWidth);
+			nextTab.getElement('tab').setStyle('margin-left', this.tabWidth);
 			this.nextTab=nextTab;
 		}
 		tab.setStyles({
@@ -98,7 +98,7 @@ Mif.Tabs.Drag=new Class({
 	onComplete: function(){
 		var nextTab=this.nextTab;
 		this.fx.cancel();
-		var fx=new Fx.Morph(this.current.header, $extend(this.options.fxComplete, {
+		var fx=new Fx.Morph(this.current.getElement('tab'), $extend(this.options.fxComplete, {
 			onComplete: function(){
 				this.element.setStyles({
 					position: '',
@@ -106,7 +106,7 @@ Mif.Tabs.Drag=new Class({
 					left: ''
 				});
 				if(nextTab){
-					nextTab.header.setStyle('margin-left', '');
+					nextTab.getElement('tab').setStyle('margin-left', '');
 				}
 			}
 		}));
@@ -126,26 +126,22 @@ Mif.Tabs.Drag=new Class({
 				if(!this.fxComplete){
 					fx.cancel()
 				}
-				fx.first=this.nextTab ? this.nextTab.header : null;
-				fx.second=newNextTab.header;
+				fx.first=this.nextTab ? this.nextTab.getElement('tab') : null;
+				fx.second=newNextTab.getElement('tab');
 				fx.start(0, this.tabWidth)
 				this.nextTab=newNextTab;
 				this.current.inject(newNextTab, 'before');
 			}else{
 				var newNextTab=this.owner.items[pos+1];
-				if(this.nextTab) {
-					//this.nextTab.header.setStyle('margin-left','');
-				}
 				var fx=this.fx;
 				if(!this.fxComplete){
 					fx.cancel()
 				}
-				fx.first=this.nextTab ? this.nextTab.header : null;
-				fx.second=newNextTab ? newNextTab.header : null;
+				fx.first=this.nextTab ? this.nextTab.getElement('tab') : null;
+				fx.second=newNextTab ? newNextTab.getElement('tab') : null;
 				fx.start(0, this.tabWidth)
 				
 				if(newNextTab) {
-					//newNextTab.header.setStyle('margin-left', this.tabWidth);
 					this.current.inject(newNextTab, 'before');
 				}else{
 					this.current.inject(newNextTab, 'bottom')

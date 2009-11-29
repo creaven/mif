@@ -9,7 +9,7 @@ Mif.Tabs.implement({
 			id: 'mif-tabs-tab-'+item.UID,
 			uid: item.UID,
 			'class': item.property.selected ? 'selected' : ''
-		}).inject(this.header).set('html', '<bg class="left"></bg><bg class="center"></bg><bg class="right"></bg><text>'+item.property.title+'</text>');
+		}).inject(this.header).set('html', '<bg class="left"></bg><text>'+item.property.title+'</text>');
 		item.content=new Element('content', {
 			id: 'mif-tabs-content-'+item.UID,
 			'class': item.property.selected ? 'selected' : ''

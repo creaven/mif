@@ -17,7 +17,7 @@ Mif.Tabs= new Class({
 		this.container=new Element('container').inject(this.element);
 		this.scrollLeft=new Element('scroll', {'class': 'left'}).inject(this.element);
 		this.scrollRight=new Element('scroll', {'class': 'right'}).inject(this.element);
-		this.line=new Element('bg', {'class': 'line'}).inject(this.header);
+		this.line=new Element('bg', {'class': 'line'}).inject(this.header).setStyle('opacity',0.5);
 		this.itemContainer=this.header;
 		this.itemName='tab';
 		this.selectionElement=['tab', 'content'];
@@ -42,11 +42,13 @@ Mif.Tabs= new Class({
 		var fullWidth=this.header.offsetWidth;
 		var count=this.items.length;
 		if(!count) return this;
-		var minWidth=this.items[0].tab.getStyle('min-width');
-		this.addRule('> header > tab', {
-			width: (fullWidth/count).toInt()+'px'
-		});
-		if(this.header.scrollWidth>fullWidth){
+		var minWidth=this.items[0].tab.getStyle('min-width').toInt();
+		var width=(fullWidth/count).toInt();
+		if(width>=minWidth){
+			this.addRule('> header > tab', {
+				width: (fullWidth/count).toInt()+'px'
+			});
+		}else{
 			this.showScroll();
 			this.tabWidth=this.items[0].tab.offsetWidth;
 			this.line.setStyle('width', this.header.scrollWidth);
