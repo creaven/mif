@@ -97,14 +97,14 @@ Mif.Tree.KeyNav=new Class({
 	
 	goPageDown: function(current){
 		var tree=this.tree;
-		var count=(tree.container.clientHeight/tree.height).toInt()-1;
+		var count=(tree.itemContainer.clientHeight/tree.height).toInt()-1;
 		var newIndex=Math.min(tree.$index.indexOf(current)+count, tree.$index.length-1);
 		tree.select(tree.$index[newIndex]);
 	},
 	
 	goPageUp: function(current){
 		var tree=this.tree;
-		var count=(tree.container.clientHeight/tree.height).toInt()-1;
+		var count=(tree.itemContainer.clientHeight/tree.height).toInt()-1;
 		var newIndex=Math.max(tree.$index.indexOf(current)-count, 0);
 		tree.select(tree.$index[newIndex]);
 	}

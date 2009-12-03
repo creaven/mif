@@ -30,14 +30,13 @@ Mif.Component=new Class({
 			onMouseup: this.onMouseup.bind(this),
 			mouse: this.mouse.bind(this),
 			stopSelection: this.stopSelection.bind(this),
-			blurOnClick: this.blurOnClick.bind(this),
 			focus: this.focus.bind(this)
 		});
 		this.itemContainer.addEvents({
-			mouseleave: this.bound.onMouseleave,
 			mousedown: this.bound.onMousedown,
 			mouseover: this.bound.mouse,
-			mouseout: this.bound.mouse
+			mouseout: this.bound.mouse,
+			mouseleave: this.bound.onMouseleave
 		});
 		Mif.addEvent('mouseup', this.bound.onMouseup);
 		if(Browser.Engine.trident){
@@ -45,7 +44,6 @@ Mif.Component=new Class({
 		};
 		if(this.focusable){
 			this.addEvent('mousedown', this.bound.focus);
-			document.addEvent('click', this.bound.blurOnClick);
 		}
 	},
 	
@@ -68,9 +66,7 @@ Mif.Component=new Class({
 			this.mouse.target=target.tagName.toLowerCase();
 			this.mouse.element=target;
 			var item=document.id(target).getAncestor(this.itemName);
-			if(item){
-				this.mouse.item=Mif.uids[item.getAttribute('uid')];
-			}
+			this.mouse.item= item ? Mif.uids[item.getAttribute('uid')] : null;
 		}
 	},
 	
@@ -94,15 +90,6 @@ Mif.Component=new Class({
 			this.mouse.active.removeClass('active');
 			this.mouse.active=null;
 		};
-	},
-	
-	blurOnClick: function(event){
-		var target=event.target;
-		while(target){
-			if(target==this.element) return;
-			target=target.parentNode;
-		}
-		this.blur();
 	},
     
 	focus: function(){

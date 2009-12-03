@@ -1,4 +1,4 @@
-window.DemoRoot=window.DemoRoot||'../'
+window.DemoRoot=window.DemoRoot||'../';
 if(Browser.Engine.trident){
 	var MifImage=document.location.href.split('#')[0]+'/../'+DemoRoot+'/Source/images/MifImage.mht';
 }else{

@@ -5,8 +5,8 @@ Mif.Tree.implement({
 	
 	addHover: function(){
 		this.bound.hover=this.hover.bind(this);
-		this.wrapper.addEvent('mouseover', this.bound.hover);
-		this.wrapper.addEvent('mouseout', this.bound.hover);
+		this.element.addEvent('mouseover', this.bound.hover);
+		this.element.addEvent('mouseout', this.bound.hover);
 		this.hovered=[];
 		return this;
 	},

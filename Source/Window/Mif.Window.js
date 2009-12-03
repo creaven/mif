@@ -11,8 +11,7 @@ Mif.sheet.addRules({
 		'color': '#000',
 		'z-index': 10,
 		'left': '10px',
-		'top': '10px',
-		'background': '#C4C4C41'
+		'top': '10px'
 	},
 	
 	'window handle': {
@@ -26,13 +25,11 @@ Mif.sheet.addRules({
 
 	'window content': {
 		'top': '20px',
-		'bottom': '20px',
 		'width': '100%',
-		//'background': '#EDE3DD',
 		'position': 'absolute'
 	},
 	
-	'window bbar': {
+	'window bottombar': {
 		'width': '100%',
 		'height': '20px',
 		//'background': 'red',
@@ -99,6 +96,7 @@ Mif.Window=new Class({
 			 	'<text>'+this.options.title+'</text>'+ 
 			'</titlebar>'+
 			'<content></content>'+
+			'<bottombar></bottombar>'+
 			'<handle></handle>';
 		this.element.innerHTML=html;
 		this.events();
@@ -107,6 +105,8 @@ Mif.Window=new Class({
 		if(this.options['class']){
 			this.element.addClass(this.options['class']);
 		}
+		this.height();
+		this.height();//ie7
 	},
 	
 	events: function(){
@@ -116,6 +116,9 @@ Mif.Window=new Class({
 	setHandle: function(){
 		this.element.makeResizable({
 			handle: this.element.getElement('handle'),
+			onDrag: function(){
+				this.height();
+			}.bind(this),
 			limit: {x: [100, 10000], y: [100, 10000]}
 		});
 	},
@@ -124,6 +127,11 @@ Mif.Window=new Class({
 		this.element.makeDraggable({
 			handle: this.element.getElement('titlebar')
 		});
+	},
+	
+	height: function(){
+		var height=this.element.offsetHeight - this.getElement('titlebar').offsetHeight - this.getElement('bottombar').offsetHeight;
+		this.getElement('content').setStyle('height', height);
 	}
 	
 })
