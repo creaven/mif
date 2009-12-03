@@ -28,6 +28,9 @@ Mif.Element=new Class({
 	},
 	
 	inject: function(element, how){
+		if($type(element)!='element'){
+			element=element.injectElement;
+		}
 		this.element.inject(element, how);
 		return this.fireEvent('inject', [element, how]);
 	},

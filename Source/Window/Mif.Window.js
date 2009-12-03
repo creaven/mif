@@ -99,6 +99,7 @@ Mif.Window=new Class({
 			'<bottombar></bottombar>'+
 			'<handle></handle>';
 		this.element.innerHTML=html;
+		this.injectElement=this.element.getElement('content');
 		this.events();
 		this.setHandle();
 		this.makeDraggable();

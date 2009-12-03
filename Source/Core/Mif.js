@@ -337,7 +337,10 @@ Element.implement({
 	},
 	
 	setContent: function(content){
-		return (typeof content == 'string') ? this.set('html', content) : this.adopt(content);
+		var type=$type(content);
+		if(type=='string') return this.set('html', content);
+		if(type=='element') return this.adopt(content);
+		return this.adopt(content.element);
 	}
 	
 });

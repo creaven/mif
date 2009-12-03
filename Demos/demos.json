@@ -125,5 +125,10 @@
 		"SimpleTabs": {
 			"title": "simple tabs"
 		}
+	},
+	"Complex": {
+		"window": {
+			"title": "window with tabs and tree"
+		}
 	}
 }
