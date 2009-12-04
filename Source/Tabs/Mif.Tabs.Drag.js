@@ -11,7 +11,7 @@ Mif.Tabs.Drag=new Class({
 			duration: 150
 		},
 		fxDrag: {
-			duration: 150
+			duration: 250
 		}
 	},
 	

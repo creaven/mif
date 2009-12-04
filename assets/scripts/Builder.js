@@ -67,7 +67,8 @@ var Builder = {
 				'Mif.Button.Toolbar'
 			],
 			'Window': [
-				'Mif.Window'
+				'Mif.Window',
+				'Mif.Window.Sheet'
 			],
 			'Tabs': [
 				'Mif.Tabs',

@@ -37,6 +37,10 @@ Mif.Element=new Class({
 	
 	getElement: function(el){
 		return this.element.getElement(el);
+	},
+	
+	registerResizable: function(){
+		Mif.resizable.include(this);
 	}
 	
 });

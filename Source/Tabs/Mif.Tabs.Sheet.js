@@ -26,7 +26,7 @@ Mif.sheet.addRules({
 	
 	'tabs > scroll': {
 		'position': 'absolute',
-		'width': '20px',
+		'width': '10px',
 		'height': '24px',
 		'top': '0',
 		'display': 'none',
@@ -35,17 +35,33 @@ Mif.sheet.addRules({
 	
 	'tabs > scroll.left': {
 		'left': '0',
-		'background': 'green'
+		'background': 'tab-previous.png'.toMifImg()+' no-repeat center center'
+	},
+	
+	'tabs > scroll.left:hover': {
+		'background-image': 'tab-previous-hover.png'.toMifImg()
+	},
+	
+	'tabs > scroll.left.disabled': {
+		'background-image': 'tab-previous-disabled.png'.toMifImg()
 	},
 	
 	'tabs > scroll.right': {
 		'right': '0',
-		'background': 'red'
+		'background': 'tab-next.png'.toMifImg()+' no-repeat center center'
+	},
+	
+	'tabs > scroll.right:hover': {
+		'background-image': 'tab-next-hover.png'.toMifImg()
+	},
+	
+	'tabs > scroll.right.disabled': {
+		'background-image': 'tab-next-disabled.png'.toMifImg()
 	},
 	
 	'tabs.scroll > header': {
-		'left': '20px',
-		'right': '20px'
+		'left': '10px',
+		'right': '10px'
 	},
 	
 	'tabs.scroll > scroll': {

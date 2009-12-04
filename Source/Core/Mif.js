@@ -294,6 +294,15 @@ Mif.sheet.addRule('temp', {
 
 Mif.Focus=null;
 
+Mif.resizable=[];
+Mif.addEvent('resize', function(component){
+	Mif.resizable.each(function(item){
+		if(component.element.hasChild(item.element)){
+			item.fireEvent('resize');
+		}
+	});
+});
+
 String.implement({
 
 	toMifImg: function(src){//for normal browser MifImage - object {name: base64_encoded_image}, for ie MifImage - url to mhtml file

@@ -39,6 +39,7 @@ window.addEvent('domready', function(){
 	//tree.inject(mifWindow);
 	
 	SampleTabs=new Mif.Tabs().inject(mifWindow);
+	new Mif.Tabs.Drag(SampleTabs);
 	SampleTabs.load([
 		{
 			title: 'tab1',
