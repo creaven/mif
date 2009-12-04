@@ -14,29 +14,18 @@ for filename in os.listdir(image_dir):
 	else:
 		file=os.path.join(image_dir, filename)
 		data[filename]=base64.b64encode(open(file).read())
-
-result="var MifImage={\n"
+result='/*\nContent-Type: multipart/related; boundary="SEPARATOR"\n\n*/\n'
+result+="var MifImage={\n"
 for filename in data:
-	result+="\n\t'"+filename+"': '"+data[filename]+"',\n"
-result=result[0:-2]+"\n"
-result+="\n}\n"
-	
-open(dst, 'w').write(result)
-
-#ie
-
-result='Content-Type: multipart/related; boundary="SEPARATOR"\n\n'
-
-for filename in data:
-	result+="""
+	header="""
 --SEPARATOR
 Content-Type:image/%s
 Content-Location:%s
 Content-Transfer-Encoding:base64
-
+*/
 """ % (filename[-3:], filename)
-	result+=data[filename]+"\n"
-
-result+="\n--SEPARATOR--\n"
-
-open(dst_ie, 'w').write(result)
+	result+="\n\t'"+filename+"': /*\n"+header+"\n'"+data[filename]+"',\n"
+result=result[0:-2]+"\n"
+result+="\n}\n"
+result+="\n/*\n--SEPARATOR--\n*/\n"
+open(dst, 'w').write(result)
