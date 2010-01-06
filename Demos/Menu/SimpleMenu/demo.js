@@ -1,8 +1,5 @@
 ﻿window.addEvent('domready', function(){
-	var simpleMenu=new Mif.Menu({
-		contextmenu: true,
-		target: $('menu-target')
-	});
+	var simpleMenu=new Mif.Menu();
 	simpleMenu.load(
 		[
 			{

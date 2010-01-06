@@ -22,6 +22,7 @@ Mif.Menu.Load={
 Mif.Menu.implement({
 	
 	load: function(options){
+		return;
 		this.$loading=true;
 		options=options||{};
 		//this.addType('loader');

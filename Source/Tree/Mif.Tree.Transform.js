@@ -6,7 +6,7 @@ Mif.Tree.Item.implement({
 	
 	inject: function(node, where, element){//element - internal property
 		where=where||'inside';
-		var parent=this.parentNode;
+		var parent=this.parentItem;
 		function getPreviousVisible(node){
 			var previous=node;
 			while(previous){
@@ -21,16 +21,16 @@ Mif.Tree.Item.implement({
 			case 'after':
 			case 'before':
 				if( node['get'+(where=='after' ? 'Next' : 'Previous')]()==this ) return false;
-				if(this.parentNode) {
-					this.parentNode.children.erase(this);
+				if(this.parentItem) {
+					this.parentItem.children.erase(this);
 				}
-				this.parentNode=node.parentNode;
-				this.parentNode.children.inject(this, node, where);
+				this.parentItem=node.parentItem;
+				this.parentItem.children.inject(this, node, where);
 				break;
 			case 'inside':
 				if( node.owner && node.getLast()==this ) return false;
-				if(this.parentNode) {
-					this.parentNode.children.erase(this);
+				if(this.parentItem) {
+					this.parentItem.children.erase(this);
 				}
 				if(node.owner){
 					if(!node.hasChildren()){
@@ -38,10 +38,10 @@ Mif.Tree.Item.implement({
 						node.property.open=true;
 					}
 					node.children.push(this);
-					this.parentNode=node;
+					this.parentItem=node;
 				}else{
 					node.root=this;
-					this.parentNode=null;
+					this.parentItem=null;
 					node.fireEvent('drawRoot');
 				}
 				break;
@@ -79,14 +79,14 @@ Mif.Tree.Item.implement({
 			}
 			property.open=false;//TODO for why?
 			var nodeCopy = new Mif.Tree.Item({
-				parentNode: structure.parentNode,
+				parentItem: structure.parentItem,
 				children: [],
 				tree: tree
 			}, property);
 			node.children.each(function(child){
 				var childCopy=copy({
 					node: child,
-					parentNode: nodeCopy,
+					parentItem: nodeCopy,
 					tree: tree
 				});
 				nodeCopy.children.push(childCopy);
@@ -96,7 +96,7 @@ Mif.Tree.Item.implement({
 		
 		var nodeCopy=copy({
 			node: this,
-			parentNode: null,
+			parentItem: null,
 			tree: node.owner
 		});
 		return nodeCopy.inject(node, where, node.owner.drawNode(nodeCopy));
@@ -106,7 +106,7 @@ Mif.Tree.Item.implement({
 		if (this.property.removeDenied) return;
 		var tree=this.owner;
 		tree.fireEvent('remove', [this]);
-		var parent=this.parentNode, previousVisible=this.getPreviousVisible();
+		var parent=this.parentItem, previousVisible=this.getPreviousVisible();
 		if(parent) {	
 			parent.children.erase(this);
 		}else if(!tree.forest){
@@ -152,7 +152,7 @@ Mif.Tree.implement({
 	add: function(node, current, where){
 		if(!(node instanceof Mif.Tree.Item)){
 			node=new Mif.Tree.Item(node, {
-				parentNode: null,
+				parentItem: null,
 				owner: this
 			});
 		};

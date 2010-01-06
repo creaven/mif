@@ -74,7 +74,7 @@ Mif.Tree.implement({
 		if(node.isOpen()){
 			if(!node.$draw) {
 				this.drawChildren(node);
-				this.$getIndex();
+				//this.$getIndex();
 				node.getElement('toggle').className=node.getToggleType();
 				this.updateHover();
 			}
@@ -95,12 +95,12 @@ Mif.Tree.implement({
 			return;
 		}
 		var container;
-		if(this.forest && node.parentNode.isRoot()){
+		if(this.forest && node.parentItem.isRoot()){
 			container=this.wrapper.getElement('root');
 		}else if(node==this.root){
 			container=this.wrapper;
 		}else{
-			container=node.parentNode.getElement('children');
+			container=node.parentItem.getElement('children');
 		}
 		new Elements([element[1], element[0]]).inject(container, 'top');
 	}

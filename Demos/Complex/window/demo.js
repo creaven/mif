@@ -47,6 +47,8 @@ window.addEvent('domready', function(){
 		},
 		{
 			title: 'tab2',
+			id: 'tab2',
+			selected: true,
 			content: 'second  tab content'
 		},
 		{
@@ -55,5 +57,44 @@ window.addEvent('domready', function(){
 			disabled: true
 		}
 	]);
+	var layout=new Mif.Layout().inject(Mif.id('tab2').removeContent());
+	/*window.addEvent('resize', function(){
+		document.getElement('layout').dispose().inject(document.getElement('body'))
+	});*/
+	
+	tree = new Mif.Tree();
+
+	var json=[
+		{
+			"name": "root",
+			"children": [
+				{
+					"name": "node1"
+				},
+				{
+					"name": "node2",
+					"open": true,
+					"children":[
+						{
+							"name": "node2.1"
+						},
+						{
+							"name": "node2.2"
+						}
+					]
+				},
+				{
+					"name": "node4"
+				},
+				{
+					"name": "node3"
+				}
+			]
+		}
+	];
+	// load tree from json.
+	tree.load(json);
+	
+	tree.inject(layout.left)
 	
 });

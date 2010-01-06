@@ -82,7 +82,7 @@ Mif.Tree.Item.implement({
 			if(!node.property.hasCheckbox) return;
 			var oldState=node.property.checked;
 			node.property.checked=state;
-			if((!node.parentNode&&node.owner.$draw) || (node.parentNode && node.parentNode.$draw)){
+			if((!node.parentItem&&node.owner.$draw) || (node.parentItem && node.parentItem.$draw)){
 				node.getElement('checkbox').removeClass('mif-tree-node-'+oldState).addClass('mif-tree-node-'+state);
 			}
 		};
@@ -97,8 +97,8 @@ Mif.Tree.Item.implement({
 		});
 		function setParentCheckbox(node){
 			if(!node.property.hasCheckbox) return;
-			if(!node.parentNode || (node.owner.forest && !node.parentNode.parentNode)) return;
-			var parent=node.parentNode;
+			if(!node.parentItem || (node.owner.forest && !node.parentItem.parentItem)) return;
+			var parent=node.parentItem;
 			var state='';
 			var children=parent.children;
 			for(var i=children.length; i--; i>0){

@@ -14,7 +14,7 @@ Mif.Tree.Item Method: constructor {#Mif.Tree.Item:constructor}
 
 ### Arguments:
 
-1. structure - (*object*) object {tree: tree, parentNode: parent}
+1. structure - (*object*) object {tree: tree, parentItem: parent}
 1. options   - (*object*) Mif.Tree.Item options.
 
 ### Options:
@@ -41,14 +41,14 @@ Mif.Tree.Item Method: constructor {#Mif.Tree.Item:constructor}
 
 **structure**
 
-* parentNode - parent node
+* parentItem - parent node
 * tree       - node tree control
 
 
 
 ### Example:
 	var newNode=new Mif.Tree.Item({
-		parentNode: node1,
+		parentItem: node1,
 		tree: tree
 	});
 

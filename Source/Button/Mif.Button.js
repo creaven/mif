@@ -85,11 +85,12 @@ Mif.sheet.addRules({
 
 Mif.Button=new Class({
 
-	Implements: [Events, Options],
+	Extends: Mif.Element,
 	
 	options: {
-		text: '',
 		'class': '',
+		hasIcon: true,
+		hasText: true,
 		styles: {
 		}
 	},
@@ -100,26 +101,24 @@ Mif.Button=new Class({
 		this.property.name=this.options.name;
 		this.bound={};
 		var html;
+		this.hasIcon=this.options.hasIcon||this.options.icon ? true : false;
+		this.hasText=this.options.hasText||this.options.text ? true : false;
 		if(Browser.Engine.trident){
 			html='<bg></bg><icon></icon><text class="shadow">'+options.text+'</text><text>'+options.text+'</text>';
 		}else{
-			html='<bg></bg><icon></icon><text>'+options.text+'</text>'
+			html='<bg></bg>' + (this.hasIcon ? '<icon></icon>' : '') + (this.hasText ? '<text>'+options.text+'</text>' : '');
 		}
 		this.element=new Element('pushbutton').inject(document.body).set('html', html);
 		this.element.setStyles(this.options.styles);
 		if(this.options['class']) this.element.addClass(this.options['class']);
+		this.parent();
 		this.positioning();
-		this.initEvents();
-	},
-	
-	inject: function(element, how){
-		this.element.inject(element, how);
-		return this;
+		this.events();
 	},
 	
 	setStyles: function(styles){
 		this.element.setStyles(styles);
-		this.autoWidth();
+		//this.autoWidth();
 	},
 	
 	positioning: function(){
@@ -153,7 +152,7 @@ Mif.Button=new Class({
 		}
 	},
 	
-	initEvents: function(){
+	events: function(){
 		$extend(this.bound, {
 			onMouseleave: this.onMouseleave.bind(this),
 			onMouseenter: this.onMouseenter.bind(this),

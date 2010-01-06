@@ -85,7 +85,8 @@ Mif.sheet.addRules({
 		'width': '100%',
 		'top': '0px',
 		'bottom': '0px',
-		'display': 'none'
+		'display': 'none',
+		'overflow': 'auto'
 	},
 	
 	'tabs > container > content.selected': {

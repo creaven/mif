@@ -109,27 +109,27 @@ Mif.sheet.addRules({
 		'visibility': 'hidden'
 	},
 
-	'.focus toggle.minus': {
+	'tree.focus toggle.minus': {
 		'background-image': 'down.png'.toMifImg()
 	},
 
-	'.focus toggle.plus': {
+	'tree.focus toggle.plus': {
 		'background-image': 'right.png'.toMifImg()
 	},
 	
-	'.focus .selected toggle.plus': {
+	'tree.focus .selected toggle.plus': {
 		'background-image': 'right-selected.png'.toMifImg()
 	},
 
-	'.focus .selected toggle.minus': {
+	'tree.focus .selected toggle.minus': {
 		'background-image': 'down-selected.png'.toMifImg()
 	},
 	
-	'.selected toggle.minus, toggle.minus': {
+	'tree .selected toggle.minus, toggle.minus': {
 		'background-image': 'down-unfocused.png'.toMifImg()
 	},
 
-	'.selected toggle.plus, toggle.plus': {
+	'tree .selected toggle.plus, toggle.plus': {
 		'background-image': 'right-unfocused.png'.toMifImg()
 	},
 	
@@ -141,11 +141,11 @@ Mif.sheet.addRules({
 		'background-image': 'down-active.png'.toMifImg()
 	},
 	
-	'.selected toggle.plus.hover.active': {
+	'tree .selected toggle.plus.hover.active': {
 		'background-image': 'right-selected-active.png'.toMifImg()
 	},
 
-	'.selected toggle.minus.hover.active': {
+	'tree .selected toggle.minus.hover.active': {
 		'background-image': 'down-selected-active.png'.toMifImg()
 	}
 

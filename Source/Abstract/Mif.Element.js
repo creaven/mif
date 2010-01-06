@@ -15,6 +15,13 @@ Mif.Element=new Class({
 		}
 	},
 	
+	bound: function(){
+		var self=this;
+		Array.each(arguments, function(name){
+			self.bound[name]=self[name].bind(self);
+		});
+	},
+	
 	addRule: function(selector, styles){
 		Mif.sheet.addRule('[uid="'+this.UID+'"] '+selector, styles);
 		return this;
@@ -28,6 +35,7 @@ Mif.Element=new Class({
 	},
 	
 	inject: function(element, how){
+		if($type(element) == 'string') element = document.id(element);
 		if($type(element)!='element'){
 			element=element.injectElement;
 		}

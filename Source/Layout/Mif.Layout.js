@@ -51,6 +51,8 @@ Mif.Layout=new Class({
 		this.mouse={};
 		this.events();
 		this.overlay=new Element('overlay');
+		this.registerResizable();
+		this.addEvent('resize', this.position);
 	},
 	
 	inject: function(element, how){
@@ -125,11 +127,7 @@ Mif.Layout=new Class({
 	},
 	
 	events: function(){
-		this.bound={
-			mousedown: this.mousedown.bind(this),
-			mousemove: this.mousemove.bind(this),
-			mouseup: this.mouseup.bind(this)
-		};
+		this.bound('mousedown', 'mousemove', 'mouseup');
 		['left', 'right', 'top', 'bottom'].each(function(side){
 			this.handle[side].addEvent('mousedown', this.bound.mousedown);
 		}, this);
@@ -148,11 +146,12 @@ Mif.Layout=new Class({
 	
 	mousemove: function(event){
 		var side=this.mouse.side;
+		var position=this.element.getPosition();
 		switch(side){
-			case 'left': this.setSize(side, event.page.x); break;
-			case 'right': this.setSize(side, this.element.offsetWidth-event.page.x); break;
-			case 'top': this.setSize(side, event.page.y); break;
-			case 'bottom': this.setSize(side, this.element.offsetHeight-event.page.y); break;
+			case 'left': this.setSize(side, event.page.x-position.x); break;
+			case 'right': this.setSize(side, this.element.offsetWidth-event.page.x+position.x); break;
+			case 'top': this.setSize(side, event.page.y-position.y); break;
+			case 'bottom': this.setSize(side, this.element.offsetHeight-event.page.y+position.y); break;
 		}
 		
 		this.position();

@@ -18,27 +18,19 @@ Mif.Component=new Class({
 		}
 		this.Item=this.constructor.Item;
 		this.parent();
-		this.bound={};
 		this.events();
 		this.addSelection();
 	},
 		
 	events: function(){
-		$extend(this.bound, {
-			onMouseleave: this.onMouseleave.bind(this),
-			onMousedown: this.onMousedown.bind(this),
-			onMouseup: this.onMouseup.bind(this),
-			mouse: this.mouse.bind(this),
-			stopSelection: this.stopSelection.bind(this),
-			focus: this.focus.bind(this)
-		});
+		this.bound('mouseleave', 'mousedown', 'mouseup', 'mouse', 'stopSelection', 'focus');
 		this.itemContainer.addEvents({
-			mousedown: this.bound.onMousedown,
+			mousedown: this.bound.mousedown,
 			mouseover: this.bound.mouse,
 			mouseout: this.bound.mouse,
-			mouseleave: this.bound.onMouseleave
+			mouseleave: this.bound.mouseleave
 		});
-		Mif.addEvent('mouseup', this.bound.onMouseup);
+		Mif.addEvent('mouseup', this.bound.mouseup);
 		if(Browser.Engine.trident){
 			this.itemContainer.addEvent('selectstart', this.bound.stopSelection);
 		};
@@ -70,7 +62,7 @@ Mif.Component=new Class({
 		}
 	},
 	
-	onMouseleave: function(event){
+	mouseleave: function(event){
 		this.mouse.coords={x:null,y:null};
 		this.mouse.target=false;
 		this.mouse.element=false;
@@ -78,14 +70,17 @@ Mif.Component=new Class({
 		this.fireEvent('mouseleave', [event]);
 	},
 	
-	onMousedown: function(event){
+	mousedown: function(event){
 		this.mouse(event);
 		this.mouse.active=event.target.addClass('active');
-		this.stopSelection(event);
+		if(!Browser.Engine.trident){
+			this.stopSelection(event);
+			window.focus();
+		}
 		this.fireEvent('mousedown', [event]);
 	},
 	
-	onMouseup: function(event){
+	mouseup: function(event){
 		if(this.mouse.active){
 			this.mouse.active.removeClass('active');
 			this.mouse.active=null;

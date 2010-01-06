@@ -11,7 +11,8 @@ window.addEvent('domready',function(){
 			"name": "root",
 			"children": [
 				{
-					"name": "node1"
+					"name": "node1",
+					"a": {p: 'moo'}
 				},
 				{
 					"name": "node2",

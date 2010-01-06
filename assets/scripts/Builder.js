@@ -37,6 +37,12 @@ var Builder = {
 				'Mif.Component.Item',
 				'Mif.Component.Selection'
 			],
+			'Loader': [
+				'Mif.Loader'
+			],
+			'Store': [
+				'Mif.Store'
+			],
 			'Tree' : [
 				'Mif.Tree', 
 				'Mif.Tree.Item',
@@ -56,11 +62,14 @@ var Builder = {
 				'Mif.Tree.Misc'
 			],
 			'Menu' : [
-				'Mif.Menu.Utils', 
+				'Mif.Menu.Sheet', 
 				'Mif.Menu', 
-				'Mif.Menu.List', 
-				'Mif.Menu.Item', 
-				'Mif.Menu.KeyNav'
+				'Mif.Menu.Item',
+				'Mif.Menu.Draw',
+				'Mif.Menu.Load',
+				'Mif.Menu.Selection',
+				'Mif.Menu.KeyNav',
+				'Mif.Menu.Transform'
 			],
 			'Button' : [
 				'Mif.Button',

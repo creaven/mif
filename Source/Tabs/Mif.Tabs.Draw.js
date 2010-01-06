@@ -15,6 +15,7 @@ Mif.Tabs.implement({
 			'class': item.property.selected ? 'selected' : ''
 		});
 		item.content.setContent(item.property.content).inject(this.container);
+		item.injectElement=item.content;
 	},
 	
 	isUpdatable: function(item){
@@ -32,6 +33,16 @@ Mif.Tabs.Item.implement({
 		if(element=='tab'){
 			return document.id('mif-tabs-tab-'+this.UID);
 		}
+	},
+	
+	setContent: function(content){
+		this.content.setContent(content);
+		return this;
+	},
+	
+	removeContent: function(){
+		this.content.set('html', '');
+		return this;
 	}
 	
 });

@@ -1,4 +1,9 @@
 {
+	"Store":  {
+		"LoadStorage": {
+			"title": "load storage demo"
+		}
+	},
 	"Tree": {
 		"SimpleTree": {
 			"title": "Simple Tree"

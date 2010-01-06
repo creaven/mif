@@ -4,14 +4,7 @@ Mif.Menu.Item
 
 Mif.Menu.Item=new Class({
 
-	Implements: [Events, Options],
-	
-	options: {
-		type: 'default',
-		checked: false,
-		disabled: false,
-		name: ''
-	},
+	Implements: Mif.Component.Item,
 
 	initialize: function(options, structure){
 		if(typeof options == 'string'){
@@ -27,14 +20,7 @@ Mif.Menu.Item=new Class({
 		this.draw();
 		
 		if(['description', 'separator'].contains(this.type)) return;
-		
-		if(this.disabled) {
-			this.disabled=false;
-			this.disable();
-		}
-		
-		if(this.options.list) this.initChildList();
-		
+
 		if(this.type=='checkbox'){
 			this.initCheckbox();
 		}

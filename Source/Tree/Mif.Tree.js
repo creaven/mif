@@ -20,16 +20,12 @@ Mif.Tree = new Class({
 		closeIcon: 'mif-tree-close-icon',
 		loadable: false,
 		hidden: false,
-		open: false,
-		type: 'dflt'
+		open: false
 	},
 	
 	initialize: function(options) {
 		this.setOptions(options);
 		$extend(this, {
-			types: $extend({
-				dflt: {}
-			}, this.options.types),
 			forest: this.options.forest,
 			$index: [],
 			focusable: true,
@@ -37,15 +33,16 @@ Mif.Tree = new Class({
 			height: Mif.sheet.getRule('tree').style.lineHeight.toInt()
 		});
 		this.updateOpenState();
-		this.element=new Element('tree').inject(document.id(this.options.container)||Mif.temp);
-		this.wrapper=new Element('wrapper').inject(this.element);
+		this.element = new Element('tree').inject(document.id(this.options.container)||Mif.temp);
+		this.wrapper = new Element('wrapper').inject(this.element);
 		this.itemContainer=this.wrapper;
 		this.parent();
-		this.scroll=new Fx.Scroll(this.element, {link: 'cancel'});
+		this.scroll = new Fx.Scroll(this.element, {link: 'cancel'});
 		this.addSelection().addHover();
-		this.loader=this.options.loader||new Mif.Tree.Loader;
+		this.storage = new Mif.Storage();
+		this.loader = this.options.loader||new Mif.Tree.Loader;
 		if(this.options.loaderOptions){
-			this.loader.options=this.options.loaderOptions;
+			this.loader.options = this.options.loaderOptions;
 		}
 		if(this.options.data){
 			this.load(this.options.data)
@@ -55,10 +52,7 @@ Mif.Tree = new Class({
 	
 	events: function(){
 		this.parent();
-		$extend(this.bound, {
-			toggleOnClick: this.toggleOnClick.bind(this),
-			toggleOnDblclick: this.toggleOnDblclick.bind(this)
-		});
+		this.bound('toggleOnClick', 'toggleOnDblclick');
 		this.wrapper.addEvents({
 			click: this.bound.toggleOnClick,
 			dblclick: this.bound.toggleOnDblclick
@@ -111,12 +105,12 @@ Mif.Tree = new Class({
 				var children=parent.children;
 				for(var i=0, l=children.length; i<l; i++){
 					if(children[i].property.open){
-						children[i].drawToggle();
+						children[i].updateToggle();
 					}
 				}
 			},
 			'drawRoot': function(){
-				this.root.drawToggle();
+				this.root.updateToggle();
 			}
 		});
 	}

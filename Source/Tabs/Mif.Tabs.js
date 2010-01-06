@@ -23,7 +23,7 @@ Mif.Tabs= new Class({
 		this.registerResizable();
 		this.parent();
 		this.items=[];
-		this.bound.width=this.width.bind(this);
+		this.bound('width');
 		this.addEvent('resize', this.bound.width);
 		this.scroll=new Fx.Scroll(this.header, {
 			link: 'cancel',
@@ -31,16 +31,11 @@ Mif.Tabs= new Class({
 				this.setScrollState();
 			}.bind(this)
 		});
-		this.addEvent('resize', this.width)
 	},
 	
 	events: function(){
 		this.parent();
-		$extend(this.bound, {
-			scrollToLeft: this.scrollToLeft.bind(this),
-			scrollToRight: this.scrollToRight.bind(this),
-			scrollTo: this.scrollTo.bind(this)
-		});
+		this.bound('scrollToLeft', 'scrollToRight',	'scrollTo');
 		this.scrollLeft.addEvent('mousedown', this.bound.scrollToLeft);
 		this.scrollRight.addEvent('mousedown', this.bound.scrollToRight);
 		this.header.addEvent('mousedown', this.bound.scrollTo);
