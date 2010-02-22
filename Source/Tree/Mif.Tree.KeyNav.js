@@ -1,18 +1,28 @@
 /*
-Mif.Tree.KeyNav
+---
+ 
+name: Mif.Tree.KeyNav
+description: Mif.Tree.KeyNav
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree
+provides: Mif.Tree.KeyNav
+ 
+...
 */
 
-Mif.Tree.KeyNav=new Class({
+Mif.Tree.KeyNav = new Class({
 	
 	initialize: function(tree){
-		if(tree.KeyNav) return null;
-		tree.KeyNav=this;
-		this.tree=tree;
-		this.bound={
+		this.tree = tree;
+		if(tree.keynav) return;
+		tree.keynav = this;
+		this.bound = {
 			action: this.action.bind(this),
 			attach: this.attach.bind(this),
 			detach: this.detach.bind(this)
-		}
+		};
 		tree.addEvents({
 			'focus': this.bound.attach,
 			'blur': this.bound.detach
@@ -20,12 +30,12 @@ Mif.Tree.KeyNav=new Class({
 	},
 	
 	attach: function(){
-		var event=Browser.Engine.trident||Browser.Engine.webkit ? 'keydown' : 'keypress';
+		var event = Browser.Engine.trident || Browser.Engine.webkit ? 'keydown' : 'keypress';
 		document.addEvent(event, this.bound.action);
 	},
 	
 	detach: function(){
-		var event=Browser.Engine.trident||Browser.Engine.webkit ? 'keydown' : 'keypress';
+		var event = Browser.Engine.trident || Browser.Engine.webkit ? 'keydown' : 'keypress';
 		document.removeEvent(event, this.bound.action);
 	},
 	
@@ -51,12 +61,12 @@ Mif.Tree.KeyNav=new Class({
 	},
 
 	goForward: function(current){
-		var forward=current.getNextVisible();
+		var forward = current.getNextVisible();
 		if( forward ) this.tree.select(forward)
 	},
 	
 	goBack: function(current){
-		var back=current.getPreviousVisible();
+		var back = current.getPreviousVisible();
 		if (back) this.tree.select(back);
 	},
 	
@@ -68,22 +78,22 @@ Mif.Tree.KeyNav=new Class({
 				return false;
 			}
 		}else{
-			if( current.hasChildren() && current.isOpen() ){
+			if( current.hasChildren(true) && current.isOpen() ){
 				current.toggle();
 			}else{
-				if(current.owner.forest && current.getParent().isRoot()) return false;
+				if(current.tree.forest && current.getParent().isRoot()) return false;
 				return this.tree.select(current.getParent());
 			}
 		}
 	},
 	
 	goRight: function(current){
-		if(!current.hasChildren()&&!current.property.loadable){
+		if(!current.hasChildren(true)&&!current.loadable){
 			return false;
 		}else if(!current.isOpen()){
 			return current.toggle();
 		}else{
-			return this.tree.select(current.getFirst());
+			return this.tree.select(current.getFirst(true));
 		}
 	},
 	
@@ -96,17 +106,24 @@ Mif.Tree.KeyNav=new Class({
 	},
 	
 	goPageDown: function(current){
-		var tree=this.tree;
-		var count=(tree.itemContainer.clientHeight/tree.height).toInt()-1;
-		var newIndex=Math.min(tree.$index.indexOf(current)+count, tree.$index.length-1);
+		var tree = this.tree;
+		var count = (tree.container.clientHeight/tree.height).toInt() - 1;
+		var newIndex = Math.min(tree.$index.indexOf(current) + count, tree.$index.length - 1);
 		tree.select(tree.$index[newIndex]);
 	},
 	
 	goPageUp: function(current){
-		var tree=this.tree;
-		var count=(tree.itemContainer.clientHeight/tree.height).toInt()-1;
-		var newIndex=Math.max(tree.$index.indexOf(current)-count, 0);
+		var tree = this.tree;
+		var count = (tree.container.clientHeight/tree.height).toInt() - 1;
+		var newIndex = Math.max(tree.$index.indexOf(current) - count, 0);
 		tree.select(tree.$index[newIndex]);
 	}
 	
+});
+
+Event.Keys.extend({
+	'pgdown': 34,
+	'pgup': 33,
+	'home': 36,
+	'end': 35
 });

@@ -10,7 +10,7 @@ TODO fix scripts.json
 			"deps": ["Mif.Tree", "Mif.Tree.Item", "Mif.Tree.Load", "Mif.Tree.Selection", "Mif.Tree.Hover", "Mif.Tree.Draw"],
 			"desc": "Mif.Tree control base file"
 		},
-		"Mif.Tree.Item":{
+		"Mif.Tree.Node":{
 			"deps": ["Mif.Tree"],
 			"desc": "Mif.Tree node class"
 		},

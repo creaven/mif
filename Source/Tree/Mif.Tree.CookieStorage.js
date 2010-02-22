@@ -1,5 +1,15 @@
 /*
-Mif.Tree.CookieStorage
+---
+ 
+name: Mif.Tree.CookieStorage
+description: Mif.Tree.Node
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree
+provides: Mif.Tree.CookieStorage
+ 
+...
 */
 
 Mif.Tree.CookieStorage = new Class({
@@ -19,9 +29,9 @@ Mif.Tree.CookieStorage = new Class({
 
 	initialize: function(tree, options){
 		this.setOptions(options);
-		this.tree=tree;
-		this.cookie=new Cookie('mif.tree:'+this.options.event+tree.UID);
-		this.nodes=[];
+		this.tree = tree;
+		this.cookie = new Cookie('mif.tree:' + this.options.event + tree.id||'');
+		this.nodes = [];
 		this.initSave();
 	},
 	
@@ -30,31 +40,29 @@ Mif.Tree.CookieStorage = new Class({
 	},
 	
 	read: function(){
-		return JSON.decode(this.cookie.read())||[];
+		return JSON.decode(this.cookie.read()) || [];
 	},
 	
 	restore: function(data){
 		if(!data){
-			this.restored=this.restored||this.read();
+			this.restored = this.restored || this.read();
 		}
-		var restored=data||this.restored;
-		for(var i=0, l=restored.length; i<l; i++){
-			var stored=restored[i];
-			var node=this.options.retrieve(stored);
+		var restored = data || this.restored;
+		for(var i = 0, l = restored.length; i < l; i++){
+			var stored = restored[i];
+			var node = this.options.retrieve(stored);
 			if(node){
 				node[this.options.action](true);
 				restored.erase(stored);
 				l--;
-				i--;
 			}
 		}
 		return restored;
 	},
 	
 	initSave: function(){
-		var event=this.options.event;
 		this.tree.addEvent(this.options.event, function(node, state){
-			var value=this.options.store(node);
+			var value = this.options.store(node);
 			if(state){
 				this.nodes.include(value);
 			}else{

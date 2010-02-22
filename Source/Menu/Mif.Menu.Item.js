@@ -1,135 +1,154 @@
 /*
-Mif.Menu.Item
+---
+ 
+name: Mif.Menu.Item
+description: menu item class
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: 
+  - Mif.Menu
+provides: Mif.Menu.Item
+ 
+...
 */
 
 Mif.Menu.Item=new Class({
 
-	Implements: Mif.Component.Item,
+	Implements: [Events],
+	
+	defaults: {
+		name: ''
+	},
 
-	initialize: function(options, structure){
-		if(typeof options == 'string'){
-			options={type: 'separator'};
-		}
-		this.setOptions(options);
-		
-		$extend(this, this.options);
-		
-		this.list=structure.list;
-		this.menu=this.list.menu;
-		
-		this.draw();
-		
-		if(['description', 'separator'].contains(this.type)) return;
-
-		if(this.type=='checkbox'){
-			this.initCheckbox();
-		}
-		if(this.type=='radio'){
-			this.initRadio();
-		}
+	initialize: function(structure, property){
+		if(typeof property == 'string') {
+			if(property == '-'){
+				property = {sep: true};
+			}else{
+				property = {desc: property};
+			}
+		};
+		this.property = {};
+		$extend(this.property, this.defaults);
+		$extend(this.property, property);
+		$extend(this, structure);
+		var group = this.property.group;
+		if(group){
+			this.menu.group[group] = this.menu.group[group] || [];
+			this.menu.group[group].push(this);
+		};
+		this.UID = ++Mif.UID;
+		Mif.uids[this.UID] = this;
+		var id = this.get('id');
+		if(id != null) Mif.ids[id] = this;
+		this.menu.fireEvent('itemCreate', [this]);
 	},
 	
-	draw: function(){
-		switch(this.type){
-			case 'description': 
-				this.container=new Element('li', {'class':'mif-menu-description mif-menu-name', html: this.options.name});
-				break;
-			case 'separator':
-				this.container = new Element('li', {'class': 'mif-menu-separator mif-menu-name'});
-				break;
-			case 'default':
-			case 'radio':
-			case 'checkbox':
-				this.dom={
-					wrapper: new Element('div', {'class': 'mif-menu-item-wrapper'}),
-					icon: new Element('span',{'class':'mif-menu-icon '+$pick(this.options.icon,''), html: Mif.Utils.zeroSpace}),
-					name: new Element('span',{'class':'mif-menu-name', html: this.options.name})
-				};
-				this.container=new Element('li',{'class': 'mif-menu-item'}).adopt(
-					this.dom.wrapper.adopt(this.dom.icon, this.dom.name)
-				);
-				this.container.store('item', this);
-		}
+	get: function(prop){
+		return this.property[prop];
 	},
 	
-	setState: function(state){
-		if(this.disabled!=state){
-			this.container[(state ? 'add' : 'remove') + 'Class']('mif-menu-disabled');
-			this.disabled=state;
-		}
+	set: function(obj){
+		if(arguments.length == 2){
+			var object = {};
+			object[arguments[0]] = arguments[1];
+			obj = object;
+		};
+		this.menu.fireEvent('beforeSet', [this, obj]);
+		var property = obj || {};
+		for(var p in property){
+			var nv = property[p];
+			var cv = this[p];
+			this.updateProperty(p, cv, nv);
+			this.property[p] = nv;
+		};
+		this.menu.fireEvent('set', [this, obj]);
 		return this;
 	},
 	
-	disable: function(){
-		return this.setState(true);
+	updateProperty: function(p, cv, nv){
+		if(nv == cv) return this;
+		if(p == 'id'){
+			delete Mif.ids[cv];
+			if(nv) Mif.ids[nv] = this;
+			return this;
+		}
+		if(!this.menu.isUpdatable(this)) return this;
+		switch(p){
+			case 'name':
+				this.getElement('name').set('html', nv);
+				this.menu.updateWidth();
+				return this;
+			case 'cls':
+				this.getElement().removeClass(cv).addClass(nv);
+				return this;
+			case 'icon':
+				var iconEl = this.getElement('icon');
+				if(iconEl) iconEl.dispose();
+				if(!nv) return this;
+				if(nv.indexOf('/') == -1 && nv.substring(0, 1) == '.'){
+					iconEl = new Element('span').addClass(nv.substring(1));
+				}else{
+					iconEl = new Element('img').setProperty('src', nv);
+				};
+				iconEl.addClass('mif-menu-icon').inject(this.getElement('name'), 'before');
+				return this;
+			case 'disabled':
+				this.getElement()[(nv ? 'add' : 'remove') + 'Class']('disabled');
+				if(nv && this.menu.hovered == this) this.menu.unselect();
+				return this;
+			case 'hidden':
+				var height = this.getElement().offsetHeight;
+				var offsetHeight = this.menu.wrapper.offsetHeight;
+				var scrollHeight = this.menu.wrapper.scrollHeight;
+				this.getElement().setStyle('display', nv ? 'none' : 'block');
+				if(scrollHeight - height < offsetHeight){
+					this.menu.setHeight(scrollHeight - height);
+				}else{
+					this.menu.setHeight(this.menu.wrapper.offsetHeight);
+				}
+				return this;
+		}
 	},
 	
-	enable: function(){
-		return this.setState(false);
-	},
-	
-	initChildList: function(){
-		this.container.addClass('mif-childList');
-		var options=$merge(this.options.list, {styles: {'z-index': this.list.options.styles['z-index']+1}});
-		this.childList=new this.menu.List(options, {parentItem: this, menu: this.menu});
-	},
-	
-	select: function(){
-		var cls=this.disabled ? 'mif-menu-selected-disabled' : 'mif-menu-selected';
-		this.container.addClass(cls);
-		return this.fireEvent('select');
-	},
-	
-	unselect: function(){
-		var cls=this.disabled ? 'mif-menu-selected-disabled' : 'mif-menu-selected';
-		this.container.removeClass(cls);
-		return this.fireEvent('unSelect');
+	action: function(){
+		if(this.get('disabled')) return this;
+		var action = this.property.action;
+		if(action){
+			if(typeof action == 'string'){
+				action = eval('(' + action + ')');
+				this.property.action = action;
+			} ;
+			action.call(this.menu, this);
+		};
+		this.menu.fireEvent('action', [this]);
+		if(this.get('checked') != undefined && (this.get('group') ? !this.property.checked : true)) this.check();
+		return this;
 	},
 	
 	check: function(state){
-		if(this.type=='checkbox'){
-			if($defined(state)){
-				if(this.checked==state) return this;
-				this.checked=state;
-			}else{
-				this.checked=!this.checked;
-			}
-			if(this.checked){
-				this.dom.icon.removeClass('mif-menu-unchecked').addClass('mif-menu-checked');
-			}else{
-				this.dom.icon.removeClass('mif-menu-checked').addClass('mif-menu-unchecked');
-			}
-			this.list.fireEvent('check', [this, this.checked]);
-		}
-		if(this.type=='radio'){
-			var checked=$defined(state) ? state : true;
-			if(this.checked==checked) return this;
-			this.checked=checked;
-			this.list.groups[this.group].each(function(item){
-				if(item==this && this.checked){
-					item.checked=true;
-					item.dom.icon.addClass('mif-menu-radio-checked').removeClass('mif-menu-radio-unchecked');
-					item.list.fireEvent('radioCheck', [this, true]);
-					return;
-				}else{
-					item.checked=false;
-					item.dom.icon.addClass('mif-menu-radio-unchecked').removeClass('mif-menu-radio-checked');
-					item.list.fireEvent('radioCheck', [this, false]);
-				}
-			}, this);
-		}
-		return this;
-	},
-	
-	initCheckbox: function(){
-		this.dom.icon.addClass('mif-menu-'+(this.checked ? 'checked' : 'unchecked'));
-		this.addEvent('action',this.check.bind(this));
-	},
-	
-	initRadio: function(){
-		this.list.groups[this.group]=(this.list.groups[this.group]||[]).include(this);
-		this.dom.icon.addClass('mif-menu-radio-' + (this.checked ? 'checked' : 'unchecked'));
-		this.addEvent('action',this.check.bind(this));
+		if(this.property.checked == state) return this;
+		var group = this.get('group');
+		if(!this.property.checked && group){
+			this.menu.group[group].each(function(item){
+				item.check(false);
+			});
+		};
+		this.property.checked = !this.property.checked;
+		var el = this.getElement('check');
+		if(el) el[(this.property.checked ? 'add' : 'remove') + 'Class']('mif-menu-checked');
+		if(!(group && !this.property.checked)){
+			var check = this.property.check;
+			if(check){
+				if(typeof check == 'string'){
+					check = eval('(' + check + ')');
+					this.property.check = check;
+				};
+				check.call(this.menu, this, this.property.checked);
+			};
+		};
+		this.menu.fireEvent('check', [this, this.property.checked]);
 	}
-	
+		
 });

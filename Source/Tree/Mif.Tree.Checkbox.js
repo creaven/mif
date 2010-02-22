@@ -1,134 +1,114 @@
 /*
-Mif.Tree.Checkbox
+---
+ 
+name: Mif.Tree.Checkbox
+description: Mif.Tree.Checkbox
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree
+provides: Mif.Tree.Checkbox
+ 
+...
 */
-
-Mif.sheet.addRules({
-	
-	'tree checkbox': {
-		'padding-left': '18px',
-		'background-image': 'checkboxes.gif'.toMifImg(),
-		'background-repeat': 'no-repeat'
-	},
-
-	'.mif-tree-node-checked': {
-		'background-position': '0px center'
-	},
-
-	'.mif-tree-node-unchecked': {
-		'background-position': '-18px center'
-	},
-
-	'.mif-tree-node-nochecked': {
-		'background-position': '-108px center'
-	},
-
-	'.mif-tree-hover-checkbox .mif-tree-node-checked': {
-		'background-position': '-36px center'
-	},
-
-	'.mif-tree-hover-checkbox .mif-tree-node-unchecked': {
-		'background-position': '-54px center'
-	},
-
-	'.mif-tree-node-partially': {
-		'background-position': '-72px center'
-	},
-
-	'.mif-tree-hover-checkbox .mif-tree-node-partially': {
-		'background-position': '-90px center'
-	}
-	
-})
 
 Mif.Tree.implement({
 
 	initCheckbox: function(type){
 		this.checkboxType=type||'simple';
-		this.defaults.checked='unchecked';
+		this.dfltState.checked='unchecked';
 		this.defaults.hasCheckbox=true;
 		this.wrapper.addEvent('click',this.checkboxClick.bind(this));
 		if(this.checkboxType=='simple') return;
-		this.addEvent('load', function(node){
-			if(!node || node.property.checked=='unchecked') return;
-			node.recursive(function(){
-				this.property.checked='checked';
-			});
+		this.addEvent('loadChildren', function(node){
+			if(!node) return;
+			if(node.state.checked=='checked'){
+				node.recursive(function(){
+					this.state.checked='checked';
+				});
+			}else{
+				node.getFirst().setParentCheckbox(1)
+			}
 		});
+
 	},
 	
 	checkboxClick: function(event){
 		if(this.mouse.target!='checkbox') {return;}
-		this.mouse.item['switch']();
+		this.mouse.node['switch']();
 	},
 	
 	getChecked: function(includePartially){
 		var checked=[];
 		this.root.recursive(function(){
-			var condition = includePartially ? this.property.checked!=='unchecked' : this.property.checked=='checked';
-			if(this.property.hasCheckbox && condition) checked.push(this);
+			var condition = includePartially ? this.state.checked!=='unchecked' : this.state.checked=='checked';
+			if(this.hasCheckbox && condition) checked.push(this);
 		});
 		return checked;
 	}
 
 });
 
-Mif.Tree.Item.implement({
+Mif.Tree.Node.implement({
 
 	'switch' : function(state){
-		if(this.property.checked==state||!this.property.hasCheckbox) return;
-		var type=this.owner.checkboxType;
-		var checked=(this.property.checked=='checked') ? 'unchecked' : 'checked';
-		var setState=function(node, state){
-			if(!node.property.hasCheckbox) return;
-			var oldState=node.property.checked;
-			node.property.checked=state;
-			if((!node.parentItem&&node.owner.$draw) || (node.parentItem && node.parentItem.$draw)){
-				node.getElement('checkbox').removeClass('mif-tree-node-'+oldState).addClass('mif-tree-node-'+state);
-			}
-		};
+		if(this.state.checked==state||!this.hasCheckbox) return;
+		var type=this.tree.checkboxType;
+		var checked=(this.state.checked=='checked') ? 'unchecked' : 'checked';
 		if(type=='simple'){
-			setState(this, checked);
-			this.owner.fireEvent(checked=='checked' ? 'check' : 'unCheck', this);
-			this.owner.fireEvent('switch', [this, (checked=='checked' ? true : false)]);
+			this.setCheckboxState(checked);
+			this.tree.fireEvent(checked=='checked' ? 'check' : 'unCheck', this);
+			this.tree.fireEvent('switch', [this, (checked=='checked' ? true : false)]);
 			return this;
 		};
 		this.recursive(function(){
-			setState(this, checked);
+			this.setCheckboxState(checked);
 		});
-		function setParentCheckbox(node){
-			if(!node.property.hasCheckbox) return;
-			if(!node.parentItem || (node.owner.forest && !node.parentItem.parentItem)) return;
-			var parent=node.parentItem;
-			var state='';
-			var children=parent.children;
-			for(var i=children.length; i--; i>0){
-				var child=children[i];
-				if(!child.property.hasCheckbox) continue;
-				var childState=child.property.checked;
-				if(childState=='partially'){
+		this.setParentCheckbox();
+		this.tree.fireEvent(checked=='checked' ? 'check' : 'unCheck', this);
+		this.tree.fireEvent('switch', [this, (checked=='checked' ? true : false)]);
+		return this;
+	},
+	
+	setCheckboxState: function(state){
+		if(!this.hasCheckbox) return;
+		var oldState=this.state.checked;
+		this.state.checked=state;
+		if((!this.parentNode&&this.tree.$draw) || (this.parentNode && this.parentNode.$draw)){
+			this.getDOM('checkbox').removeClass('mif-tree-node-'+oldState).addClass('mif-tree-node-'+state);
+		}
+	},
+	
+	setParentCheckbox: function(s){
+		if(!this.hasCheckbox || !this.parentNode || (this.tree.forest && !this.parentNode.parentNode)) return;
+		var parent=this.parentNode;
+		var state='';
+		var children=parent.children;
+		for(var i=children.length; i--; i>0){
+			var child=children[i];
+			if(!child.hasCheckbox) continue;
+			var childState=child.state.checked;
+			if(childState=='partially'){
+				state='partially';
+				break;
+			}else if(childState=='checked'){
+				if(state=='unchecked'){
 					state='partially';
 					break;
-				}else if(childState=='checked'){
-					if(state=='unchecked'){
-						state='partially';
-						break;
-					}
-					state='checked';
+				}
+				state='checked';
+			}else{
+				if(state=='checked'){
+					state='partially';
+					break;
 				}else{
-					if(state=='checked'){
-						state='partially';
-						break;
-					}else{
-						state='unchecked';
-					}
+					state='unchecked';
 				}
 			}
-			if(parent.property.checked==state){return;};
-			setState(parent, state);
-			setParentCheckbox(parent);
-		};
-		setParentCheckbox(this);
-		return this;
+		}
+		if(parent.state.checked==state ||(s && state=='partially' && parent.state.checked=='checked')){return;};
+		parent.setCheckboxState(state);
+		parent.setParentCheckbox(s);
 	}
 
 });

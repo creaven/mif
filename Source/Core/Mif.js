@@ -18,21 +18,21 @@ provides: [Mif.Core]
 ...
 */
 
-Mif=new new Class({
+var Mif = new new Class({
 	
 	Implements: [Events],
 	
-	version: 'dev'
+	version: '1.0dev'
 	
 });
 
-Mif.ids={};
-Mif.id=function(id){
+Mif.ids = {};
+Mif.id = function(id){
 	return Mif.ids[id];
 }
 
-Mif.uids={};
-Mif.UID=0;
+Mif.uids = {};
+Mif.UID = 0;
 
 function $mix(original, extended, defaults){
 	for (var key in (extended || {})) {

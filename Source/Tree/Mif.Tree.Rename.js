@@ -1,24 +1,18 @@
 /*
-Mif.Tree.Rename
+---
+ 
+name: Mif.Tree.Rename
+description: Mif.Tree.Rename
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree
+provides: Mif.Tree.Rename
+ 
+...
 */
 
-Mif.sheet.addRules({
-	
-	'tree .rename': {
-		'display': 'inline',
-		'line-height': '14px',
-		'height': '14px',
-		'cursor': 'default',
-		'overflow': 'hidden',
-		'font-family': 'sans-serif',
-		'font-size': '11px',
-		'padding': '1px 0',
-		'border': 'solid 1px black'
-	}
-	
-});
-
-Mif.Tree.implement({//TODO buggy
+Mif.Tree.implement({
 	
 	attachRenameEvents: function(){
 		this.wrapper.addEvents({
@@ -50,7 +44,7 @@ Mif.Tree.implement({//TODO buggy
 	
 	getInput: function(){
 		if(!this.input){
-			this.input=new Element('input').addClass('rename');
+			this.input=new Element('input').addClass('mif-tree-rename');
 			this.input.addEvent('focus',function(){this.select()});
 			Mif.Tree.Rename.autoExpand(this.input);
 		}
@@ -62,8 +56,8 @@ Mif.Tree.implement({//TODO buggy
 		this.disableEvents();
 		this.attachRenameEvents();
 		var input=this.getInput();
-		input.value=node.property.name;
-		this.renameName=node.getElement('name');
+		input.value=node.name;
+		this.renameName=node.getDOM('name');
 		this.renameNode=node;
 		input.setStyle('width', this.renameName.offsetWidth+15);
 		input.replaces(this.renameName);
@@ -78,7 +72,7 @@ Mif.Tree.implement({//TODO buggy
 		if(this.options.beforeRename){
 			var newName=this.getInput().value;
 			var node=this.renameNode;
-			this.options.beforeRename.apply(this, [node, node.property.name, newName]);
+			this.options.beforeRename.apply(this, [node, node.name, newName]);
 		}else{
 			this.renameComplete();
 		}
@@ -88,11 +82,13 @@ Mif.Tree.implement({//TODO buggy
 		this.enableEvents();
 		this.finishRename();
 		var node=this.renameNode;
-		var oldName=node.property.name;
+		var oldName=node.name;
 		node.set({
-			name: this.getInput().value
+			property:{
+				name: this.getInput().value
+			}
 		});
-		this.fireEvent('rename', [node, node.property.name, oldName]);
+		this.fireEvent('rename', [node, node.name, oldName]);
 		this.select(node);
 	},
 	
@@ -104,11 +100,11 @@ Mif.Tree.implement({//TODO buggy
 	
 });
 
-Mif.Tree.Item.implement({
+Mif.Tree.Node.implement({
 	
 	rename: function(){
 		if (this.property.renameDenied) return;
-		this.owner.startRename(this);
+		this.tree.startRename(this);
 	}
 	
 });

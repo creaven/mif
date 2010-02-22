@@ -1,76 +1,72 @@
 /*
-Mif.Tree.Hover
+---
+ 
+name: Mif.Tree.Hover
+description: hover(mouseover/mouseout) events/effects
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: Mif.Tree
+provides: Mif.Tree.Hover
+ 
+...
 */
+
 Mif.Tree.implement({
 	
-	addHover: function(){
-		this.bound.hover=this.hover.bind(this);
-		this.element.addEvent('mouseover', this.bound.hover);
-		this.element.addEvent('mouseout', this.bound.hover);
-		this.hovered=[];
-		return this;
+	initHover: function(){
+		this.defaults.hoverClass = '';
+		this.wrapper.addEvent('mousemove', this.hover.bind(this));
+		this.wrapper.addEvent('mouseout', this.hover.bind(this));
+		this.defaultHoverState = {
+			gadjet: false,
+			checkbox: false,
+			icon: false,
+			name: false,
+			node: false
+		};
+		this.hoverState = $unlink(this.defaultHoverState);
 	},
 	
 	hover: function(){
-		var targetNode=this.mouse.item;
-		var targetElement=this.mouse.element;
-		var exists=[];
-		for(var i=0, l=this.hovered.length; i<l; i++){
-			var item=this.hovered[i];
-			var node=item.node;
-			var element=item.element;
-			if(!targetElement || (node!=targetNode)){
-				this.hoverOverOut(node, element, 'out');
-				this.hovered.splice(i, 1);
-				i--;
-				l--;
-				continue;
+		var cnode = this.mouse.node;
+		var ctarget = this.mouse.target;
+		$each(this.hoverState, function(node, target, state){
+			if(node == cnode && (target == 'node'||target==ctarget)) return;
+			if(node) {
+				Mif.Tree.Hover.out(node, target);
+				state[target] = false;
+				this.fireEvent('hover', [node, target, 'out']);
 			}
-			if(!element.hasChild(targetElement)){
-				this.hoverOverOut(node, element, 'out');
-				this.hovered.splice(i, 1);
-				i--;
-				l--;
+			if(cnode && (target == 'node'||target == ctarget)) {
+				Mif.Tree.Hover.over(cnode, target);
+				state[target] = cnode;
+				this.fireEvent('hover', [cnode, target, 'over']);
 			}else{
-				exists.push(element);
+				state[target] = false;
 			}
-		}
-		if(targetNode&&targetElement){
-			if(!targetElement||!targetElement.getParent('row')) return;
-			var parent=targetElement;
-			do{
-				if(!exists.contains(parent)){
-					this.hovered.push({node: targetNode, element: parent});
-					this.hoverOverOut(targetNode, parent, 'over');
-				}
-				if(parent.tagName.toLowerCase()=='row') break;
-				parent=parent.parentNode;
-			}while(1);
-		}
-	},
-	
-	hoverOverOut: function(node, element, state){
-		node.hover(element, state);
-		this.fireEvent('hover', [node, element, state]);
+		}, this);
 	},
 	
 	updateHover: function(){
-		while(this.hovered.length){
-			var item=this.hovered[0];
-			this.hoverOverOut(item.node, item.element, 'out');
-			this.hovered.splice(0, 1);
-		}
+		this.hoverState = $unlink(this.defaultHoverState);
 		this.hover();
 	}
 	
 });
 
-Mif.Tree.Item.implement({
+Mif.Tree.Hover = {
 	
-	hover: function(element, state){
-		//console.log(element);
-		if(!element) return;
-		element[(state=='over' ? 'add' : 'remove')+'Class']('hover');
+	over: function(node, target){
+		var nodeEl = node.getDOM('node');
+		nodeEl.addClass((node.hoverClass || 'mif-tree-hover') + '-' + target);
+		if(node.state.selected) nodeEl.addClass((node.hoverClass || 'mif-tree-hover') + '-selected-' + target);
+	},
+	
+	out: function(node, target){
+		node.getDOM('node')
+		.removeClass((node.hoverClass || 'mif-tree-hover') + '-' + target)
+		.removeClass((node.hoverClass || 'mif-tree-hover') + '-selected-' + target);
 	}
 	
-});
+};
