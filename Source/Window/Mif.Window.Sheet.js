@@ -29,7 +29,7 @@ Mif.sheet.addRules({
 	},
 
 	'window > content': {
-		'top': '20px',
+		'top': '0',
 		'width': '100%',
 		'position': 'relative',
 		'display': 'block'
@@ -47,9 +47,9 @@ Mif.sheet.addRules({
 	'window > titlebar': {
 		'display': 'block',
 		'width': '100%',
-		'height': '20px',
+		'min-height': '20px',
 		//'background': 'green',
-		'position': 'absolute',
+		'position': 'relative',
 		'left': '0',
 		'top': '0',
 		'text-align': 'center',
@@ -66,13 +66,16 @@ Mif.sheet.addRules({
 		'margin': 'auto'
 	},
 	
-	'window > topbar': {
+	'window > titlebar toolbar': {
 		'display': 'block',
 		'width': '100%',
 		'top': '21px',
 		'position': 'relative',
-		'border-bottom': 'solid 1px #eaeaea',
 		'overflow': 'hidden'
+	},
+	
+	'window > titlebar toolbar.hidden': {
+		'height': '0'
 	},
 	
 	//buttons styles

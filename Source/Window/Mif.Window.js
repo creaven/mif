@@ -8,7 +8,7 @@ Mif.Window=new Class({
 	
 	options: {
 		title: 'untitled',
-		topbar: 'hidden',
+		toolbar: 'hidden',
 		tbar: null,
 		bbar: null
 	},
@@ -19,26 +19,26 @@ Mif.Window=new Class({
 		var html='<bg>'+Mif.bg+'</bg>'+
 			'<titlebar>'+
 			 	'<text>'+this.options.title+'</text>'+ 
+				'<toolbar></toolbar>'+ 
 			'</titlebar>'+
-			'<topbar></topbar>'+ 
 			'<content></content>'+
 			'<bottombar></bottombar>'+
 			'<handle></handle>';
 		this.element.innerHTML=html;
 		var content = this.getElement('content');
 		this.injectElement = content;
-		var topbar = this.getElement('topbar');
-		if(this.options.topbar == 'hidden') topbar.addClass('hidden');
-		this.topbarShowFx = new Fx.Elements([topbar, content], {
+		var toolbar = this.getElement('toolbar');
+		if(this.options.toolbar == 'hidden') toolbar.addClass('hidden');
+		this.toolbarShowFx = new Fx.Elements([toolbar, content], {
 			
 		});
-		this.topbarHideFx = new Fx.Elements([topbar, content], {
+		this.toolbarHideFx = new Fx.Elements([toolbar, content], {
 
 		});
 		var button1=new Mif.Button({
 			'class': 'toolbar',
 			text: ''
-		}).inject(topbar);
+		}).inject(toolbar);
 		this.events();
 		this.registerResizable();
 		this.setHandle();
@@ -75,7 +75,7 @@ Mif.Window=new Class({
 	},
 	
 	height: function(){
-		var height=this.element.offsetHeight - this.getElement('titlebar').offsetHeight - this.getElement('bottombar').offsetHeight - this.getElement('topbar').offsetHeight;
+		var height=this.element.offsetHeight - this.getElement('titlebar').offsetHeight - this.getElement('bottombar').offsetHeight;
 		this.getElement('content').setStyle('height', height);
 		var text = this.element.getElement('titlebar text');
 		text.setStyle('display', 'inline');
@@ -114,30 +114,30 @@ Mif.Window=new Class({
 			hasIcon: false
 		}).inject(this.getElement('titlebar'));
 		btn.element.addEvent('mousedown', $lambda(false));
-		this.bound('toggleTopbar');
-		btn.element.addEvent('click', this.bound.toggleTopbar);
+		this.bound('toggletoolbar');
+		btn.element.addEvent('click', this.bound.toggletoolbar);
 	},
 	
-	toggleTopbar: function(){
-		var topbar = this.getElement('topbar');
+	toggletoolbar: function(){
+		var toolbar = this.getElement('toolbar');
 		var content = this.getElement('content');
-		if(topbar.hasClass('hidden')){
-			topbar.removeClass('hidden');
-			this.topbarHideFx.cancel();
-			this.topbarShowFx.start({
+		if(toolbar.hasClass('hidden')){
+			toolbar.removeClass('hidden');
+			this.toolbarHideFx.cancel();
+			this.toolbarShowFx.start({
 				'0': {
-					height: [topbar.offsetHeight, 100]
+					height: [toolbar.offsetHeight, 100]
 				},
 				'1': {
 					height: [content.offsetHeight, this.element.offsetHeight - this.getElement('titlebar').offsetHeight - this.getElement('bottombar').offsetHeight - 100]
 				}
 			});
 		}else{
-			topbar.addClass('hidden');
-			this.topbarShowFx.cancel();
-			this.topbarHideFx.start({
+			toolbar.addClass('hidden');
+			this.toolbarShowFx.cancel();
+			this.toolbarHideFx.start({
 				'0': {
-					height: [topbar.offsetHeight, 0]
+					height: [toolbar.offsetHeight, 0]
 				},
 				'1': {
 					height: [content.offsetHeight, this.element.offsetHeight - this.getElement('titlebar').offsetHeight - this.getElement('bottombar').offsetHeight]

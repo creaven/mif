@@ -22,9 +22,8 @@ Mif=new new Class({
 	
 	Implements: [Events],
 	
-	version: 'dev',
+	version: 'dev'
 	
-	build: '%build%'
 });
 
 Mif.ids={};
